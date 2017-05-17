@@ -1,0 +1,16 @@
+build/
+node_modules/
+public/components/
+public/dist/
+public/stylesheets/
+logs/
+lib-cov/
+reports/
+.idea
+test/coverage.html
+report/
+npm-debug.log
+newrelic_agent.log
+coverage/
+docs/
+personalTools

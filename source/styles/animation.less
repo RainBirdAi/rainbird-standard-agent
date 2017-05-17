@@ -1,0 +1,25 @@
+@timing: 200ms;
+@easing: linear;
+.agent {
+    .agent-header {
+        text-align: center;
+        padding: @spacing*2 @spacing;
+        transform: translate3d(0,0,0);
+        
+        .header-description {
+            opacity: 0;
+            height: 0;
+            overflow: hidden;
+        }
+    }
+    
+    &.agent--not-started {
+        .agent-header {
+            padding: @spacing*4 @spacing;   
+            .header-description {
+                opacity: 1;
+                height: initial;
+            }
+        }
+    }
+}

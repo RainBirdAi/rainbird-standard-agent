@@ -1,0 +1,116 @@
+@import "../variables.less";
+@import "../style.less";
+@import "tryGoalModal.less";
+
+.agent {
+
+    .header-title {
+      text-align: center;
+      font-size: 35px;
+      font-weight: 800;
+    }
+
+    .try-goal-description {
+        text-align: left;
+        font-size: 25px;
+        font-weight: 800;
+    }
+
+    .agent-footer {
+        text-align: right;
+        background-color: @deep_purple;
+    }
+}
+
+.agent-header h1, h3 {
+  margin: 0;
+}
+
+input[type="range"].rb-shared-try-goal-cf-input {
+  -webkit-appearance: none;
+  margin: @spacing 0;
+  width: 100%;
+
+  &:focus {
+    outline: none;
+  }
+
+  // Track Styles
+  &::-webkit-slider-runnable-track {
+    height: 8.4px;
+    width: 100%;
+    cursor: pointer;
+    background: @rb_buff;
+    border-radius: @border-radius;
+    border: 1px solid @rb_black;
+  }
+  &::-moz-range-track {
+    height: 8.4px;
+    width: 100%;
+    cursor: pointer;
+    background: @rb_buff;
+    border-radius: @border-radius;
+    border: 1px solid @rb_black;
+  }
+  &::-ms-track {
+    height: 8.4px;
+    width: 100%;
+    cursor: pointer;
+    background: transparent;
+    border-color: transparent;
+    border-width: 16px 0;
+    color: transparent;
+  }
+
+  // Thumb button styles
+  &::-webkit-slider-thumb {
+    height: 36px;
+    width: 16px;
+    border: 1px solid @rb_black;
+    border-radius: @border-radius;
+    background: #ffffff;
+    cursor: pointer;
+    -webkit-appearance: none;
+    margin-top: -14px;
+  }
+  &::-moz-range-thumb {
+    height: 36px;
+    width: 16px;
+    border: 1px solid @rb_black;
+    border-radius: @border-radius;
+    background: #ffffff;
+    cursor: pointer;
+  }
+  &::-ms-thumb {
+    border: 1px solid @rb_black;
+    height: 36px;
+    width: 16px;
+    border-radius: @border-radius;
+    background: #ffffff;
+    cursor: pointer;
+  }
+
+  &::-ms-fill-lower {
+    background: @rb_buff;
+    border: 1px solid @rb_black;
+    border-radius: @border-radius;
+  }
+  &::-ms-fill-upper {
+    background: @rb_buff;
+    border: 1px solid @rb_black;
+    border-radius: @border-radius;
+  }
+  &:focus::-webkit-slider-runnable-track {
+    background: @rb_buff;
+  }
+  &:focus::-ms-fill-lower {
+    background: @rb_buff;
+  }
+  &:focus::-ms-fill-upper {
+    background: @rb_buff;
+  }
+}
+.agent .modal-footer {
+  clear: left;
+}
+

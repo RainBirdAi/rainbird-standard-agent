@@ -1,0 +1,187 @@
+@import "variables.less";
+
+input {
+    font-family: inherit;
+}
+
+input[type="text"],
+input[type="number"] {
+    display: block;
+    background-color: white;
+    border-color: @brand-grey-darker;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: @border-radius;
+    padding: 5px 0;
+    margin: @spacing 0;
+    text-indent: @spacing;
+    line-height: 1.4;
+    width: 100%;
+}
+
+input[type="button"],
+input[type="submit"],
+.btn {
+    display: inline-block;
+    background-image: none;
+    background-color: white;
+    border: 1px solid transparent;
+    border-radius: 5px;
+    vertical-align: middle;
+    -webkit-appearance: button;
+    user-select: none;
+    touch-action: manipulation;
+    cursor: pointer;
+    padding: 20px 10px;
+    margin: @spacing 0;
+    text-align: center;
+    line-height: 0;
+    width: 100px;
+
+    &.btn-success {
+        background-color: #5cb85c;
+        border-color: #4cae4c;
+        color: white;
+    }
+
+    &.btn-failure {
+        background-color: #d9534f;
+        border-color: #d43f3a;
+        color: white;
+    }
+}
+
+select {
+    display: block;
+    width: 100%;
+    padding: 0;
+    text-indent: @spacing;
+    font-size: 14px;
+    height: 22px;
+}
+
+option {
+  padding: @spacing/2 0;
+}
+
+input[type="range"] {
+    -webkit-appearance: none;
+    margin: @spacing 0;
+    width: 100%;
+
+    &:focus {
+        outline: none;
+    }
+
+    // Track Styles
+    &::-webkit-slider-runnable-track {
+        height: 8.4px;
+        width: 100%;
+        cursor: pointer;
+        background: @rb_black;
+        border-radius: @border-radius;
+        border: 1px solid @black;
+    }
+    &::-moz-range-track {
+        height: 8.4px;
+        width: 100%;
+        cursor: pointer;
+        background: @rb_black;
+        border-radius: @border-radius;
+        border: 1px solid @black;
+    }
+        &::-ms-track {
+        height: 8.4px;
+        width: 100%;
+        cursor: pointer;
+        background: transparent;
+        border-color: transparent;
+        border-width: 16px 0;
+        color: transparent;
+    }
+
+    // Thumb button styles
+    &::-webkit-slider-thumb {
+        height: 36px;
+        width: 16px;
+        border: 1px solid @black;
+        border-radius: @border-radius;
+        background: #ffffff;
+        cursor: pointer;
+        -webkit-appearance: none;
+        margin-top: -14px;
+    }
+    &::-moz-range-thumb {
+        height: 36px;
+        width: 16px;
+        border: 1px solid @black;
+        border-radius: @border-radius;
+        background: #ffffff;
+        cursor: pointer;
+    }
+    &::-ms-thumb {
+        border: 1px solid @black;
+        height: 36px;
+        width: 16px;
+        border-radius: @border-radius;
+        background: #ffffff;
+        cursor: pointer;
+    }
+
+    &::-ms-fill-lower {
+        background: @rb_black;
+        border: 1px solid @black;
+        border-radius: @border-radius;
+    }
+    &::-ms-fill-upper {
+        background: @rb_black;
+        border: 1px solid @black;
+        border-radius: @border-radius;
+    }
+    &:focus::-webkit-slider-runnable-track {
+        background: @rb_black;
+    }
+    &:focus::-ms-fill-lower {
+        background: @rb_black;
+    }
+    &:focus::-ms-fill-upper {
+        background: @rb_black;
+    }
+}
+.btn.disabled, .btn[disabled], fieldset[disabled] .btn {
+    background-color: #bdc3c7;
+    color: rgba(255,255,255,0.75);
+    opacity: .7;
+    filter: alpha(opacity=70);
+    cursor: not-allowed;
+}
+.btn-primary {
+    color: #fff;
+    background-color: #7f8c8d;
+}
+.btn-info {
+    color: #fff;
+    background-color: #3498db;
+}
+.btn-default {
+    color: #fff;
+    background-color: #bdc3c7;
+}
+
+.btn-default:hover, .btn-default:focus, .btn-default:active, .btn-default.active, .open .dropdown-toggle.btn-default {
+  color: white;
+  background-color: #cacfd2;
+  border-color: #cacfd2;
+}
+
+.btn-info:hover, .btn-info:focus, .btn-info:active, .btn-info.active, .open .dropdown-toggle.btn-info {
+  color: white;
+  background-color: #5dade2;
+  border-color: #5dade2;
+}
+
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open .dropdown-toggle.btn-primary {
+  color: white;
+  background-color: #99a3a4;
+  border-color: #99a3a4;
+}

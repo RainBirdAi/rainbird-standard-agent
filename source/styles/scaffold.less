@@ -1,0 +1,46 @@
+.agent-wrapper {
+    display: flex;
+    flex-direction: column;
+    .agent{
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        flex: 1 0 auto;
+
+        .agent-content {
+            flex: 1 0 auto;
+            display:flex;
+            flex-direction: column;
+        }
+
+        .agent-footer {
+            text-align: right;
+        }
+
+        .modal-footer {
+            text-align: right;
+        }
+    }
+}
+
+.try-goal-body,
+.question,
+.result {
+    margin: @spacing*2 @spacing;
+    flex:1 0 auto;
+}
+ul {
+    padding-left: @spacing;
+    li {
+        margin-left: @spacing*2;
+    }
+}
+
+#error {
+    display: none;
+    padding: 20%;
+}
+
+#error.active {
+    display: block;
+}

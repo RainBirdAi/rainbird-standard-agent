@@ -1,0 +1,141 @@
+.agent {
+    .agent-footer {
+      background-color: @deep_purple;
+    }
+    .agent-header {
+        background-color: @deep_purple;
+        color: @rb_green;
+    }
+    
+    .agent-content {
+        @import 'agent-content-style.less';
+        font-weight: 300;
+    }
+
+    .modal-footer {
+        padding: 8px;
+    }
+
+    .btn {
+        font-weight: 600;
+    }
+}
+
+.markdown-metadata {
+    clear: both;
+    margin: 10px 0;
+
+    table, td, th {
+        border: 1px solid #CCC;
+        text-align: left;
+    }
+
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    tr:nth-child(even), thead {
+        background-color: @brand-grey;
+    }
+
+    th, td {
+        padding: 5px;
+    }
+
+}
+
+.text-metadata {
+    clear: both;
+    margin: 10px 0;
+}
+
+
+.modal-footer {
+    border-top: none;
+    clear: both;
+}
+
+
+.modal-footer button, .modal-footer input {
+  width: 87px;
+}
+
+.noTransition {
+  -moz-transition: none;
+  -webkit-transition: none;
+  -o-transition: color 0 ease-in;
+  transition: none;
+}
+
+.inlineCheckboxGrouped {
+  position: relative;
+  white-space: nowrap;
+
+  label {
+    background: #e4e4e4;
+    border-radius: 5px;
+    padding: 0 10px 0 5px;
+    width: 100%;
+    box-shadow: inset -1px -2px 0px 0px rgba(255, 255, 255, 0.6), inset -1px 2px 0px 0px rgba(0, 0, 0, 0.1);
+    min-height: 30px;
+  }
+
+  input {
+    width: 20px;
+    height: 14px;
+
+
+  }&:after {
+       content: '';
+       width: 9px;
+       height: 100%;
+       position: absolute;
+       top: 0px;
+       left: 25px;
+       border-left: 2px solid rgba(0,0,0,0.0);
+       background: transparent;
+   }
+
+  input[type=checkbox] {
+    margin: 7px 0 0 0;
+    padding: 0;
+  }
+
+  span {
+    white-space: pre-line;
+    vertical-align: middle;
+    display: inline-block;
+    margin-right: 20px;
+    -ms-word-break: break-all;
+    word-break: ~"break-word";
+  }
+
+  input[type=text] {
+      width: calc(~"100% - 20px");
+      background-color: transparent;
+      border: none; margin-left: 11px;
+      display: inline-block;
+      margin: 0 6px 0 0;
+      padding: 1px;
+      text-indent: 5px;
+      height: 30px;
+  }
+
+  i {
+      font-size: 13px;
+      margin-left: 4px;
+      vertical-align: middle;
+  }
+}
+
+.longLineTrim {
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+@-moz-document url-prefix() {
+  .firefoxWrap {
+    word-break: break-all;
+  }
+}
