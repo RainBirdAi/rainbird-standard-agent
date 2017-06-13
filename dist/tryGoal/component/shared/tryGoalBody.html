@@ -76,7 +76,7 @@
             <input ng-if="response.question.plural" id="numberInput0" class="rb-try-goal-full-width numberInput" rb-number-only type="number" ng-model="answer.selection[0]" class="rb_input number" />
             <input ng-if="!response.question.plural" id="numberInput0" class="rb-try-goal-full-width numberInput" rb-number-only type="number" ng-model="answer.value" class="rb_input number" />
         </div>
-        <div ng-include="'/tryGoal/component/shared/addRemovePluralButtons.html'"></div>
+        <div ng-include="'/applications/tryGoal/component/shared/addRemovePluralButtons.html'"></div>
     </div>
 
     <!-- Date type question -->
@@ -95,7 +95,7 @@
                 </button>
             </div>
         </div>
-        <div ng-include="'/tryGoal/component/shared/addRemovePluralButtons.html'"></div>
+        <div ng-include="'/applications/tryGoal/component/shared/addRemovePluralButtons.html'"></div>
     </div>
 </div>
 
@@ -133,7 +133,7 @@
     <div class="col-sm-12">
         <p>Rainbird is thinking...</p>
         <p>
-            <img src="/img/ajax-loader.gif" />
+            <img src="/applications/img/ajax-loader.gif" />
         </p>
     </div>
 </div>

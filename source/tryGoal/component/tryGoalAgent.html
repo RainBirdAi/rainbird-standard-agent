@@ -6,7 +6,7 @@
             </header>
 
             <section class="agent-content">
-                <div class="try-goal-body" ng-include="'/tryGoal/component/shared/tryGoalBody.html'"></div>
+                <div class="try-goal-body" ng-include="'/applications/tryGoal/component/shared/tryGoalBody.html'"></div>
                 <div class="modal-footer">
                     <button id="exit" class="btn btn-primary" value="Exit"
                             ng-click="exit()"
@@ -37,7 +37,7 @@
                 </div>
             </section>
         <footer class="agent-footer noTransition" ng-style="{'background-color': config.uiSettings.footerColourBG, 'border-top': config.uiSettings.border}">
-            <img class="footer-logo" src="/img/{{config.uiSettings.logoChoice ? config.uiSettings.logoChoice : 'RB_powered.png'}}" />
+            <img class="footer-logo" src="/applications/img/{{config.uiSettings.logoChoice ? config.uiSettings.logoChoice : 'RB_powered.png'}}" />
         </footer>
     </div>
 </div>

@@ -9,7 +9,7 @@
                 <h3 class="try-goal-description noTransition" ng-style="{'color': config.uiSettings.headerColourText}">{{goalInfo.description}}</h3>
             </div>
 
-            <div ng-keyup="$event.keyCode == 13 && enterPressed()" class="modal-body" ng-include="'tryGoal/component/shared/tryGoalBody.html'"></div>
+            <div ng-keyup="$event.keyCode == 13 && enterPressed()" class="modal-body" ng-include="'/applications/tryGoal/component/shared/tryGoalBody.html'"></div>
             <div class="modal-footer">
 
                 <input id="exit" type="button" class="btn btn-primary" value="Exit" data-dismiss="modal" aria-hidden="true" />
@@ -40,7 +40,7 @@
                 />
             </div>
             <footer class="agent-footer noTransition" ng-style="{'background-color': config.uiSettings.footerColourBG, 'border-top': config.uiSettings.border}">
-                <img class="footer-logo" src="/img/{{config.uiSettings.logoChoice ? config.uiSettings.logoChoice : 'RB_powered.png'}}" />
+                <img class="footer-logo" src="/applications/img/{{config.uiSettings.logoChoice ? config.uiSettings.logoChoice : 'RB_powered.png'}}" />
             </footer>
         </div>
     </div>
