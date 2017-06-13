@@ -4,6 +4,20 @@ angular.module('rbAgent')
     $scope.config = config;
     $scope.contextId = agentMemory.contextId;
 
+    window.addEventListener('message', function(event) {
+        //if(event.origin != '') { //enable at some point
+        //    return;
+        //}
+        var data = event.data ? null : JSON.parse(event.data);
+
+        if (data && data.startGoal) {
+            /*eslint-disable no-console*/
+            console.log('GO', data);
+            /*eslint-enable no-console*/
+            $state.go('startGoal', {goalInfo: event.data, id: $scope.id});
+        }
+    }, false);
+
     if (config.$resolved !== undefined && !config.$resolved) {
         config.$promise.then(function() {
             printLog($scope.id, $scope.api, config);

@@ -7,6 +7,7 @@ agentApp.value('agentMemory',
     }
 );
 
+
 agentApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
 
     $urlRouterProvider.otherwise('/');
@@ -14,7 +15,7 @@ agentApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvider
     $stateProvider
         .state('goalList', {
             url: '/',
-            templateUrl: '/goalList/agentGoalList.html',
+            templateUrl: '/applications/goalList/agentGoalList.html',
             controller: 'AgentGoalListController',
             resolve: {
                 config: ['ConfigAPI', '$rootScope', function(ConfigAPI, $rootScope) {
@@ -24,7 +25,7 @@ agentApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvider
         })
         .state('startGoal', {
             url: '/startGoal',
-            templateUrl: '/tryGoal/component/tryGoalAgent.html',
+            templateUrl: '/applications/tryGoal/component/tryGoalAgent.html',
             controller: 'TryGoalController',
             resolve: {
                 config: ['ConfigAPI', '$rootScope', function(ConfigAPI, $rootScope) {

@@ -12,7 +12,7 @@ function($scope, $compile, $stateParams, config, GoalAPI, ConfigAPI, ApiConfig, 
         sessionId = null;
     };
 
-    $scope.$on('tryGoal', function(event, args) {
+    $scope.$on('tryGoal', function(event, args) {  //probably delete all this.
         $('#tryGoalModal').modal('show');
         $scope.display = 'thinking';
 
@@ -22,6 +22,17 @@ function($scope, $compile, $stateParams, config, GoalAPI, ConfigAPI, ApiConfig, 
             $scope.runGoal(goalInfo);
         });
     });
+
+    $scope.getGoalInfo = function (goalId) {
+        //$('#tryGoalModal').modal('show');
+        $scope.display = 'thinking';
+
+        // get goal info
+        ConfigAPI.getGoalInfo({goalid: goalId, id: $stateParams.id}, function(goalInfo) {
+            $scope.goalInfo = goalInfo;
+            $scope.runGoal(goalInfo);
+        });
+    };
 
     $scope.postMessage = function(message) {
         parent.postMessage(message, '*');
