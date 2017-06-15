@@ -17,7 +17,7 @@
                             ng-click="postMessage('Reset'); runGoal(goalInfo)"
                             ng-style="{'background-color': config.uiSettings.tertiaryColourBG}"
                     >Reset</button>
-                    <button id="done" class="btn btn-info" value="Done"
+                    <button ng-hide="tryGoal" id="done" class="btn btn-info" value="Done"
                             ng-if="display === 'result'"
                             ng-click="exit()"
                             ng-style="{'background-color': config.uiSettings.primaryColourBG}"

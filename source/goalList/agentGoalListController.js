@@ -10,11 +10,13 @@ angular.module('rbAgent')
         //    return;
         //}
 
-        if (event.data && event.data.id) {
-            /*eslint-disable no-console*/
-            /*eslint-enable no-console*/
+        if (event.data && event.data.tryGoal) {
             agentMemory.tryGoal = true;
-            $state.go('startGoal', {goalInfo: event.data, id: $scope.id});
+            if (event.data.close) {
+                $state.go('goalList');
+            } else {
+                $state.go('startGoal', {goalInfo: event.data, id: $scope.id});
+            }
         }
     }, false);
 
