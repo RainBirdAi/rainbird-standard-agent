@@ -10,7 +10,7 @@ angular.module('rbAgent')
         //    return;
         //}
 
-        if (event.data && event.data.id) {
+        if (event.data && event.data.tryGoal) {
             /*eslint-disable no-console*/
             /*eslint-enable no-console*/
             agentMemory.tryGoal = true;
