@@ -3,17 +3,17 @@ angular.module('rbAgent')
 
     $scope.config = config;
     $scope.contextId = agentMemory.contextId;
+    $scope.tryGoal = false;
 
     window.addEventListener('message', function(event) {
         //if(event.origin != '') { //enable at some point
         //    return;
         //}
-        var data = event.data ? null : JSON.parse(event.data);
 
-        if (data && data.startGoal) {
+        if (event.data && event.data.id) {
             /*eslint-disable no-console*/
-            console.log('GO', data);
             /*eslint-enable no-console*/
+            agentMemory.tryGoal = true;
             $state.go('startGoal', {goalInfo: event.data, id: $scope.id});
         }
     }, false);

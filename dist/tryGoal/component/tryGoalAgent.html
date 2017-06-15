@@ -8,7 +8,7 @@
             <section class="agent-content">
                 <div class="try-goal-body" ng-include="'/applications/tryGoal/component/shared/tryGoalBody.html'"></div>
                 <div class="modal-footer">
-                    <button id="exit" class="btn btn-primary" value="Exit"
+                    <button ng-hide="tryGoal" id="exit" class="btn btn-primary" value="Exit"
                             ng-click="exit()"
                             ng-style="{'background-color': config.uiSettings.secondaryColourBG}"
                     >Exit</button>

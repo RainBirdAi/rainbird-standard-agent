@@ -1,12 +1,13 @@
 angular.module('rbApp.tryGoal')
-.controller('TryGoalController', ['$scope', '$compile', '$stateParams', 'config', 'GoalAPI', 'ConfigAPI', 'ApiConfig', '$state', '$location', '$filter',
-function($scope, $compile, $stateParams, config, GoalAPI, ConfigAPI, ApiConfig, $state, $location, $filter) {
+.controller('TryGoalController', ['$scope', 'agentMemory', '$compile', '$stateParams', 'config', 'GoalAPI', 'ConfigAPI', 'ApiConfig', '$state', '$location', '$filter',
+function($scope, agentMemory, $compile, $stateParams, config, GoalAPI, ConfigAPI, ApiConfig, $state, $location, $filter) {
 
     var contextId;
     var sessionId;
     $scope.config = config;
     $scope.otherOption = {value: '(other - not listed)'};
     $scope.yolandaUrl = ApiConfig.getConfig().url;
+    $scope.tryGoal = agentMemory.tryGoal;
 
     $scope.updateAlias = function() {
         sessionId = null;
@@ -101,19 +102,10 @@ function($scope, $compile, $stateParams, config, GoalAPI, ConfigAPI, ApiConfig, 
     $scope.startGoalContext = function() {
         $scope.display = 'thinking';
 
-        if ($location.absUrl().indexOf('agent') == -1){  //if in try goal
-            GoalAPI.startGoal({ id: $stateParams.id, contextid: contextId}, function(response) {
-                sessionId = response.id;
-                $scope.queryGoal();
-            }, function (err) {
-                handleError(err.data);
-            });
-        } else {
-            ConfigAPI.getSessionId({ id: $stateParams.id, contextid: contextId}, function(response) {
-                sessionId = response.sessionId;
-                $scope.queryGoal();
-            });
-        }
+        ConfigAPI.getSessionId({ id: $stateParams.id, contextid: contextId}, function(response) {
+            sessionId = response.sessionId;
+            $scope.queryGoal();
+        });
     };
 
     $scope.queryGoal = function() {

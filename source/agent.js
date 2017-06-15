@@ -3,7 +3,8 @@ var agentApp = angular.module('rbAgent', ['ui.router', 'rbApp.tryGoal', 'rbApp.t
 agentApp.value('agentMemory',
     {
         contextId: '',
-        sessionId: ''
+        sessionId: '',
+        tryGoal: false
     }
 );
 
