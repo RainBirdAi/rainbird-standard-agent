@@ -10,4 +10,5 @@ angular.module('rbApp.tryGoal', ['rbApp.tryGoal.service', 'ng-showdown'])
         $showdownProvider.setOption('simpleLineBreaks', true);
         $showdownProvider.setOption('noHeaderId', true);
         $showdownProvider.setOption('parseImgDimensions', true);
+        $showdownProvider.setOption('openLinksInNewWindow', true);
     }]);
