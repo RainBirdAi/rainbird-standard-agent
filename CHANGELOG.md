@@ -13,6 +13,7 @@ facing release notes.
 ## v2.11.0
 
   *  [Misc] RB-1108: Change Evidence Tree link in order to serve from rainbird-applications.
+  *  [Fix]  RB-1091: Wording next to radio buttons is a little close.
 
 ## v2.10.1
 
