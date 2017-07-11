@@ -24,7 +24,7 @@ var paths = {
         'source/goalList/**/*.js',
         '!**/*spec.js',
         '!**/*Spec.js'],
-    less: ['js/app.less'],
+    less: ['source/styles/agent.less'],
     images: 'img/**/*'
 };
 

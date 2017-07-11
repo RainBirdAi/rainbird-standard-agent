@@ -12,6 +12,7 @@ facing release notes.
 
 ## v2.11.0
 
+  *  [Fix]  RB-1147: Remove Firefox class which sets the word-break css property to break between any two letters.
   *  [Misc] RB-1108: Change Evidence Tree link in order to serve from rainbird-applications.
   *  [Fix]  RB-1091: Wording next to radio buttons is a little close.
 
