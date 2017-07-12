@@ -12,6 +12,8 @@ facing release notes.
 
 ## v2.11.0
 
+  *  [Fix]   RB-915: Ensure enter selects continue in try/query and agents.  Set focus on results page to 'reset' button 
+  					 in try/query and the 'done' button in agents.
   *  [Fix]  RB-1147: Remove Firefox class which sets the word-break css property to break between any two letters.
   *  [Misc] RB-1108: Change Evidence Tree link in order to serve from rainbird-applications.
   *  [Fix]  RB-1091: Wording next to radio buttons is a little close.

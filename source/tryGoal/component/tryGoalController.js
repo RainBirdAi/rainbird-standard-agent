@@ -1,6 +1,6 @@
 angular.module('rbApp.tryGoal')
-.controller('TryGoalController', ['$scope', 'agentMemory', '$compile', '$stateParams', 'config', 'GoalAPI', 'ConfigAPI', 'ApiConfig', '$state', '$location', '$filter',
-function($scope, agentMemory, $compile, $stateParams, config, GoalAPI, ConfigAPI, ApiConfig, $state, $location, $filter) {
+.controller('TryGoalController', ['$scope', 'agentMemory', '$compile', '$stateParams', 'config', 'GoalAPI', 'ConfigAPI', 'ApiConfig', '$state', '$location', '$filter', 'focusElementById',
+function($scope, agentMemory, $compile, $stateParams, config, GoalAPI, ConfigAPI, ApiConfig, $state, $location, $filter, focusElementById) {
 
     var contextId;
     var sessionId;
@@ -174,6 +174,13 @@ function($scope, agentMemory, $compile, $stateParams, config, GoalAPI, ConfigAPI
                 }
             });
             $scope.display = 'result';
+
+            if ($scope.tryGoal){
+                focusElementById('reset');
+            } else {
+                focusElementById('done');
+            }
+
         } else if (angular.isArray(response.result)) {
             $scope.display = 'end';
         } else {
@@ -225,7 +232,9 @@ function($scope, agentMemory, $compile, $stateParams, config, GoalAPI, ConfigAPI
 
     $scope.enterPressed = function() {
         if ($scope.display === 'init data') {
-            $scope.startGoalContext();
+            if ($scope.init.objectInstance || $scope.init.subjectInstance){
+                $scope.startGoalContext();
+            }
         } else {
             if (!$scope.disableContinue()) {
                 $scope.respond();
