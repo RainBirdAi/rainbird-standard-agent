@@ -1,12 +1,12 @@
 
-<div class="agent-wrapper firefoxWrap">
+<div class="agent-wrapper">
     <div class="agent">
             <header ng-show="goalInfo" class="agent-header noTransition" ng-style="{'background-color': config.uiSettings.headerColourBG, 'border-bottom': config.uiSettings.border}">
                 <h1 class="header-title noTransition" ng-style="{'color': config.uiSettings.headerColourText}">{{goalInfo.description}}</h1>
             </header>
 
             <section class="agent-content">
-                <div class="try-goal-body" ng-include="'/applications/tryGoal/component/shared/tryGoalBody.html'"></div>
+                <div ng-keyup="$event.keyCode == 13 && enterPressed()" class="try-goal-body" ng-include="'/applications/tryGoal/component/shared/tryGoalBody.html'"></div>
                 <div class="modal-footer">
                     <button ng-hide="tryGoal" id="exit" class="btn btn-primary" value="Exit"
                             ng-click="exit()"

@@ -6,7 +6,7 @@
             </header>
 
             <section class="agent-content">
-                <div class="try-goal-body" ng-include="'/applications/tryGoal/component/shared/tryGoalBody.html'"></div>
+                <div ng-keyup="$event.keyCode == 13 && enterPressed()" class="try-goal-body" ng-include="'/applications/tryGoal/component/shared/tryGoalBody.html'"></div>
                 <div class="modal-footer">
                     <button ng-hide="tryGoal" id="exit" class="btn btn-primary" value="Exit"
                             ng-click="exit()"
