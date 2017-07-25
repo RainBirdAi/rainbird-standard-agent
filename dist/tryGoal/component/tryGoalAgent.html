@@ -8,11 +8,11 @@
             <section class="agent-content">
                 <div ng-keyup="$event.keyCode == 13 && enterPressed()" class="try-goal-body" ng-include="'/applications/tryGoal/component/shared/tryGoalBody.html'"></div>
                 <div class="modal-footer">
-                    <button ng-hide="tryGoal" id="exit" class="btn btn-primary" value="Exit"
+                    <button ng-hide="tryGoal" id="exit" class="btn btn-default separate" value="Exit"
                             ng-click="exit()"
-                            ng-style="{'background-color': config.uiSettings.secondaryColourBG}"
+                            ng-style="{'background-color': config.uiSettings.tertiaryColourBG}"
                     >Exit</button>
-                    <button id="reset" class="btn btn-default" value="Reset"
+                    <button id="reset" class="btn btn-default separate" value="Reset"
                             ng-if="display !== 'init data'"
                             ng-click="postMessage('Reset'); runGoal(goalInfo)"
                             ng-style="{'background-color': config.uiSettings.tertiaryColourBG}"
@@ -34,6 +34,11 @@
                             ng-click="respond()"
                             ng-style="{'background-color': config.uiSettings.primaryColourBG}"
                     >{{ displayContinueOrSkip() }}</button>
+                    <button id="back" class="btn btn-primary" value="Back"
+                            ng-if="display === 'secondForm' || display === 'firstForm'"
+                            ng-click="back()"
+                            ng-style="{'background-color': config.uiSettings.tertiaryColourBG}"
+                            >Back</button>
                 </div>
             </section>
         <footer class="agent-footer noTransition" ng-style="{'background-color': config.uiSettings.footerColourBG, 'border-top': config.uiSettings.border}">
