@@ -10,6 +10,10 @@ facing release notes.
   *  [Fix] A bug fix
   * [Misc] Other items
 
+## v2.12.0
+
+  *  [Fix]   RB-1169: Description text showing on agents.
+
 ## v2.11.0
 
   *  [Fix]   RB-915: Ensure enter selects continue in try/query and agents.  Set focus on results page to 'reset' button 
