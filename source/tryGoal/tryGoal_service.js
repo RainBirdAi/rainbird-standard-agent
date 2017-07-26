@@ -29,6 +29,10 @@ services.factory('GoalAPI', ['$resource', 'ApiConfig', function($resource, ApiCo
         response: {
             method: 'POST', url: ApiConfig.getConfig().url + '/:sessionId/response',
             interceptor: {responseError: resourceErrorHandler}
+        },
+        back: {
+            method: 'POST', url: ApiConfig.getConfig().url + '/:sessionId/undo',
+            interceptor: {responseError: resourceErrorHandler}
         }
 
     });

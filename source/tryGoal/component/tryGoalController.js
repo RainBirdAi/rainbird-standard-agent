@@ -347,6 +347,25 @@ function($scope, agentMemory, $compile, $stateParams, config, GoalAPI, ConfigAPI
         });
     };
 
+    $scope.back = function() {
+        $scope.display = 'thinking';
+        GoalAPI.back({ sessionId: sessionId },function(result) {
+            if (alreadyDisplayingQuestion(result.question)){
+                //Likely to already be at the opening question, so perform a 'reset'.
+                $scope.runGoal($scope.goalInfo);
+            } else {
+                $scope.processResponse(result);
+            }
+        },function(err) {
+            handleError(err.data);
+        });
+    };
+
+    function alreadyDisplayingQuestion(question){
+        return question && (question.prompt === $scope.response.question.prompt) &&
+            (question.type === $scope.response.question.type);
+    }
+
     $scope.done = function() {
         $scope.postMessage('Done');
         $('#tryGoalModal').modal('hide');
