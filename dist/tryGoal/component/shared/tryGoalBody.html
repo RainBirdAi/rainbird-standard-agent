@@ -55,7 +55,7 @@
             <label>
                 <i class="fa fa-minus-square" aria-hidden="true" ng-click="selectConcept(otherValues[0], (response.question.concepts ? response.question.concepts.length : 0)); removeOtherInput(0);"></i>
                 <input ng-model="otherValues[0]" placeholder="enter other value" class="rb-try-goal-full-width" ng-change="selectConcept(otherValues[0], (response.question.concepts ? response.question.concepts.length : 0)); addOtherInput([0]);"
-                       value="" type="text">
+                       value="" type="text" autofocus>
             </label>
         </div>
         <div class="col-sm-12 rb-try-goal-other" ng-show="answer.selection.indexOf(otherOption.value) > -1" style="padding: 0;">
@@ -65,7 +65,7 @@
     </div>
 
     <div class="col-sm-12" ng-if="response.question.dataType === 'string' && !response.question.concepts && !response.question.plural">
-        <input id="dateAnswer" class="rb-try-goal-full-width" type="text" ng-model="otherValues[0]" ng-change="selectConcept(otherValues[0], 0);" />
+        <input id="dateAnswer" class="rb-try-goal-full-width" type="text" ng-model="otherValues[0]" ng-change="selectConcept(otherValues[0], 0);" autofocus />
     </div>
 
 

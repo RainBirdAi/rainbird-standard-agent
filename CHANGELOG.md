@@ -12,6 +12,7 @@ facing release notes.
 
 ## v2.12.0
 
+  *  [New]   RB-1203: Standard Agent updates for autofocus.
   *  [Fix]   RB-1169: Description text showing on agents.
 
 ## v2.11.0
