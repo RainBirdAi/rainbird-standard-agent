@@ -12,6 +12,7 @@ facing release notes.
 
 ## v2.12.0
 
+  *  [New]   RB-1205: Condition the displaying of the back button based on the new setting.
   *  [New]   RB-1203: Standard Agent updates for autofocus.
   *  [New]   RB-1194: Implemented the back button design.
   *  [Fix]   RB-1169: Description text showing on agents.

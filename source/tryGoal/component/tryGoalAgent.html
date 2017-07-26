@@ -35,6 +35,7 @@
                             ng-style="{'background-color': config.uiSettings.primaryColourBG}"
                     >{{ displayContinueOrSkip() }}</button>
                     <button id="back" class="btn btn-primary" value="Back"
+                            ng-show="config.uiSettings.showBackButton"
                             ng-if="display === 'secondForm' || display === 'firstForm'"
                             ng-click="back()"
                             ng-style="{'background-color': config.uiSettings.tertiaryColourBG}"
