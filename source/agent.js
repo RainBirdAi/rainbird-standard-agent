@@ -60,3 +60,16 @@ agentApp.factory('focusElementById', function($timeout, $window) {
         });
     };
 });
+
+// 500 delay is needed for the userProvided input.
+// A shorter delay causes it to lose focus.
+agentApp.directive('autofocus', ['$timeout', function($timeout) {
+    return {
+        restrict: 'A',
+        link : function($scope, $element) {
+            $timeout(function() {
+                $element[0].focus();
+            }, 500);
+        }
+    };
+}]);
