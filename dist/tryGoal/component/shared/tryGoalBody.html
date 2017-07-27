@@ -39,7 +39,7 @@
     <div id="secondFormBlock" class="col-sm-12" ng-if="response.question.dataType === 'string'">
         <!-- Concept type question - Singular -->
         <select id="singularAnswerSelect" class="rb-try-goal-full-width" ng-if="!response.question.plural && response.question.concepts" ng-model="answer.selection"
-                ng-options="concept.value as concept.value for concept in response.question.concepts">
+                ng-options="concept.value as concept.value disable when concept.invalidResponse for concept in response.question.concepts">
             <option value=""></option>
         </select>
         <!-- Concept type question - Plural -->
