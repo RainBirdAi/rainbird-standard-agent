@@ -1,0 +1,43 @@
+
+<div class="agent-wrapper firefoxWrap">
+    <div class="agent">
+            <header ng-show="goalInfo" class="agent-header noTransition" ng-style="{'background-color': config.uiSettings.headerColourBG, 'border-bottom': config.uiSettings.border}">
+                <h1 class="header-title noTransition" ng-style="{'color': config.uiSettings.headerColourText}">{{goalInfo.description}}</h1>
+            </header>
+
+            <section class="agent-content">
+                <div class="try-goal-body" ng-include="'../sharedAgent/tryGoal/component/shared/tryGoalBody.html'"></div>
+                <div class="modal-footer">
+                    <button id="exit" class="btn btn-primary" value="Exit"
+                            ng-click="exit()"
+                            ng-style="{'background-color': config.uiSettings.secondaryColourBG}"
+                    >Exit</button>
+                    <button id="reset" class="btn btn-default" value="Reset"
+                            ng-if="display !== 'init data'"
+                            ng-click="postMessage('Reset'); runGoal(goalInfo)"
+                            ng-style="{'background-color': config.uiSettings.tertiaryColourBG}"
+                    >Reset</button>
+                    <button id="done" class="btn btn-info" value="Done"
+                            ng-if="display === 'result'"
+                            ng-click="exit()"
+                            ng-style="{'background-color': config.uiSettings.primaryColourBG}"
+                    >Done</button>
+                    <button id="continue" class="btn btn-info" value="Continue"
+                            ng-if="display === 'init data'"
+                            ng-disabled="!init.objectInstance && !init.subjectInstance"
+                            ng-click="startGoalContext()"
+                            ng-style="{'background-color': config.uiSettings.primaryColourBG}"
+                    >Continue</button>
+                    <button id="continue"  class="btn btn-info" value='{{ displayContinueOrSkip() }}'
+                            ng-if="display === 'secondForm' || display === 'firstForm'"
+                            ng-disabled='disableContinue()'
+                            ng-click="respond()"
+                            ng-style="{'background-color': config.uiSettings.primaryColourBG}"
+                    >{{ displayContinueOrSkip() }}</button>
+                </div>
+            </section>
+        <footer class="agent-footer noTransition" ng-style="{'background-color': config.uiSettings.footerColourBG, 'border-top': config.uiSettings.border}">
+            <img class="footer-logo" src="/img/{{config.uiSettings.logoChoice ? config.uiSettings.logoChoice : 'RB_powered.png'}}" />
+        </footer>
+    </div>
+</div>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Rainbird Chat</title>
+    <script src="/components/jquery/jquery.min.js"></script>
+    <script src="/components/d3/d3.min.js"></script>
+    <script src="/components/jquery-ui/ui/jquery-ui.js"></script>
+    <script src="/public/rainbirdClientUtils.js"></script>
+    <link rel="stylesheet" href="/components/bootstrap/dist/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link rel="shortcut icon" href="https://app.rainbird.ai/img/favicon.ico"/>
+    <link rel="stylesheet" href="/components/jquery-ui/themes/ui-lightness/jquery-ui.min.css"/>
+    <link rel="stylesheet" href="/public/chirpy.css">
+</head>
+<body>
+<div class="chatHolder">
+    <div id="header" style="">
+        <div id="headerInner">
+            <div id="headerText"></div>
+            <button id="resetButton" class="btn btn-default">Reset</button>
+        </div>
+    </div>
+    <div id="rows">
+        <div id="innerRows"></div>
+    </div>
+    <div id="user-inputs">
+        <div class="optionHolder"></div>
+        <div class="input-group" style="margin-top: 15px;"><input id="userInput" type="text" class="form-control"><span class="input-group-btn"><button id="sendButton" class="btn btn-default btn-primary">Send</button></span></div>
+    </div>
+</div>
+<div id="tooltiptext" style="opacity: 0; position: fixed; pointer-events: none;"><div class="tooltiptext">Show Evidence Tree</div></div>
+</body>
+<script src="/public/chirpy.js"></script>
+</html>

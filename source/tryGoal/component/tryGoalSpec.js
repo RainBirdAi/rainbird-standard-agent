@@ -12,8 +12,8 @@ describe('Try Goal Controller', function() {
 
     beforeEach(module('/sharedAgent/tryGoal/component/tryGoalModal.html'));
     beforeEach(module('ui.router'));
-    beforeEach(module('rbNumberOnly'));
     beforeEach(module('rbApp.tryGoal.service'));
+    //beforeEach(module('rbAgent.agentMemory'));
     beforeEach(module('rbApp.tryGoal'));
     beforeEach(function() {
         module(function($provide) {
@@ -36,6 +36,13 @@ describe('Try Goal Controller', function() {
 
             });
 
+            $provide.value('agentMemory', function () {
+                return { tryGoal: false };
+            });
+
+            $provide.service('focusElementById', function () {
+                return { };
+            });
         });
     });
 
