@@ -13,6 +13,7 @@ facing release notes.
 ## v2.12.0
 
   *  [Fix]   RB-1219: Bring up to date with 2.10.2.
+  *  [New]    RB-859: Make agent scroll internally.
   *  [New]   RB-1186: Restrict selection in second form questions for a plural false relationship when KM facts exist.
   *  [New]   RB-1205: Condition the displaying of the back button based on the new setting.
   *  [New]   RB-1203: Standard Agent updates for autofocus.
