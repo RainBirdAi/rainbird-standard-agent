@@ -20,7 +20,6 @@ angular.module('rbAgent')
         }
     }, false);
 
-    // TODO can probably simplify
     if (config.$resolved !== undefined && !config.$resolved) {
         config.$promise.then(function() {
             printLog($scope.id, $scope.api, config);
