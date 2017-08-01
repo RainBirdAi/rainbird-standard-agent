@@ -22,6 +22,7 @@ var paths = {
         'source/*.js',
         'source/tryGoal/component/tryGoalController.js',
         'source/goalList/**/*.js',
+        'source/domainSecurity/domainSecurityController.js',
         '!**/*spec.js',
         '!**/*Spec.js'],
     less: ['source/styles/agent.less'],
