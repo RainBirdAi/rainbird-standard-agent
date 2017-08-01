@@ -12,6 +12,10 @@ facing release notes.
 
 ## v2.12.0
 
+  *  [Fix] RB-1219: Bring up to date with 2.10.2.
+
+## v2.12.0
+
   *  [New]   RB-1186: Restrict selection in second form questions for a plural false relationship when KM facts exist.
   *  [New]   RB-1205: Condition the displaying of the back button based on the new setting.
   *  [New]   RB-1203: Standard Agent updates for autofocus.
@@ -25,6 +29,10 @@ facing release notes.
   *  [Fix]  RB-1147: Remove Firefox class which sets the word-break css property to break between any two letters.
   *  [Misc] RB-1108: Change Evidence Tree link in order to serve from rainbird-applications.
   *  [Fix]  RB-1091: Wording next to radio buttons is a little close.
+
+## v2.10.2
+
+  *  [Fix] RB-1219: Make agent font size more consistent.
 
 ## v2.10.1
 
