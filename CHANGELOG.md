@@ -10,6 +10,10 @@ facing release notes.
   *  [Fix] A bug fix
   * [Misc] Other items
 
+## v2.10.2
+
+  *  [Fix] RB-1219: Make agent font size more consistent.
+
 ## v2.10.1
 
   *  [Fix] RB-1084: Set markdown links to open in new tab.
