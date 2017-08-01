@@ -10,7 +10,7 @@ facing release notes.
   *  [Fix] A bug fix
   * [Misc] Other items
 
-## v2.11.1
+## v2.11.5
 
   *  [Fix] RB-1219: Bring up to date with 2.10.2.
 
