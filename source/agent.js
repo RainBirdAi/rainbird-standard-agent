@@ -14,13 +14,25 @@ agentApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvider
     $urlRouterProvider.otherwise('/');
 
     $stateProvider
+        .state('unauthorised', {
+            url: '/unauthorised'
+        })
         .state('goalList', {
             url: '/',
             templateUrl: '/applications/goalList/agentGoalList.html',
             controller: 'AgentGoalListController',
             resolve: {
-                config: ['ConfigAPI', '$rootScope', function(ConfigAPI, $rootScope) {
-                    return ConfigAPI.config({ id: $rootScope.id });
+                config: ['$q', 'ConfigAPI', '$rootScope', 'Security', '$state', function($q, ConfigAPI, $rootScope, Security, $state) {
+                    var deferred = $q.defer();
+                    ConfigAPI.config({ id: $rootScope.id }).$promise.then(function(config){
+                        if (Security.checkReferrerValid(config.authorisedDomains)) {
+                            deferred.resolve(config);
+                        } else {
+                            $state.go('unauthorised');
+                            deferred.reject();
+                        }
+                    });
+                    return deferred.promise;
                 }]
             }
         })
@@ -59,6 +71,55 @@ agentApp.factory('focusElementById', function($timeout, $window) {
             }
         });
     };
+});
+
+agentApp.factory('Security', ['$window', 'formatHelpers', function($window, formatHelpers) {
+    return {
+        'checkReferrerValid': function(authorisedDomains) {
+            var validReferrer = true;
+
+            // Are we in an iFrame?
+            if ($window.self != $window.top) {
+
+                var referrer = $window.document.referrer;
+
+                if (Array.isArray(authorisedDomains) && authorisedDomains.length > 0 && referrer) {
+
+                    var formattedAuthorisedDomains = formatHelpers.formatAuthorisedDomain(authorisedDomains);
+                    var formattedReferrer = formatHelpers.extractSchemeAndHost(referrer);
+
+                    var referrerIndex = formattedAuthorisedDomains.indexOf(formattedReferrer);
+
+                    if (referrerIndex === -1) {
+                        validReferrer = false;
+                    }
+                }
+            }
+            return validReferrer;
+        }
+    };
+}]);
+
+agentApp.factory('formatHelpers', function() {
+
+    var helpers = {};
+
+    // Input:  http://www.example.org:8080/mypage/theone?query=hello
+    // Output: http://www.example.org:8080
+    helpers.extractSchemeAndHost = function(url) {
+        var matches = url.match(/(^https?\:\/\/([^\/?#]+))(?:[\/?#]|$)/i);
+        return matches && matches[1];
+    };
+
+    helpers.formatAuthorisedDomain = function(domains) {
+        var formatedDomains = [];
+        domains.forEach(function(domain){
+            formatedDomains.push(helpers.extractSchemeAndHost(domain));
+        });
+        return formatedDomains;
+    };
+
+    return helpers;
 });
 
 // 500 delay is needed for the userProvided input.
