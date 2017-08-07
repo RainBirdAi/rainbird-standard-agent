@@ -6,15 +6,12 @@ angular.module('rbAgent')
     $scope.tryGoal = false;
 
     window.addEventListener('message', function(event) {
-        //if(event.origin != '') { //enable at some point
-        //    return;
-        //}
-
         if (event.data && event.data.tryGoal) {
             agentMemory.tryGoal = true;
             if (event.data.close) {
                 $state.go('goalList');
             } else {
+                parent.postMessage('goal received', '*');
                 $state.go('startGoal', {goalInfo: event.data, id: $scope.id});
             }
         }
