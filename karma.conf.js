@@ -15,34 +15,14 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-        //'node_modules/jquery/jquery.min.js',
-        //'node_modules/angular/angular.js',
-        //'node_modules/angular-mocks/angular-mocks.js',
-
-        'bower_components/jquery/jquery.min.js',
-        'bower_components/angular/angular.js',
-        'bower_components/angular-mocks/angular-mocks.js',
-
-
-        'bower_components/angular-animate/angular-animate.min.js',
-        'bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',
-        'bower_components/angular-cookies/angular-cookies.min.js',
-        'bower_components/ui-route/release/angular-ui-router.min.js',
-        'bower_components/angular-messages/angular-messages.min.js',
-        'bower_components/angular-resource/angular-resource.min.js',
-        'bower_components/angular-sanitize/angular-sanitize.min.js',
-        'bower_components/angular-xeditable/dist/js/xeditable.min.js',
-        'bower_components/showdown/dist/showdown.min.js',
-        'bower_components/ng-showdown/dist/ng-showdown.min.js',
-        'bower_components/vis/dist/vis.js',
-        'bower_components/async/dist/async.js',
-        'bower_components/ace-builds/src/*.js',
-        'bower_components/ngUpload/ng-upload.min.js',
-        'bower_components/jquery/jquery.js',
-
-
-        //'public/third_party/mentio.js',
-        //'public/components/bootstrap/dist/js/bootstrap.min.js',
+        'components/angular/angular.js',
+        'components/angular-mocks/angular-mocks.js',
+        'components/angular-bootstrap/ui-bootstrap-tpls.min.js',
+        'components/ui-route/release/angular-ui-router.min.js',
+        'components/angular-resource/angular-resource.min.js',
+        'components/angular-sanitize/angular-sanitize.min.js',
+        'components/showdown/dist/showdown.min.js',
+        'components/ng-showdown/dist/ng-showdown.min.js',
         'node_modules/chai/chai.js',
         'node_modules/sinon/pkg/sinon.js',
         'node_modules/chai-jquery/chai-jquery.js',
@@ -50,16 +30,12 @@ module.exports = function(config) {
         'source/tryGoal/*app.js',
         'source/agent.js',
         'source/**/*.js',
-
         'source/**/*.html',
         'public/sharedAgent/**/*.html'
-        //'dist/**/*.html'
     ],
 
     //// list of files to exclude
     //exclude: [
-    //    'public/js/custom_checkbox_and_radio.js',
-    //    'public/js/third_party/*.js'
     //],
 
     proxies:  {

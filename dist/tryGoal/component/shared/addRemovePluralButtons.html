@@ -1,7 +1,0 @@
-<button ng-if="response.question.plural" id="rb-try-goal-add-plural-button" class="btn btn-default glyphicon glyphicon-plus tooltipHolder" type="button" ng-click="addPluralInput(response.question.dataType === 'date' ? 'date' : 'number')">
-    <span class="tooltipText">Additional answer</span>
-</button>
-<button ng-if="response.question.plural && pluralInputCounter > 1"  id="rb-try-goal-remove-plural-button" class="btn btn-default glyphicon glyphicon-minus tooltipHolder" type="button"
-        ng-click="removePluralInput(response.question.dataType === 'date' ? 'date' : 'number')">
-    <span class="tooltipText">Remove answer</span>
-</button>
