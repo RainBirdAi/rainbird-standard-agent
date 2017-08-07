@@ -25,7 +25,6 @@ function($scope, agentMemory, $compile, $stateParams, config, GoalAPI, ConfigAPI
     });
 
     $scope.getGoalInfo = function (goalId) {
-        //$('#tryGoalModal').modal('show');
         $scope.display = 'thinking';
 
         // get goal info
@@ -136,6 +135,10 @@ function($scope, agentMemory, $compile, $stateParams, config, GoalAPI, ConfigAPI
 
     $scope.processResponse = function (response) {
         $scope.postMessage(response);
+        
+        if (response.question && response.question.allowUnknown) {
+            focusElementById('mainAgent');
+        }
 
         $scope.answer = {cf: 100, selection: []};
         $scope.otherValues = [];
@@ -449,5 +452,4 @@ function($scope, agentMemory, $compile, $stateParams, config, GoalAPI, ConfigAPI
     }
 
     init();
-
 }]);
