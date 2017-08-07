@@ -1,71 +1,85 @@
 .agent {
-    .agent-footer {
-      background-color: @deep_purple;
-    }
-    .agent-header {
-        background-color: @deep_purple;
-        color: @rb_green;
-    }
-    
-    .agent-content {
-        @import 'agent-content-style.less';
-        font-weight: 300;
-    }
+  height: 100vh;
 
-    .modal-footer {
-        padding: 8px;
-    }
+  .agent-footer {
+    background-color: @deep_purple;
+  }
 
-    .btn {
-        font-weight: 600;
-    }
+  .agent-footer-holder {
+    background-color: white;
+    border-top: 1px rgba(0, 0, 0, 0.1) solid;
 
-    label {
-        font-weight: normal;
-        font-size: 13px;
-        line-height: 2.4;
+    padding: 0;
+    height: 110px;
+    flex: 0 0 auto;
+  }
 
-        input[type=radio] {
-            margin: 4px 4px 0 0 ;
-        }
+  .agent-header {
+    background-color: @deep_purple;
+    color: @rb_green;
+
+    h1, h3 {
+      line-height: 33px;
     }
+  }
+
+  .agent-content {
+    @import 'agent-content-style.less';
+    font-weight: 300;
+    flex: 0 1 auto;
+    left: 0px;
+    right: 0px;
+    overflow: auto;
+  }
+
+  .btn {
+    font-weight: 600;
+  }
+
+  label {
+    font-weight: normal;
+    font-size: 13px;
+    line-height: 2.4;
+
+    input[type=radio] {
+      margin: 4px 4px 0 0;
+    }
+  }
 }
 
 .markdown-metadata {
-    clear: both;
-    margin: 10px 0;
+  clear: both;
+  margin: 10px 0;
 
-    table, td, th {
-        border: 1px solid #CCC;
-        text-align: left;
-    }
+  table, td, th {
+    border: 1px solid #CCC;
+    text-align: left;
+  }
 
-    table {
-        border-collapse: collapse;
-        width: 100%;
-    }
+  table {
+    border-collapse: collapse;
+    width: 100%;
+  }
 
-    tr:nth-child(even), thead {
-        background-color: @brand-grey;
-    }
+  tr:nth-child(even), thead {
+    background-color: @brand-grey;
+  }
 
-    th, td {
-        padding: 5px;
-    }
+  th, td {
+    padding: 5px;
+  }
 
 }
 
 .text-metadata {
-    clear: both;
-    margin: 10px 0;
+  clear: both;
+  margin: 10px 0;
 }
-
 
 .modal-footer {
-    border-top: none;
-    clear: both;
+  border-top: none;
+  clear: both;
 }
-
 
 .modal-footer button, .modal-footer input {
   width: 87px;
@@ -95,17 +109,17 @@
     width: 20px;
     height: 14px;
 
-
-  }&:after {
-       content: '';
-       width: 9px;
-       height: 100%;
-       position: absolute;
-       top: 0px;
-       left: 25px;
-       border-left: 2px solid rgba(0,0,0,0.0);
-       background: transparent;
-   }
+  }
+  &:after {
+    content: '';
+    width: 9px;
+    height: 100%;
+    position: absolute;
+    top: 0px;
+    left: 25px;
+    border-left: 2px solid rgba(0, 0, 0, 0.0);
+    background: transparent;
+  }
 
   input[type=checkbox] {
     margin: 7px 0 0 0;
@@ -122,20 +136,21 @@
   }
 
   input[type=text] {
-      width: calc(~"100% - 20px");
-      background-color: transparent;
-      border: none; margin-left: 11px;
-      display: inline-block;
-      margin: 0 6px 0 0;
-      padding: 1px;
-      text-indent: 5px;
-      height: 30px;
+    width: calc(~"100% - 20px");
+    background-color: transparent;
+    border: none;
+    margin-left: 11px;
+    display: inline-block;
+    margin: 0 6px 0 0;
+    padding: 1px;
+    text-indent: 5px;
+    height: 30px;
   }
 
   i {
-      font-size: 13px;
-      margin-left: 4px;
-      vertical-align: middle;
+    font-size: 13px;
+    margin-left: 4px;
+    vertical-align: middle;
   }
 }
 

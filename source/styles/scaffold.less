@@ -2,20 +2,39 @@
     display: flex;
     flex-direction: column;
     .agent{
-        min-height: 100vh;
+        height: 100vh;
         display: flex;
         flex-direction: column;
-        flex: 1 0 auto;
+        flex: 0 0 auto;
 
         .agent-content {
-            flex: 1 0 auto;
+            flex: 0 1 auto;
             display:flex;
             flex-direction: column;
         }
 
         .agent-footer {
             text-align: right;
+          position: absolute;
+          bottom: 0px;
+          left: 0;
+          right: 0;
         }
+
+      .agent-button-row {
+        position: absolute;
+        bottom: 60px;
+        left: 0;
+        padding: 0 8px;
+        right: 0;
+      }
+
+      .agent-modal-footer {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+      }
 
         .modal-footer {
             text-align: right;
