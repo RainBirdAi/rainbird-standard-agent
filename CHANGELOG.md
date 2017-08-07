@@ -12,6 +12,7 @@ facing release notes.
 
 ## v2.12.0
 
+  *  [Fix]   RBA-117: Now broadcasts message when it's received goal from try-query page.
   *  [New]   RB-1220: Changes to support RB-1187 - iFrame restrictions.
   *  [Fix]   RB-1219: Bring up to date with 2.10.2.
   *  [New]   RB-1186: Restrict selection in second form questions for a plural false relationship when KM facts exist.
