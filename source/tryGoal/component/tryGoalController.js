@@ -166,9 +166,10 @@ function($scope, agentMemory, $compile, $stateParams, config, GoalAPI, ConfigAPI
 
                 var metaData = element.objectMetadata ? element.objectMetadata : '';
 
-                resultText = resultText.replace('%O', element.object);
-                resultText = resultText.replace('%R', element.relationship);
-                resultText = resultText.replace('%S', element.subject);
+                resultText = resultText.replace(/%O/g, element.object);
+                resultText = resultText.replace(/%R/g, element.relationship);
+                resultText = resultText.replace(/%S/g, element.subject);
+                resultText = resultText.replace(/%C/g, element.certainty);
 
                 if ($scope.config.showEvidence) {
                     $scope.goalResults.push({text: resultText, cf: element.certainty, meta: metaData, factID: element.factID });

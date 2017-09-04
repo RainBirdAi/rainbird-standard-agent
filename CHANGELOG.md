@@ -10,6 +10,10 @@ facing release notes.
   *  [Fix] A bug fix
   * [Misc] Other items
 
+## v2.13.0
+
+  * [Misc]   RB-821: Allow %C to be used in answer text for certainty.
+
 ## v2.12.0
 
   *  [Fix]   RBA-117: Now broadcasts message when it's received goal from try-query page.
