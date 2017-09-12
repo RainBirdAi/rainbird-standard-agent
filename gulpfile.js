@@ -19,9 +19,10 @@ var paths = {
     scripts: [
         'source/tryGoal/tryGoal_service.js',
         'source/tryGoal/tryGoal_app.js',
-        'source/*.js',
+        'source/agent.js',
         'source/tryGoal/component/tryGoalController.js',
         'source/goalList/**/*.js',
+        'source/mainController.js',
         '!**/*spec.js',
         '!**/*Spec.js'],
     less: ['source/styles/agent.less'],
@@ -147,6 +148,8 @@ gulp.task('copy-html', function() {
         .pipe(gulp.dest('dist/tryGoal/component/shared'));
     gulp.src(['source/goalList/agentGoalList.html'])
         .pipe(gulp.dest('dist/goalList'));
+    gulp.src(['source/main.html'])
+        .pipe(gulp.dest('dist'));
 });
 
 // Clear dist folder, check quality (jshint, unit tests pass, test coverage), build minified app.

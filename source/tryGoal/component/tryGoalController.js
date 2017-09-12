@@ -396,7 +396,9 @@ function($scope, agentMemory, $compile, $stateParams, config, GoalAPI, ConfigAPI
 
     $scope.exit = function() {
         $scope.postMessage('Reset');
-        $state.go('goalList');
+        $state.go('main.goalList', null, {
+            location: 'replace'
+        });
     };
 
     $scope.conceptIsKnownAnswer = function (concept) {
@@ -442,7 +444,9 @@ function($scope, agentMemory, $compile, $stateParams, config, GoalAPI, ConfigAPI
             $scope.goalInfo = $stateParams.goalInfo;
             $scope.runGoal($scope.goalInfo);
         } else {
-            $state.go('goalList');
+            $state.go('main.goalList', null, {
+                location: 'replace'
+            });
         }
     }
 

@@ -11,20 +11,33 @@ agentApp.value('agentMemory',
 
 agentApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
 
-    $urlRouterProvider.otherwise('/');
+    $urlRouterProvider.otherwise('/main');
 
     $stateProvider
         .state('unauthorised', {
             url: '/unauthorised'
         })
-        .state('goalList', {
-            url: '/',
+        .state('main', {
+            url: '/main',
+            templateUrl: '/applications/main.html',
+            controller: 'MainController',
+            resolve: {
+                config: ['ConfigAPI', '$rootScope', function(ConfigAPI, $rootScope) {
+                    return ConfigAPI.config({ id: $rootScope.id });
+                }]
+            }
+        })
+        .state('main.goalList', {
+            url: '/goalList',
             templateUrl: '/applications/goalList/agentGoalList.html',
             controller: 'AgentGoalListController',
             resolve: {
                 config: ['$q', 'ConfigAPI', '$rootScope', 'Security', '$state', function($q, ConfigAPI, $rootScope, Security, $state) {
                     var deferred = $q.defer();
                     ConfigAPI.config({ id: $rootScope.id }).$promise.then(function(config){
+
+                        $rootScope.config = config;
+
                         if (Security.checkReferrerValid(config.authorisedDomains)) {
                             deferred.resolve(config);
                         } else {
@@ -36,7 +49,7 @@ agentApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvider
                 }]
             }
         })
-        .state('startGoal', {
+        .state('main.startGoal', {
             url: '/startGoal',
             templateUrl: '/applications/tryGoal/component/tryGoalAgent.html',
             controller: 'TryGoalController',

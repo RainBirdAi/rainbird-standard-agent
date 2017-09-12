@@ -21,8 +21,10 @@
 </head>
 <body>
     <div ng-app="rbAgent" ng-init="id='<%= id %>'; api='<%= api %>';" ng-strict-di ng-cloak>
-        <ui-view>
-        </ui-view>
+        <div class="agent-wrapper">
+            <ui-view>
+            </ui-view>
+        </div>
     </div>
 
     <script src="/components/angular/angular.min.js"></script>
