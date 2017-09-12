@@ -1,7 +1,7 @@
 
 <div rb-draggable-modal rb-open-modal clear-modal-background id="tryGoalModal" class="modal fade" tabindex="-1" role="dialog"  aria-hidden="true" ng-controller="TryGoalController">
     <div class="modal-dialog agent" ng-keyup="$event.keyCode == 13 && enterPressed()" >
-        <div class="modal-content agent-content">
+        <div ng-cloak class="modal-content agent-content">
 
             <div class="modal-header agent-header" ng-style="{'background-color': config.uiSettings.primaryColourBG, 'border-bottom': config.uiSettings.border}">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>

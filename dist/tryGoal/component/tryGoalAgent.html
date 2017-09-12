@@ -1,10 +1,6 @@
 
-<div id="mainAgent" tabindex="-1" class="agent-wrapper" ng-keyup="$event.keyCode == 13 && enterPressed()" >
-    <div class="agent">
-            <header ng-show="goalInfo" class="agent-header noTransition" ng-style="{'background-color': config.uiSettings.headerColourBG, 'border-bottom': config.uiSettings.border}">
-                <h1 class="header-title noTransition" ng-style="{'color': config.uiSettings.headerColourText}">{{goalInfo.description}}</h1>
-            </header>
-
+<div ng-cloak tabindex="-1" ng-keyup="$event.keyCode == 13 && enterPressed()" >
+    <div>
             <section class="agent-content">
                 <div class="try-goal-body" ng-include="'/applications/tryGoal/component/shared/tryGoalBody.html'"></div>
             </section>
@@ -43,9 +39,6 @@
                         ng-style="{'background-color': config.uiSettings.tertiaryColourBG}"
                 >Back</button>
             </div>
-            <footer class="agent-footer noTransition" ng-style="{'background-color': config.uiSettings.footerColourBG, 'border-top': config.uiSettings.border}">
-                <img class="footer-logo" src="/applications/img/{{config.uiSettings.logoChoice ? config.uiSettings.logoChoice : 'RB_powered.png'}}" />
-            </footer>
         </div>
     </div>
 </div>

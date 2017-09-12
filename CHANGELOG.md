@@ -12,7 +12,8 @@ facing release notes.
 
 ## v2.13.0
 
-  * [Misc]   RB-821: Allow %C to be used in answer text for certainty.
+  *  [Fix]   RB-1222: Fix jumping between page transitions.
+  * [Misc]    RB-821: Allow %C to be used in answer text for certainty.
 
 ## v2.12.0
 

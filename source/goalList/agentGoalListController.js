@@ -9,10 +9,14 @@ angular.module('rbAgent')
         if (event.data && event.data.tryGoal) {
             agentMemory.tryGoal = true;
             if (event.data.close) {
-                $state.go('goalList');
+                $state.go('main.goalList', null, {
+                    location: 'replace'
+                });
             } else {
                 parent.postMessage('goal received', '*');
-                $state.go('startGoal', {goalInfo: event.data, id: $scope.id});
+                $state.go('main.startGoal', {goalInfo: event.data, id: $scope.id}, {
+                    location: 'replace'
+                });
             }
         }
     }, false);
@@ -31,7 +35,7 @@ angular.module('rbAgent')
         parent.postMessage({goal:goal}, '*');
         goal.contextId = $scope.contextId;
         agentMemory.contextId = goal.contextId;
-        $state.go('startGoal', { goalInfo: goal, id: $scope.id });
+        $state.go('main.startGoal', { goalInfo: goal, id: $scope.id });
     };
 
     function printLog(agentId, yolanda, config) {
