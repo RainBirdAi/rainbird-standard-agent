@@ -12,6 +12,7 @@ facing release notes.
 
 ## v2.13.0
 
+  *  [Fix]  RB-1222B: Fix layout bug.
   *  [Fix]   RB-1222: Fix jumping between page transitions.
   * [Misc]    RB-821: Allow %C to be used in answer text for certainty.
 
