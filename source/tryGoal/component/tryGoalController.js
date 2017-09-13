@@ -312,6 +312,8 @@ function($scope, agentMemory, $compile, $stateParams, config, GoalAPI, ConfigAPI
             sendObjects.forEach(function (item) {
                 if ($scope.response.question.dataType === 'date') {
                     answerTemplate.object = item.getTime ? item.getTime() : new Date(item).getTime();
+                } else if ($scope.response.question.dataType === 'truth') {
+                    answerTemplate.object = item === 'yes' ? true : false;
                 } else {
                     answerTemplate.object = item;
                 }

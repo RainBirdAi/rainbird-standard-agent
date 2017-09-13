@@ -32,7 +32,7 @@
 
 <!-- Second form questions -->
 
-<div ng-if="display === 'secondForm'" class="clearfix">
+<div ng-if="display === 'secondForm' && response.question.dataType !== 'truth'" class="clearfix">
 
     <p ng-if="response.question.prompt" class="rb-note-default question-prompt">{{response.question.prompt}}</p>
 
