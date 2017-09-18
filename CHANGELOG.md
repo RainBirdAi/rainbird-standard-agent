@@ -10,7 +10,12 @@ facing release notes.
   *  [Fix] A bug fix
   * [Misc] Other items
 
+## v2.14.0
+
+  *  [Fix]  RB-1082A: Remove minified code from github.
+
 ## v2.13.0
+
 
   *  [Fix]  RB-1222B: Fix layout bug.
   *  [Fix]   RB-1215: Prevent question text displaying twice with second form object truth questions & respond correctly.
