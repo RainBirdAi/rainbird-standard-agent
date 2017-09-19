@@ -10,6 +10,10 @@ facing release notes.
   *  [Fix] A bug fix
   * [Misc] Other items
 
+## v2.14.0
+
+  * [Misc]   RB-1090: Updated readme, added server.js and bower config to help getting started.
+
 ## v2.13.0
 
   *  [Fix]  RB-1222B: Fix layout bug.
