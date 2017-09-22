@@ -1,6 +1,6 @@
 {
   "name": "rainbird-standard-agent",
-  "version": "2.14.0",
+  "version": "2.14.1",
   "publishConfig": {
     "registry": "https://npm.rainbird.ai"
   },
@@ -9,6 +9,8 @@
     "//": "istanbul report html"
   },
   "dependencies": {
+    "ejs": "2.5.x",
+    "express": "4.15.x",
     "gulp-concat": "2.4.x",
     "gulp-eslint": "2.0.x",
     "gulp-imagemin": "3.1.x",
@@ -19,8 +21,9 @@
     "gulp-sourcemaps": "1.6.x",
     "gulp-uglify": "1.0.x",
     "gulp-util": "3.0.x",
+    "karma": "0.12.x",
     "run-sequence": "1.2.x",
-    "karma": "0.12.x"
+    "superagent": "3.6.x"
   },
   "devDependencies": {
     "basic-auth-parser": "0.0.x",
