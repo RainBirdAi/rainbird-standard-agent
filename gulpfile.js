@@ -147,8 +147,6 @@ gulp.task('build', function () {
         ['less'],
         ['agent-build'],
         ['copy-html'],
-        //['test'],
-        //['minifyJS', 'imageOpt'],
         function (result) {
             if (!result) {
                 gutil.log(gutil.colors.green('Build successful!'));
