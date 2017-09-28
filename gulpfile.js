@@ -2,12 +2,10 @@ var gulp = require('gulp');
 var uglify = require('gulp-uglify');
 var concat = require('gulp-concat');
 var less = require('gulp-less');
-//var autoprefixer = require('gulp-autoprefixer');
 var sourcemaps = require('gulp-sourcemaps');
 var rename = require('gulp-rename');
 var karma = require('karma').server;
 var del = require('del');
-var imagemin = require('gulp-imagemin');
 var ngAnnotate = require('gulp-ng-annotate');
 var runSequence = require('run-sequence');
 var gutil = require('gulp-util');
@@ -42,7 +40,6 @@ gulp.task('less', function () {
     gulp.src(paths.less)
         .pipe(sourcemaps.init())
         .pipe(less({compress: true}))
-        //.pipe(autoprefixer())
         .pipe(rename({
             suffix: '.min'
         }))
@@ -53,7 +50,7 @@ gulp.task('less', function () {
 // Run this job so any less file changes are detected and then call the less task to recompile
 // the single css file in dist folder
 gulp.task('watch-less', function() {
-    gulp.watch('public/js/**/*.less', ['less']);
+    gulp.watch('**/*.less', ['less']);
 });
 
 // Run tests once and exit use for running build
@@ -90,13 +87,6 @@ gulp.task('test-headless', function (done) {
     });
 });
 
-gulp.task('imageOpt', function() {
-    gulp.src('sourceimg/**')
-        .pipe(imagemin())
-        .pipe(gulp.dest('dist/img'));
-});
-
-
 gulp.task('eslint', function() {
     var eslintRun = gulp.src(['source/**/*.js', 'test/**/*.js', 'gulpfile.js'])
                .pipe(eslint())
@@ -109,7 +99,12 @@ gulp.task('eslint', function() {
     }
 });
 
-//Angular Agent Compilation
+var errorHandler = function(title, e) {
+    gutil.log(title, e.message);
+};
+
+
+//WARNING, these commands are only here for people forking the agent project. Any changes should happpen in Rainbird-Applications instead.
 gulp.task('minifyAgentJS', function () {
     return gulp.src(paths.scripts)
         .pipe(ngAnnotate())
@@ -117,9 +112,7 @@ gulp.task('minifyAgentJS', function () {
         .pipe(concat('agent.min.js'))
         .pipe(gulp.dest('dist'));
 });
-
 gulp.task('agent-build', ['minifyAgentJS', 'agent-styles']);
-
 gulp.task('agent-styles', function() {
     gulp.src('source/styles/agent.less')
         .pipe(less({compress: true}))
@@ -128,10 +121,6 @@ gulp.task('agent-styles', function() {
         .pipe(rename('agent.min.css'))
         .pipe(gulp.dest('dist'));
 });
-
-var errorHandler = function(title, e) {
-    gutil.log(title, e.message);
-};
 
 gulp.task('copy-html', function() {
     gulp.src(
@@ -153,21 +142,16 @@ gulp.task('copy-html', function() {
 });
 
 // Clear dist folder, check quality (jshint, unit tests pass, test coverage), build minified app.
-gulp.task('build', function() {
+gulp.task('build', function () {
     runSequence(['clean', 'eslint'],
-    ['less'],
-    ['agent-build'],
-    ['copy-html'],
-    //['test'],
-    //['minifyJS', 'imageOpt'],
-    function(result) {
-        if (!result) {
-            gutil.log(gutil.colors.green('Build successful!'));
-        } else {
-            gutil.log(gutil.colors.red('Build failed!'));
-        }
-    });
+        ['less'],
+        ['agent-build'],
+        ['copy-html'],
+        function (result) {
+            if (!result) {
+                gutil.log(gutil.colors.green('Build successful!'));
+            } else {
+                gutil.log(gutil.colors.red('Build failed!'));
+            }
+        });
 });
-
-
-gulp.task('default', ['dev']);

@@ -12,9 +12,11 @@ facing release notes.
 
 ## v2.14.0
 
+  *  [Fix]  RB-1082A: Remove minified code from github.
   * [Misc]   RB-1090: Updated readme, added server.js and bower config to help getting started.
 
 ## v2.13.0
+
 
   *  [Fix]  RB-1222B: Fix layout bug.
   *  [Fix]   RB-1215: Prevent question text displaying twice with second form object truth questions & respond correctly.
