@@ -14,4 +14,4 @@ newrelic_agent.log
 coverage/
 docs/
 personalTools
-dist/
+components/

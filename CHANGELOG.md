@@ -13,6 +13,7 @@ facing release notes.
 ## v2.14.0
 
   *  [Fix]  RB-1082A: Remove minified code from github.
+  * [Misc]   RB-1090: Updated readme, added server.js and bower config to help getting started.
 
 ## v2.13.0
 
