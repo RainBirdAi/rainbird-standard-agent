@@ -7,7 +7,6 @@ var sourcemaps = require('gulp-sourcemaps');
 var rename = require('gulp-rename');
 var karma = require('karma').server;
 var del = require('del');
-var imagemin = require('gulp-imagemin');
 var ngAnnotate = require('gulp-ng-annotate');
 var runSequence = require('run-sequence');
 var gutil = require('gulp-util');

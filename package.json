@@ -26,6 +26,17 @@
     "superagent": "3.6.x"
   },
   "devDependencies": {
+    "angular": "1.4.8",
+    "react": "0.14.0",
+    "jquery": "1.9.1",
+    "angular-mocks": "1.4.8",
+    "angular-animate": "1.4.8",
+    "angular-cookies": "1.4.8",
+    "angular-messages": "1.4.8",
+    "angular-resource": "1.4.8",
+    "angular-route": "1.4.8",
+    "angular-sanitize": "1.4.8",
+    "angular-xeditable": "0.1.11",
     "basic-auth-parser": "0.0.x",
     "boron": "0.2.x",
     "build-jshint": "0.1.x",

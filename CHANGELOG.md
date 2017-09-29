@@ -32,6 +32,9 @@ facing release notes.
   *  [New]   RB-1203: Standard Agent updates for autofocus.
   *  [New]   RB-1194: Implemented the back button design.
   *  [Fix]   RB-1169: Description text showing on agents.
+## v2.12.0
+
+  *  [Fix]  RB-1082: Add git ignore. Fix unit tests
 
 ## v2.11.0
 
