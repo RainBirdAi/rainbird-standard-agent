@@ -89,12 +89,6 @@ gulp.task('test-headless', function (done) {
     });
 });
 
-gulp.task('imageOpt', function() {
-    gulp.src('sourceimg/**')
-        .pipe(imagemin())
-        .pipe(gulp.dest('dist/img'));
-});
-
 
 gulp.task('eslint', function() {
     var eslintRun = gulp.src(['source/**/*.js', 'test/**/*.js', 'gulpfile.js'])

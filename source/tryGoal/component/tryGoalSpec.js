@@ -10,10 +10,9 @@ describe('Try Goal Controller', function() {
     var location;
     var yolanda_external = 'http://127.0.0.1:3100';
 
-    beforeEach(module('/sharedAgent/tryGoal/component/tryGoalModal.html'));
+    beforeEach(module('/tryGoal/component/tryGoalModal.html'));
     beforeEach(module('ui.router'));
     beforeEach(module('rbApp.tryGoal.service'));
-    //beforeEach(module('rbAgent.agentMemory'));
     beforeEach(module('rbApp.tryGoal'));
     beforeEach(function() {
         module(function($provide) {

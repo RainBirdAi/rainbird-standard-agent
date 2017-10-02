@@ -5,7 +5,7 @@ describe('Agent Goal List Controller', function() {
     /*eslint-enable no-unused-vars*/
     var state;
 
-    beforeEach(module('/sharedAgent/goalList/agentGoalList.html'));
+    beforeEach(module('/goalList/agentGoalList.html'));
     beforeEach(module('ui.router'));
     beforeEach(module('rbAgent'));
     beforeEach(module(function($urlRouterProvider) {

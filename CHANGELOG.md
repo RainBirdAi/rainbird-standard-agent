@@ -13,6 +13,7 @@ facing release notes.
 ## v2.14.0
 
   * [Misc]   RB-1090: Updated readme, added server.js and bower config to help getting started.
+  * [Misc]   RB-1287: Perform Standard-Agent build step as part of gulp build
 
 ## v2.13.0
 
@@ -32,9 +33,6 @@ facing release notes.
   *  [New]   RB-1203: Standard Agent updates for autofocus.
   *  [New]   RB-1194: Implemented the back button design.
   *  [Fix]   RB-1169: Description text showing on agents.
-## v2.12.0
-
-  *  [Fix]  RB-1082: Add git ignore. Fix unit tests
 
 ## v2.11.0
 

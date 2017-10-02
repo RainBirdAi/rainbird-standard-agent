@@ -30,8 +30,8 @@ module.exports = function(config) {
         'source/tryGoal/*app.js',
         'source/agent.js',
         'source/**/*.js',
-        'source/**/*.html',
-        'public/sharedAgent/**/*.html'
+        'source/goalList/agentGoalList.html',
+        'source/**/*.html'
     ],
 
     //// list of files to exclude
@@ -39,21 +39,18 @@ module.exports = function(config) {
     //],
 
     proxies:  {
-        //'/js/directive/aceEditor': '/base/public/js/directive/aceEditor/'
-        '/sharedAgent/tryGoal/component/tryGoalModal.html': '/dist/tryGoal/component/tryGoalModal.html'
+        //'/sharedAgent/tryGoal/component/tryGoalModal.html': '/dist/tryGoal/component/tryGoalModal.html'
     },
 
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-        'public/js/**/!(*spec|*Spec).js': ['coverage'],
-        'public/js/**/*.html': ['ng-html2js'],
-        'public/sharedAgent/**/!(*spec|*Spec).js': ['coverage'],
-        'public/sharedAgent/**/*.html': ['ng-html2js']
+        'source/**/!(*spec|*Spec).js': ['coverage'],
+        '**/*.html': ['ng-html2js']
     },
 
     ngHtml2JsPreprocessor: {
-      stripPrefix: 'public'
+      stripPrefix: 'source'
     },
 
     // optionally, configure the reporter
