@@ -13,7 +13,7 @@ facing release notes.
 ## v2.14.0
 
   * [Misc]   RB-1090: Updated readme, added server.js and bower config to help getting started.
-  * [Misc]   RB-1287: Perform Standard-Agent build step as part of gulp build
+  * [Misc]   RB-1299: Perform Standard-Agent build step as part of gulp build
 
 ## v2.13.0
 
