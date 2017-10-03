@@ -12,6 +12,7 @@ facing release notes.
 
 ## v2.14.0
 
+  *  [Fix]   RB-1286: Fix horizontal scroll bar appearing on results screen.
   * [Misc]   RB-1090: Updated readme, added server.js and bower config to help getting started.
   * [Misc]   RB-1299: Perform Standard-Agent build step as part of gulp build
 
