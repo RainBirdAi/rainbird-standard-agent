@@ -72,19 +72,20 @@ function($scope, agentMemory, $compile, $stateParams, config, GoalAPI, ConfigAPI
         $scope.display = 'error';
     }
 
-    function getNumberInput(instance){
-        return '<input id="numberInput' + instance + '" class="rb-try-goal-full-width numberInput" rb-number-only type="number" ng-model="answer.selection[' + instance + ']" class="rb_input number" />';
+    function getNumberInput(instance) {
+        return '<input id="numberInput' + instance + '" class="rb-try-goal-full-width numberInput" rb-number-only type="number" ng-model="question.answer.selection[' + instance + ']" class="rb_input number" />';
     }
 
-    function getDateInput(instance){
+    function getDateInput(instance) {
         return '<div class="instanceDatepicker" id="dateInput' + instance + '">' +
-            '<input id="dateInputText' + instance + '" type="text" class="form-control" uib-datepicker-popup ng-model="answer.selection[' + instance + ']" is-open="datePicker.instances[' + instance + ']" ' +
+            '<input id="dateInputText' + instance + '" type="text" class="form-control" uib-datepicker-popup ng-model="question.answer.selection[' + instance + ']" is-open="datePicker.instances[' + instance + ']" ' +
             'datepicker-options="datePicker.options" ng-required="true" close-text="Close" show-button-bar="false" placeholder="yyyy-MM-dd" popup-placement="auto bottom-left" ng-model-options="{timezone: \'utc\'}"/>  ' +
             '<button id="datePicker' + instance + '" type="button" class="btn btn-default displayPicker" ng-click="datePicker.open($event, ' + instance + ')"><i class="glyphicon glyphicon-calendar"></i></button></div>';
     }
 
-    $scope.addPluralInput = function(type) {
+    $scope.addPluralInput = function(question, type) {
         var instance = $scope.pluralInputCounter++;
+        //question.answer.selection[$scope.pluralInputCounter] = 0;
         var input = (type == 'number') ? angular.element(getNumberInput(instance)) : angular.element(getDateInput(instance));
         var ele = document.querySelector('#' + type + 'Inputs');
         $compile(input)($scope);
@@ -142,10 +143,27 @@ function($scope, agentMemory, $compile, $stateParams, config, GoalAPI, ConfigAPI
 
         $scope.answer = {cf: 100, selection: []};
         $scope.otherValues = [];
-        $scope.response = response;
+
+        //if config has grouping enabled
+        response.questions = [];
+        //if response.extraQuestions
+
+        //remember to have question as the first in the array.
+        //merge this with the other response.question if
+        if (response.question) {
+            if (config.uiSettings.questionGrouping && response.extraQuestions) {
+                response.questions = response.extraQuestions;
+            }
+            response.questions.splice(0, 0, response.question);
+            response.questions.forEach(function (question) {
+                question.answer = {selection: [], cf: 100};
+            });
+
+            $scope.response = response;
+        }
 
         if (response.question) {
-            if (response.question.plural){
+            if (response.question.plural) {
                 $scope.pluralInputCounter = 1;
                 $scope.answer.selection = [];
             }
@@ -246,104 +264,90 @@ function($scope, agentMemory, $compile, $stateParams, config, GoalAPI, ConfigAPI
         }
     };
 
-    $scope.selectConcept = function (value, index) {
-        if ($scope.answer.selection[index] === value || value === '') {
-            delete $scope.answer.selection[index];
+    $scope.selectConcept = function (value, index, question) {
+        if (!question) {
+            console.log('BUG'); //eslint-disable-line
+        }
+        if (question.answer.selection[index] === value || value === '') {
+            delete question.answer.selection[index];
         } else {
-            $scope.answer.selection[index] = value;
+            question.answer.selection[index] = value;
         }
         $scope.removeOtherInput();
     };
 
     $scope.respond = function() {
-
-        var answerTemplate = {
-            'subject': $scope.response.question.subject,
-            'relationship': $scope.response.question.relationship,
-            'object': $scope.response.question.object,
-            'cf': $scope.answer.cf
+        var formatObjectByDataType = function(dataType, usersAnswer) {
+            if (dataType == 'date') {
+                return usersAnswer.getTime ? usersAnswer.getTime() : new Date(usersAnswer).getTime();
+            } else if (dataType == 'truth') {
+                return usersAnswer == 'yes';
+            } else {
+                return usersAnswer;
+            }
         };
-        var answers = [];
-        var selections = [];
-        var otherIndex;
 
         $scope.display = 'thinking';
 
-        if ( $scope.answer.selection ) {
-            if (angular.isArray($scope.answer.selection)) {
-                $scope.answer.selection.forEach(function(element) {
-                    selections.push(element);
+        var responseObject = [];
+        $scope.response.questions.forEach(function(question) {
+
+            if (question.type == 'First Form') {
+                var temp = {
+                    subject: question.subject,
+                    object: question.object,
+                    relationship: question.relationship,
+                    cf: question.answer.cf
+                };
+                if (question.answer.selection.length) {
+                    temp.answer = question.answer.selection[0];
+                } else {
+                    temp.unanswered = true;
+                }
+                responseObject.push(temp);
+            } else { //Second form
+                if (question.answer.selection.length) {
+                    question.answer.selection.forEach(function (userSelection) {
+                        responseObject.push({
+                            subject: question.type == 'Second Form Subject' ? userSelection : question.subject,
+                            object: question.type == 'Second Form Object' ? formatObjectByDataType(question.dataType, userSelection) : question.object,
+                            relationship: question.relationship,
+                            cf: question.answer.cf
+                        });
+                    });
+                } else if (question.knownAnswers.length == 0) {  //no answer
+                    responseObject.push({
+                        subject: question.type == 'Second Form Subject' ? '' : question.subject,
+                        object: question.type == 'Second Form Object' ? '' : question.object,
+                        relationship: question.relationship,
+                        cf: question.answer.cf,
+                        unanswered: true
+                    });
+                }
+            }
+
+            question.knownAnswers && question.knownAnswers.forEach(function(knownAnswer) {
+                responseObject.push({
+                    subject: knownAnswer.subject,
+                    object: knownAnswer.object,
+                    relationship: knownAnswer.relationship.name,
+                    cf: knownAnswer.cf
                 });
-            } else {
-                selections = [$scope.answer.selection];
-            }
-
-            otherIndex = selections.indexOf($scope.otherOption.value);
-            if (otherIndex !== -1) {
-                if (typeof($scope.answer.otherValue) == 'undefined') {
-                    selections.splice(otherIndex, 1);
-                } else {
-                    selections[otherIndex] = $scope.answer.otherValue;
-                }
-            }
-        }
-
-        if ($scope.response.question.type === 'First Form' ) {
-            if (selections.length === 1) {
-                answerTemplate.answer = selections[0];
-                answers.push(answerTemplate);
-            }
-        } else if ($scope.response.question.type === 'Second Form Subject' ) {
-            var sendSubjects = selections;
-            sendSubjects.forEach(function (item) {
-                answerTemplate.subject = item;
-                answers.push(angular.copy(answerTemplate));
             });
-        } else {
-            var sendObjects = [];
-            switch ($scope.response.question.dataType) {
-            case 'date':
-            case 'number':
-                sendObjects = $scope.response.question.plural   ? selections : typeof($scope.answer.value) != 'undefined' ? [$scope.answer.value] : [];
-                break;
-            default:
-                sendObjects = selections;
-            }
-            sendObjects.forEach(function (item) {
-                if ($scope.response.question.dataType === 'date') {
-                    answerTemplate.object = item.getTime ? item.getTime() : new Date(item).getTime();
-                } else if ($scope.response.question.dataType === 'truth') {
-                    answerTemplate.object = item === 'yes' ? true : false;
-                } else {
-                    answerTemplate.object = item;
-                }
-                answers.push(angular.copy(answerTemplate));
-            });
-        }
 
-        if ($scope.response.question.knownAnswers && ($scope.response.question.plural || answers.length === 0)) {
-            $scope.response.question.knownAnswers.forEach(function (triple) {
-                var tempTriple = triple;
-                tempTriple.relationship = tempTriple.relationship.name;
-                answers.push(tempTriple);
-            });
-        }
+        });
 
-        if (answers.length === 0) {
-            answerTemplate.unanswered = true;
-            answers.push(answerTemplate);
-        }
-
+        //THIS IS CRITICAL FOR EC
         $scope.postMessage({
             id: $stateParams.id,
             sessionId: sessionId,
-            answers: answers
+            answers: responseObject
         });
 
         GoalAPI.response({
             id: $stateParams.id,
             sessionId: sessionId,
-            answers: answers
+            answers: responseObject
         },
         function(result) {
             $scope.processResponse(result);
@@ -415,15 +419,23 @@ function($scope, agentMemory, $compile, $stateParams, config, GoalAPI, ConfigAPI
     };
 
     $scope.displayContinueOrSkip = function () {
+        //Needs rewrite
         return (!$scope.response.question.allowUnknown ||
             ($scope.answer.selection && containsAnswer($scope.answer.selection)) || hasValue($scope.answer.value)) ?
             'Continue' : 'Skip';
     };
 
     $scope.disableContinue = function () {
-        return !$scope.response.question.allowUnknown && !hasValue($scope.answer.value) &&
-            (($scope.response.question.knownAnswers && $scope.response.question.knownAnswers.length == 0) || $scope.response.question.knownAnswers == undefined) &&
-            (!$scope.answer.selection || !containsAnswer($scope.answer.selection));
+        var disabled = false;
+        $scope.response.questions.forEach(function(question) {
+            //need to test answers with 0 and false
+            if (!disabled && !question.allowUnknown &&
+                ((question.knownAnswers && question.knownAnswers.length == 0) || question.knownAnswers == undefined) &&
+                (!containsAnswer(question.answer.selection))) {
+                disabled = true;
+            }
+        });
+        return disabled;
     };
 
     function containsAnswer(answers){
