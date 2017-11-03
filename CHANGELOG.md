@@ -10,6 +10,10 @@ facing release notes.
   *  [Fix] A bug fix
   * [Misc] Other items
 
+## v2.15.0
+
+  *  [New]   YOL-736: Add question grouping to standard agent.
+
 ## v2.14.0
 
   *  [Fix]   RB-1286: Fix horizontal scroll bar appearing on results screen.

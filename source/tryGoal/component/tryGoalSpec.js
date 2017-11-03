@@ -1448,13 +1448,11 @@ describe('Try Goal Controller', function() {
             var spyOnPostMessage= sinon.spy(scope, 'postMessage');
             var response = { test:'this is a test' };
             scope.response = {
-                question: {
+                questions: [{
                     type: 'First Form',
-                    dateType: ''
-                }
-            };
-            scope.answer = {
-                selection: 'my answer'
+                    dateType: '',
+                    answer: { selection: ['my answer'] }
+                }]
             };
 
             scope.respond(response);
@@ -1487,12 +1485,63 @@ describe('Try Goal Controller', function() {
 
             describe('displayContinueOrSkip', function(){
 
+                it('Should return \'Continue\' when allowUnknown is mixed on multiple questions', function(){
+
+                    scope.response = {
+                        questions: [{
+                            allowUnknown: true,
+                            answer: { selection: [] }
+                        },
+                        {
+                            allowUnknown: false,
+                            answer: { selection: [] }
+                        }]
+                    };
+
+                    expect(scope.displayContinueOrSkip()).to.equal('Continue');
+                });
+
+                it('Should return \'Skip\' when allowUnknown is true on multiple questions', function(){
+
+                    scope.response = {
+                        questions: [
+                            {
+                                allowUnknown: true,
+                                answer: { selection: [] }
+                            },
+                            {
+                                allowUnknown: true,
+                                answer: { selection: [] }
+                            }]
+                    };
+
+                    expect(scope.displayContinueOrSkip()).to.equal('Skip');
+                });
+
+                it('Should return \'Continue\' when allowUnknown is true on multiple questions with an answer', function(){
+
+                    scope.response = {
+                        questions: [
+                            {
+                                allowUnknown: true,
+                                answer: { selection:['answer'] }
+                            },
+                            {
+                                allowUnknown: true,
+                                answer: { selection: [] }
+                            }
+                        ]
+                    };
+
+                    expect(scope.displayContinueOrSkip()).to.equal('Continue');
+                });
+
                 it('Should return \'Continue\' when allowUnknown is false', function(){
 
                     scope.response = {
-                        question: {
+                        questions: [{
                             allowUnknown: false
-                        }
+                        }]
                     };
 
                     expect(scope.displayContinueOrSkip()).to.equal('Continue');
@@ -1501,12 +1550,12 @@ describe('Try Goal Controller', function() {
                 it('Should return \'Skip\' when allowUnknown is true', function(){
 
                     scope.response = {
-                        question: {
-                            allowUnknown: true
-                        }
+                        questions: [{
+                            allowUnknown: true,
+                            answer: { selection: [] }
+                        }]
                     };
 
-                    scope.answer = {};
 
                     expect(scope.displayContinueOrSkip()).to.equal('Skip');
                 });
@@ -1514,25 +1563,11 @@ describe('Try Goal Controller', function() {
                 it('Should return \'Continue\' when allowUnknown is true but an answer is provided', function(){
 
                     scope.response = {
-                        question: {
-                            allowUnknown: true
-                        }
+                        questions: [{
+                            allowUnknown: true,
+                            answer: { selection: ['answer'] }
+                        }]
                     };
-
-                    scope.answer = { value: 'answer' };
-
-                    expect(scope.displayContinueOrSkip()).to.equal('Continue');
-                });
-
-                it('Should return \'Continue\' when allowUnknown is true but an answer selection is provided', function(){
-
-                    scope.response = {
-                        question: {
-                            allowUnknown: true
-                        }
-                    };
-
-                    scope.answer = { selection: ['answer'] };
 
                     expect(scope.displayContinueOrSkip()).to.equal('Continue');
                 });
@@ -1540,12 +1575,11 @@ describe('Try Goal Controller', function() {
                 it('Should return \'Continue\' when allowUnknown is true but an answer of 0 is provided', function(){
 
                     scope.response = {
-                        question: {
-                            allowUnknown: true
-                        }
+                        questions: [{
+                            allowUnknown: true,
+                            answer: { selection: [0] }
+                        }]
                     };
-
-                    scope.answer = { value: 0 };
 
                     expect(scope.displayContinueOrSkip()).to.equal('Continue');
                 });
@@ -1553,12 +1587,11 @@ describe('Try Goal Controller', function() {
                 it('Should return \'Continue\' when allowUnknown is true but an answer above 0 is provided', function(){
 
                     scope.response = {
-                        question: {
-                            allowUnknown: true
-                        }
+                        questions: [{
+                            allowUnknown: true,
+                            answer: { selection: [5] }
+                        }]
                     };
-
-                    scope.answer = { value: 5 };
 
                     expect(scope.displayContinueOrSkip()).to.equal('Continue');
                 });
@@ -1567,12 +1600,11 @@ describe('Try Goal Controller', function() {
                     function(){
 
                         scope.response = {
-                            question: {
-                                allowUnknown: true
-                            }
+                            questions: [{
+                                allowUnknown: true,
+                                answer: { selection: [false] }
+                            }]
                         };
-
-                        scope.answer = { value: false };
 
                         expect(scope.displayContinueOrSkip()).to.equal('Continue');
                     });
@@ -1580,12 +1612,11 @@ describe('Try Goal Controller', function() {
                 it('Should return \'Continue\' when allowUnknown is true but an answer of true is provided', function(){
 
                     scope.response = {
-                        question: {
-                            allowUnknown: true
-                        }
+                        questions: [{
+                            allowUnknown: true,
+                            answer: { selection: [true] }
+                        }]
                     };
-
-                    scope.answer = { value: true };
 
                     expect(scope.displayContinueOrSkip()).to.equal('Continue');
                 });
@@ -1594,12 +1625,64 @@ describe('Try Goal Controller', function() {
 
             describe('disableContinue', function(){
 
+                it('Should return true when allowUnknown is mixed on multiple questions with no answers', function(){
+
+                    scope.response = {
+                        questions: [
+                            {
+                                allowUnknown: true,
+                                answer: { selection: [] }
+                            },
+                            {
+                                allowUnknown: false,
+                                answer: { selection: [] }
+                            }]
+                    };
+
+                    expect(scope.disableContinue()).to.equal(true);
+                });
+
+                it('Should return false when allowUnknown is false on multiple questions', function(){
+
+                    scope.response = {
+                        questions: [
+                            {
+                                allowUnknown: true,
+                                answer: { selection: [] }
+                            },
+                            {
+                                allowUnknown: true,
+                                answer: { selection: [] }
+                            }]
+                    };
+
+                    expect(scope.disableContinue()).to.equal(false);
+                });
+
+                it('Should return false when allowUnknown is false on multiple questions with answers', function(){
+
+                    scope.response = {
+                        questions: [
+                            {
+                                allowUnknown: false,
+                                answer: { selection:['answer'] }
+                            },
+                            {
+                                allowUnknown: false,
+                                answer: { selection:['answer'] }
+                            }
+                        ]
+                    };
+
+                    expect(scope.disableContinue()).to.equal(false);
+                });
+
                 it('Should return false when allowUnknown is true', function(){
 
                     scope.response = {
-                        question: {
+                        questions: [{
                             allowUnknown: true
-                        }
+                        }]
                     };
 
                     expect(scope.disableContinue()).to.equal(false);
@@ -1608,12 +1691,11 @@ describe('Try Goal Controller', function() {
                 it('Should return false when allowUnknown is false and an answer is provided', function(){
 
                     scope.response = {
-                        question: {
-                            allowUnknown: false
-                        }
+                        questions: [{
+                            allowUnknown: false,
+                            answer: { selection: ['answer'] }
+                        }]
                     };
-
-                    scope.answer = { value: 'answer' };
 
                     expect(scope.disableContinue()).to.equal(false);
                 });
@@ -1621,12 +1703,11 @@ describe('Try Goal Controller', function() {
                 it('Should return false when allowUnknown is false and an answer of 0 is provided', function(){
 
                     scope.response = {
-                        question: {
-                            allowUnknown: false
-                        }
+                        questions: [{
+                            allowUnknown: false,
+                            answer: { selection: [0] }
+                        }]
                     };
-
-                    scope.answer = { value: 0 };
 
                     expect(scope.disableContinue()).to.equal(false);
                 });
@@ -1634,12 +1715,11 @@ describe('Try Goal Controller', function() {
                 it('Should return false when allowUnknown is false and an answer above 0 is provided', function(){
 
                     scope.response = {
-                        question: {
-                            allowUnknown: false
-                        }
+                        questions: [{
+                            allowUnknown: false,
+                            answer: { selection: [5] }
+                        }]
                     };
-
-                    scope.answer = { value: 5 };
 
                     expect(scope.disableContinue()).to.equal(false);
                 });
@@ -1647,12 +1727,11 @@ describe('Try Goal Controller', function() {
                 it('Should return false when allowUnknown is false and an answer of false is provided', function(){
 
                     scope.response = {
-                        question: {
-                            allowUnknown: false
-                        }
+                        questions: [{
+                            allowUnknown: false,
+                            answer: { selection: [false] }
+                        }]
                     };
-
-                    scope.answer = { value: false };
 
                     expect(scope.disableContinue()).to.equal(false);
                 });
@@ -1660,12 +1739,11 @@ describe('Try Goal Controller', function() {
                 it('Should return false when allowUnknown is false and an answer of true is provided', function(){
 
                     scope.response = {
-                        question: {
-                            allowUnknown: false
-                        }
+                        questions: [{
+                            allowUnknown: false,
+                            answer: { selection: [true] }
+                        }]
                     };
-
-                    scope.answer = { value: true };
 
                     expect(scope.disableContinue()).to.equal(false);
                 });
@@ -1673,13 +1751,12 @@ describe('Try Goal Controller', function() {
                 it('Should return false when allowUnknown is false and an answer selection is provided', function(){
 
                     scope.response = {
-                        question: {
+                        questions: [{
                             allowUnknown: false,
-                            knownAnswers: []
-                        }
+                            knownAnswers: [],
+                            answer: { selection: ['answer'] }
+                        }]
                     };
-
-                    scope.answer = { selection: ['answer'] };
 
                     expect(scope.disableContinue()).to.equal(false);
                 });
@@ -1687,13 +1764,12 @@ describe('Try Goal Controller', function() {
                 it('Should return true when allowUnknown is false and no answers are provided', function(){
 
                     scope.response = {
-                        question: {
+                        questions: [{
                             allowUnknown: false,
-                            knownAnswers: []
-                        }
+                            knownAnswers: [],
+                            answer: { selection: [] }
+                        }]
                     };
-
-                    scope.answer = {};
 
                     expect(scope.disableContinue()).to.equal(true);
                 });
@@ -1702,13 +1778,12 @@ describe('Try Goal Controller', function() {
                     function(){
 
                         scope.response = {
-                            question: {
+                            questions: [{
                                 allowUnknown: false,
-                                knownAnswers: []
-                            }
+                                knownAnswers: [],
+                                answer: { selection: [''] }
+                            }]
                         };
-
-                        scope.answer = { selection: [''] };
 
                         expect(scope.disableContinue()).to.equal(true);
                     });
@@ -1717,13 +1792,12 @@ describe('Try Goal Controller', function() {
                     function(){
 
                         scope.response = {
-                            question: {
+                            questions: [{
                                 allowUnknown: false,
-                                knownAnswers: []
-                            }
+                                knownAnswers: [],
+                                answer: { selection: [0] }
+                            }]
                         };
-
-                        scope.answer = { selection: [0] };
 
                         expect(scope.disableContinue()).to.equal(false);
                     });
@@ -1733,13 +1807,12 @@ describe('Try Goal Controller', function() {
                     function(){
 
                         scope.response = {
-                            question: {
+                            questions: [{
                                 allowUnknown: false,
-                                knownAnswers: []
-                            }
+                                knownAnswers: [],
+                                answer: { selection: [4] }
+                            }]
                         };
-
-                        scope.answer = { selection: [4] };
 
                         expect(scope.disableContinue()).to.equal(false);
                     });
@@ -1748,13 +1821,12 @@ describe('Try Goal Controller', function() {
                     function(){
 
                         scope.response = {
-                            question: {
+                            questions: [{
                                 allowUnknown: false,
-                                knownAnswers: []
-                            }
+                                knownAnswers: [],
+                                answer: { selection: [false] }
+                            }]
                         };
-
-                        scope.answer = { selection: [false] };
 
                         expect(scope.disableContinue()).to.equal(false);
                     });
@@ -1763,13 +1835,12 @@ describe('Try Goal Controller', function() {
                     function(){
 
                         scope.response = {
-                            question: {
+                            questions: [{
                                 allowUnknown: false,
-                                knownAnswers: []
-                            }
+                                knownAnswers: [],
+                                answer: { selection: [true] }
+                            }]
                         };
-
-                        scope.answer = { selection: [true] };
 
                         expect(scope.disableContinue()).to.equal(false);
                     });
@@ -1778,13 +1849,12 @@ describe('Try Goal Controller', function() {
                     function(){
 
                         scope.response = {
-                            question: {
+                            questions: [{
                                 allowUnknown: false,
-                                knownAnswers: ['a known answer']
-                            }
+                                knownAnswers: ['a known answer'],
+                                answer: { selection: [''] }
+                            }]
                         };
-
-                        scope.answer = { selection: [''] };
 
                         expect(scope.disableContinue()).to.equal(false);
                     });
@@ -1793,13 +1863,12 @@ describe('Try Goal Controller', function() {
                     function(){
 
                         scope.response = {
-                            question: {
+                            questions: [{
                                 allowUnknown: false,
-                                knownAnswers: ['a known answer']
-                            }
+                                knownAnswers: ['a known answer'],
+                                answer: { selection: ['ana answer'] }
+                            }]
                         };
-
-                        scope.answer = { selection: ['an answer'] };
 
                         expect(scope.disableContinue()).to.equal(false);
                     });
