@@ -12,6 +12,7 @@ facing release notes.
 
 ## v2.15.0
 
+  *  [Fix]  YOL-736B: Fix agent crashing if first response is a result.
   *  [New]   YOL-736: Add question grouping to standard agent.
 
 ## v2.14.0
