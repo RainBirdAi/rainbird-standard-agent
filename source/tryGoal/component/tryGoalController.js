@@ -167,7 +167,7 @@ function($scope, agentMemory, $compile, $stateParams, config, GoalAPI, ConfigAPI
             }
         } else if (response.result && angular.isArray(response.result) && response.result.length > 0) {
             $scope.goalResults = [];
-            $scope.response.questions = [];
+            $scope.response = {};
             response.result.forEach(function(element) {
                 var resultText = ($scope.goalInfo.goalText ? $scope.goalInfo.goalText : $scope.goalInfo.text);
 
