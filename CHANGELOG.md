@@ -12,6 +12,7 @@ facing release notes.
 
 ## v2.15.0
 
+  *  [Fix]   RB-1357: Fix issue setting 'other' answer in answer selection array when question.concepts is undefined.
   *  [Fix]  YOL-736B: Fix agent crashing if first response is a result.
   *  [New]   YOL-736: Add question grouping to standard agent.
 
