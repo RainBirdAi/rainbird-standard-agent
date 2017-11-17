@@ -55,7 +55,7 @@
             <div id="otherValueInput0"  ng-if="question.canAdd && question.plural" class="inlineCheckboxGrouped" >
                 <label>
                     <i class="fa fa-minus-square" aria-hidden="true" ng-click="removeOtherInput($index, 0);"></i>
-                    <input id="pluralOther0" ng-model="question.answer.selection[question.concepts.length]" ng-change="addOtherInput($index)" placeholder="enter other value" class="otherInput rb-try-goal-full-width"
+                    <input id="pluralOther0" ng-model="question.answer.selection[question.concepts ? question.concepts.length : 0 ]" ng-change="addOtherInput($index)" placeholder="enter other value" class="otherInput rb-try-goal-full-width"
                            value="" type="text" autofocus>
                 </label>
             </div>
