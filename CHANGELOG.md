@@ -10,6 +10,10 @@ facing release notes.
   *  [Fix] A bug fix
   * [Misc] Other items
 
+## v2.16.0
+  
+  *  [New]   YOL-865: Apply plural false in one direction only, subject > object.
+
 ## v2.15.0
 
   *  [Fix]   RB-1357: Fix issue setting 'other' answer in answer selection array when question.concepts is undefined.

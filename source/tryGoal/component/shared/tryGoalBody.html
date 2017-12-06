@@ -39,12 +39,12 @@
 
         <div id="secondFormBlock" class="col-sm-12" ng-if="question.dataType === 'string'">
             <!-- Concept type question - Singular -->
-            <select id="singularAnswerSelect" class="rb-try-goal-full-width" ng-if="!question.plural && question.concepts" ng-model="question.answer.selection[0]"
+            <select id="singularAnswerSelect" class="rb-try-goal-full-width" ng-if="unidirectionalPluralFalse(question) && question.concepts" ng-model="question.answer.selection[0]"
                     ng-options="concept.value as concept.value disable when concept.invalidResponse for concept in question.concepts">
                 <option value=""></option>
             </select>
             <!-- Concept type question - Plural -->
-            <div ng-if="question.plural" class="inlineCheckboxGrouped" ng-repeat="concept in question.concepts" style="white-space: nowrap;">
+            <div ng-if="question.plural || !unidirectionalPluralFalse(question)" class="inlineCheckboxGrouped" ng-repeat="concept in question.concepts" style="white-space: nowrap;">
                 <label>
                     <input class="rb-try-goal-full-width"
                         value="concept.value" type="checkbox" ng-click="selectConcept(concept.value, $index, question)" ng-disabled="conceptIsKnownAnswer(concept.value)" ng-checked="conceptIsKnownAnswer(concept.value)">
@@ -52,7 +52,7 @@
                 </label>
             </div>
             <!-- CanAdd Plural Input - Extra inputs added when data is added -->
-            <div id="otherValueInput0"  ng-if="question.canAdd && question.plural" class="inlineCheckboxGrouped" >
+            <div id="otherValueInput0"  ng-if="question.canAdd && (question.plural  || !unidirectionalPluralFalse(question))" class="inlineCheckboxGrouped" >
                 <label>
                     <i class="fa fa-minus-square" aria-hidden="true" ng-click="removeOtherInput($index, 0);"></i>
                     <input id="pluralOther0" ng-model="question.answer.selection[question.concepts ? question.concepts.length : 0 ]" ng-change="addOtherInput($index)" placeholder="enter other value" class="otherInput rb-try-goal-full-width"
@@ -65,7 +65,7 @@
             </div>
         </div>
 
-        <div class="col-sm-12" ng-if="question.dataType === 'string' && !question.concepts && !question.plural">
+        <div class="col-sm-12" ng-if="question.dataType === 'string' && !question.concepts && unidirectionalPluralFalse(question)">
             <input id="singleOther" class="rb-try-goal-full-width" type="text" ng-model="question.answer.selection[0]" autofocus />
         </div>
 

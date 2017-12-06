@@ -150,7 +150,7 @@ function($scope, agentMemory, $compile, $stateParams, config, GoalAPI, ConfigAPI
             response.questions.forEach(function (question) {
                 question.answer = {selection: [], cf: 100};
                 question.pluralInputCounter = 1;
-                if (question.concepts && question.concepts.length > 0 && !question.plural) {
+                if (question.concepts && question.concepts.length > 0 && $scope.unidirectionalPluralFalse(question)) {
                     question.concepts.push($scope.otherOption);
                 }
             });
@@ -200,7 +200,7 @@ function($scope, agentMemory, $compile, $stateParams, config, GoalAPI, ConfigAPI
     };
 
     $scope.addOtherInput = function (questionIndex) {
-        if (!$scope.response.questions[questionIndex].plural) {
+        if ($scope.unidirectionalPluralFalse($scope.response.questions[questionIndex])) {
             return;
         }
 
@@ -482,6 +482,10 @@ function($scope, agentMemory, $compile, $stateParams, config, GoalAPI, ConfigAPI
             runAgentGoal();
         }
     }
+
+    $scope.unidirectionalPluralFalse = function (question){
+        return !question.plural && question.subject;
+    };
 
     init();
 }]);
