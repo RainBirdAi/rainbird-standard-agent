@@ -484,7 +484,14 @@ function($scope, agentMemory, $compile, $stateParams, config, GoalAPI, ConfigAPI
     }
 
     $scope.unidirectionalPluralFalse = function (question){
-        return !question.plural && question.subject;
+
+        if ($scope.unidirectionalPluralFalseEnabled){
+            return !question.plural && question.subject;
+        } else {
+            //Bidirectional plural false
+            return !question.plural;
+        }
+
     };
 
     init();
