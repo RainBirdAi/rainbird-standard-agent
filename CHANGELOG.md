@@ -12,6 +12,7 @@ facing release notes.
 
 ## v2.16.0
   
+  * [Misc] YOL-865-3: Make unidirectional plural false a toggled off feature.
   *  [Fix] YOL-865-2: Disable invalid responses when presenting second form subject questions.
   *  [New]   YOL-865: Apply plural false in one direction only, subject > object.
 
