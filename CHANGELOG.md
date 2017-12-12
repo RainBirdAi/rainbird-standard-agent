@@ -12,6 +12,7 @@ facing release notes.
 
 ## v2.16.0
   
+  *  [Fix] YOL-865-2: Disable invalid responses when presenting second form subject questions.
   *  [New]   YOL-865: Apply plural false in one direction only, subject > object.
 
 ## v2.15.0
