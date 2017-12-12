@@ -47,8 +47,8 @@
             <div ng-if="question.plural || !unidirectionalPluralFalse(question)" class="inlineCheckboxGrouped" ng-repeat="concept in question.concepts" style="white-space: nowrap;">
                 <label>
                     <input class="rb-try-goal-full-width"
-                        value="concept.value" type="checkbox" ng-click="selectConcept(concept.value, $index, question)" ng-disabled="conceptIsKnownAnswer(concept.value)" ng-checked="conceptIsKnownAnswer(concept.value)">
-                    <span>{{concept.value}}</span>
+                        value="concept.value" type="checkbox" ng-click="selectConcept(concept.value, $index, question)" ng-disabled="conceptIsKnownAnswer(concept.value) || concept.invalidResponse" ng-checked="conceptIsKnownAnswer(concept.value)">
+                    <span ng-class="{ 'disabled': conceptIsKnownAnswer(concept.value) || concept.invalidResponse }">{{concept.value}}</span>
                 </label>
             </div>
             <!-- CanAdd Plural Input - Extra inputs added when data is added -->
