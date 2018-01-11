@@ -1,11 +1,12 @@
 .innerNav {
   overflow-y: auto;
   flex: 1 1 auto;
-  min-height: 10px;
+  min-height: 100px;
+  background: white;
 }
 
 .lineBreakBetween + .lineBreakBetween {
-  border-top: 1px solid rgba(0, 0, 0, 0.2);
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
   margin-top: 20px;
   padding-top: 15px;
 }
@@ -31,10 +32,10 @@
           bottom: 0px;
           left: 0;
           right: 0;
+          height: 50px;
         }
 
       .agent-button-row {
-        //position: absolute;
         bottom: 60px;
         left: 0;
         padding: 0 8px;
@@ -69,7 +70,7 @@
 .try-goal-body,
 .question,
 .result {
-    margin: @spacing*2 @spacing;
+    margin: @spacing*2;
     flex:1 0 auto;
 }
 ul {
@@ -87,3 +88,118 @@ ul {
 #error.active {
     display: block;
 }
+
+.btn {
+  margin: 10px 3px;
+  font-size: 14px;
+}
+
+h1,h2,h3,h4,h5 {
+  margin: 0;
+  font-family: inherit;
+}
+
+.datepicker.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1000;
+  display: none;
+  float: left;
+  min-width: 160px;
+  list-style: none;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border: 1px solid rgba(0,0,0,.15);
+  border-radius: 4px;
+  -webkit-box-shadow: 0 6px 12px rgba(0,0,0,.175);
+  -moz-box-shadow: 0 6px 12px rgba(0,0,0,.175);
+  box-shadow: 0 6px 12px rgba(0,0,0,.175);
+  -webkit-background-clip: padding-box;
+  -moz-background-clip: padding;
+  background-clip: padding-box;
+  color: #333;
+  font-size: 13px;
+  line-height: 1.42857143;
+  opacity: 1;
+  visibility: visible;
+}
+
+.ui.label {
+  flex: none;
+}
+
+.datePickerSemantic {
+  cursor: text; 
+  width: 100%; 
+  word-wrap: break-word; 
+  line-height: 1em; 
+  white-space: normal; 
+  outline: 0; 
+  -webkit-transform: rotateZ(0); 
+  transform: rotateZ(0); 
+  min-width: 14em; 
+  min-height: 2.71428571em; 
+  background: #fff; 
+  display: flex; 
+  padding: 7px; 
+  color: rgba(0,0,0,.87); 
+  box-shadow: none; 
+  border: 1px solid rgba(34,36,38,.15); 
+  border-radius: .28571429rem; 
+  -webkit-transition: box-shadow .1s ease,width .1s ease; 
+  flex-direction: row; 
+  flex-wrap: wrap; 
+  transition: box-shadow .1s ease,width .1s ease;
+}
+
+.numberInputSemantic {
+
+  .plusButton {
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    bottom: 0px;
+    padding: 15px;
+    border-radius: 0 0px 0px 0px;
+    transition: box-shadow .3s ease;
+    background: #bdc3c7;
+    color: rgba(0,0,0,0.8);
+  }
+  cursor: text;
+  width: 100%;
+  word-wrap: break-word;
+  line-height: 1em;
+  white-space: normal;
+  outline: 0;
+  -webkit-transform: rotateZ(0);
+  transform: rotateZ(0);
+  min-width: 14em;
+  min-height: 2.71428571em;
+  background: #fff;
+  display: inline-block;
+  padding: 7px;
+  color: rgba(0,0,0,.87);
+  box-shadow: none;
+  border: 1px solid rgba(34,36,38,.15);
+  border-radius: .28571429rem;
+  -webkit-transition: box-shadow .1s ease,width .1s ease;
+  transition: box-shadow .1s ease,width .1s ease;
+}
+
+.semanticInputOverride {
+  display: inline-block;
+  padding: 0px !important;
+  margin: 2px 0 0 0 !important;
+  width: 150px;
+  border: none !important;
+  background: transparent !important;
+  flex: 1 1 !important;
+  min-width: 110px;
+}
+
+.search {
+  font-family: inherit !important;
+  color: rgba(0, 0, 0, 0.8) !important;
+}
+

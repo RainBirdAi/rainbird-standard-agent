@@ -11,6 +11,8 @@ var ngAnnotate = require('gulp-ng-annotate');
 var runSequence = require('run-sequence');
 var gutil = require('gulp-util');
 var eslint = require('gulp-eslint');
+var browserSync = require('browser-sync').create();
+var reload = browserSync.reload;
 
 var build = {dev:false,unitTests:true, testCoverage:true};
 
@@ -22,6 +24,7 @@ var paths = {
         'source/tryGoal/component/tryGoalController.js',
         'source/goalList/**/*.js',
         'source/mainController.js',
+        'source/directives/**/*.js',
         '!**/*spec.js',
         '!**/*Spec.js'],
     less: ['source/styles/agent.less'],
@@ -33,27 +36,6 @@ gulp.task('clean', function() {
     del(['dist/**.*']);
 });
 
-// using the main less file which imports other less files compile to css (less()) and minify
-// use source mapping so dev tools can identify the less file a section of css comes from
-// use autoprefixer to add browser dependent prefixers i.e. -moz-... so we don't have to
-// and generate a css file at the destination
-gulp.task('less', function () {
-    gulp.src(paths.less)
-        .pipe(sourcemaps.init())
-        .pipe(less({compress: true}))
-        //.pipe(autoprefixer())
-        .pipe(rename({
-            suffix: '.min'
-        }))
-        .pipe(sourcemaps.write('.'))
-        .pipe(gulp.dest('dist'));
-});
-
-// Run this job so any less file changes are detected and then call the less task to recompile
-// the single css file in dist folder
-gulp.task('watch-less', function() {
-    gulp.watch('public/js/**/*.less', ['less']);
-});
 
 // Run tests once and exit use for running build
 gulp.task('test', function (done) {
@@ -144,16 +126,18 @@ gulp.task('copy-html', function() {
         .pipe(gulp.dest('dist/goalList'));
     gulp.src(['source/main.html'])
         .pipe(gulp.dest('dist'));
+	gulp.src(['source/angular-semantic-ui.min.js'])
+			.pipe(gulp.dest('dist'));
 });
 
 // Clear dist folder, check quality (jshint, unit tests pass, test coverage), build minified app.
 gulp.task('build', function() {
-    runSequence(['clean', 'eslint'],
+    runSequence(['clean'],
     ['less'],
     ['agent-build'],
     ['copy-html'],
     //['test'],
-    //['minifyJS', 'imageOpt'],
+    ['minifyAgentJS'],
     function(result) {
         if (!result) {
             gutil.log(gutil.colors.green('Build successful!'));
@@ -165,3 +149,41 @@ gulp.task('build', function() {
 
 
 gulp.task('default', ['dev']);
+
+
+//BrowserSync
+gulp.task('js-watch', ['build'], function (done) {
+	browserSync.reload();
+	done();
+});
+
+
+gulp.task('watchandrefresh', ['build'], function () {
+
+	// Serve files from the root of this project
+	browserSync.init({
+		proxy: "localhost:3051",
+		port: 8080,
+		notify: true
+	});
+
+	gulp.watch('source/**/*.js', ['js-watch']);
+});
+
+gulp.task('watch-less', function() {
+	gulp.watch('source/styles/**/*.less', ['less']);
+	gulp.watch('dist/*.css').on('change', function() {
+
+	});
+});
+
+gulp.task('less', function () {
+
+	return gulp.src(paths.less)
+			.pipe(less({compress: true}))
+			.pipe(rename({
+				suffix: '.min'
+			}))
+			.pipe(gulp.dest('dist'))
+});
+
