@@ -10,6 +10,10 @@ facing release notes.
   *  [Fix] A bug fix
   * [Misc] Other items
 
+## v2.17.0
+
+  *  [Fix]   YOL-900: Bring up to date with release 2.16
+
 ## v2.16.4
 
   *  [Fix]   YOL-900: Fix canAdd setting being ignored.
