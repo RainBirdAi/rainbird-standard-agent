@@ -9,6 +9,14 @@ facing release notes.
   *  [New] A new feature
   *  [Fix] A bug fix
   * [Misc] Other items
+  
+## v2.17.0
+
+  *  [Fix]   YOL-900: Bring develop up to date with 2.16
+
+## v2.16.4
+
+  *  [Fix]   YOL-900: Fix canAdd setting being ignored.
 
 ## v2.16.0
   

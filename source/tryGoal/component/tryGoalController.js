@@ -150,7 +150,7 @@ function($scope, agentMemory, $compile, $stateParams, config, GoalAPI, ConfigAPI
             response.questions.forEach(function (question) {
                 question.answer = {selection: [], cf: 100};
                 question.pluralInputCounter = 1;
-                if (question.concepts && question.concepts.length > 0 && $scope.unidirectionalPluralFalse(question)) {
+                if (question.concepts && question.concepts.length > 0 && question.canAdd !== false && $scope.unidirectionalPluralFalse(question)) {
                     question.concepts.push($scope.otherOption);
                 }
             });
