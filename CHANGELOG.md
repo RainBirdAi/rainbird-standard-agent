@@ -9,6 +9,10 @@ facing release notes.
   *  [New] A new feature
   *  [Fix] A bug fix
   * [Misc] Other items
+  
+## v2.17.0
+
+  *  [Fix]   YOL-900: Bring develop up to date with 2.16
 
 ## v2.16.4
 
