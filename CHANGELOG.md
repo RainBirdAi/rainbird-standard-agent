@@ -10,6 +10,10 @@ facing release notes.
   *  [Fix] A bug fix
   * [Misc] Other items
 
+## v2.16.4
+
+  *  [Fix]   YOL-900: Fix canAdd setting being ignored.
+
 ## v2.16.0
   
   * [Misc] YOL-865-3: Make unidirectional plural false a toggled off feature.
