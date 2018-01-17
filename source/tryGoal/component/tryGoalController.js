@@ -1,6 +1,6 @@
 angular.module('rbApp.tryGoal')
-.controller('TryGoalController', ['$scope', 'agentMemory', '$compile', '$stateParams', 'config', 'GoalAPI', 'ConfigAPI', 'ApiConfig', '$state', '$location', '$filter', 'focusElementById',
-function($scope, agentMemory, $compile, $stateParams, config, GoalAPI, ConfigAPI, ApiConfig, $state, $location, $filter, focusElementById) {
+.controller('TryGoalController', ['$scope', 'agentMemory', '$compile', '$stateParams', 'config', 'GoalAPI', 'ConfigAPI', 'ApiConfig', '$state', '$location', '$filter', 'focusElementById', '$timeout', '$rootScope',
+function($scope, agentMemory, $compile, $stateParams, config, GoalAPI, ConfigAPI, ApiConfig, $state, $location, $filter, focusElementById, $timeout, $rootScope) {
 
     var contextId;
     var sessionId;
@@ -8,6 +8,7 @@ function($scope, agentMemory, $compile, $stateParams, config, GoalAPI, ConfigAPI
     $scope.otherOption = {value: '(other - not listed)'};
     $scope.yolandaUrl = ApiConfig.getConfig().url;
     $scope.tryGoal = agentMemory.tryGoal;
+    $scope.splitScreen = false;
 
     $scope.updateAlias = function() {
         sessionId = null;
@@ -41,6 +42,7 @@ function($scope, agentMemory, $compile, $stateParams, config, GoalAPI, ConfigAPI
     $scope.runGoal = function(goalInfo) {
         var requiresInitData = false;
         $scope.init = {};
+        $rootScope.apiOutput = new Array();
 
         contextId = goalInfo.contextId;
 
@@ -82,6 +84,25 @@ function($scope, agentMemory, $compile, $stateParams, config, GoalAPI, ConfigAPI
             'datepicker-options="datePicker.options" ng-required="true" close-text="Close" show-button-bar="false" placeholder="yyyy-MM-dd" popup-placement="auto bottom-left" ng-model-options="{timezone: \'utc\'}"/>  ' +
             '<button id="datePicker' + instance + '" type="button" class="btn btn-default displayPicker" ng-click="datePicker.open($event, ' + instance + ')"><i class="glyphicon glyphicon-calendar"></i></button></div>';
     }
+
+    $scope.$watch('apiOutput', function() {
+        
+        if (agentMemory.tryGoal) {
+            var displayText = JSON.stringify($rootScope.apiOutput, null, 1);
+            
+            var lines = displayText.split('\n');
+            lines.splice(0,1);
+            if (lines.length > 0) {
+                lines.splice(lines.length - 1,1);
+            }
+            $rootScope.apiOutputDisplay = lines.join('\n');
+        }
+        $timeout(function() {
+            var logPanel = document.querySelector('#scroll-content');
+            logPanel.scrollTop = logPanel.scrollHeight;
+        }, 150);
+        
+    }, true);
 
     $scope.addPluralInput = function(type) {
         var instance = $scope.pluralInputCounter++;

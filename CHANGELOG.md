@@ -10,6 +10,10 @@ facing release notes.
   *  [Fix] A bug fix
   * [Misc] Other items
 
+## v2.17.0
+
+  *  [Fix]   RB-1377: allow split screen of agent with API Log details in the split screen.
+
 ## v2.12.0
 
   *  [Fix]   RBA-117: Now broadcasts message when it's received goal from try-query page.

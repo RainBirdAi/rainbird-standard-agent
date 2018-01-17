@@ -1,51 +1,57 @@
 
-<div id="mainAgent" tabindex="-1" class="agent-wrapper" ng-keyup="$event.keyCode == 13 && enterPressed()" >
-    <div class="agent">
-            <header ng-show="goalInfo" class="agent-header noTransition" ng-style="{'background-color': config.uiSettings.headerColourBG, 'border-bottom': config.uiSettings.border}">
-                <h1 class="header-title noTransition" ng-style="{'color': config.uiSettings.headerColourText}">{{goalInfo.description}}</h1>
-            </header>
+<div id="log-wrapper">
+    <div class="api-log" ng-show="splitScreen" ng-include="'/applications/tryGoal/component/shared/apiLog.html'"></div>
+    <div id="mainAgent" tabindex="-1" class="agent-wrapper" ng-keyup="$event.keyCode == 13 && enterPressed()" >
+        <div class="agent">
+                <header ng-show="goalInfo" class="agent-header noTransition" ng-style="{'background-color': config.uiSettings.headerColourBG, 'border-bottom': config.uiSettings.border}">
+                    <button type="button" ng-show="tryGoal" ng-click="splitScreen = !splitScreen;" class="splitModal" >
+                        <i ng-class=" {'fa-window-maximize' : splitScreen, 'fa-columns' : !splitScreen}" class="fa"></i>
+                    </button>
+                    <h1 class="header-title noTransition" ng-style="{'color': config.uiSettings.headerColourText}">{{goalInfo.description}}</h1>
+                </header>
 
-            <section class="agent-content">
-                <div class="try-goal-body" ng-include="'/applications/tryGoal/component/shared/tryGoalBody.html'"></div>
-            </section>
-        <div class="agent-footer-holder modal-footer">
-            <div class="agent-button-row">
-                <button ng-hide="tryGoal" id="exit" class="btn btn-default separate" value="Exit"
-                        ng-click="exit()"
-                        ng-style="{'background-color': config.uiSettings.tertiaryColourBG}"
-                >Exit</button>
-                <button id="reset" class="btn btn-default separate" value="Reset"
-                        ng-if="display !== 'init data'"
-                        ng-click="postMessage('Reset'); runGoal(goalInfo)"
-                        ng-style="{'background-color': config.uiSettings.tertiaryColourBG}"
-                >Reset</button>
-                <button ng-hide="tryGoal" id="done" class="btn btn-info" value="Done"
-                        ng-if="display === 'result'"
-                        ng-click="exit()"
-                        ng-style="{'background-color': config.uiSettings.primaryColourBG}"
-                >Done</button>
-                <button id="continue" class="btn btn-info" value="Continue"
-                        ng-if="display === 'init data'"
-                        ng-disabled="!init.objectInstance && !init.subjectInstance"
-                        ng-click="startGoalContext()"
-                        ng-style="{'background-color': config.uiSettings.primaryColourBG}"
-                >Continue</button>
-                <button id="continue"  class="btn btn-info" value='{{ displayContinueOrSkip() }}'
-                        ng-if="display === 'secondForm' || display === 'firstForm'"
-                        ng-disabled='disableContinue()'
-                        ng-click="respond()"
-                        ng-style="{'background-color': config.uiSettings.primaryColourBG}"
-                >{{ displayContinueOrSkip() }}</button>
-                <button id="back" class="btn btn-primary" value="Back"
-                        ng-show="config.uiSettings.showBackButton"
-                        ng-if="display === 'secondForm' || display === 'firstForm'"
-                        ng-click="back()"
-                        ng-style="{'background-color': config.uiSettings.tertiaryColourBG}"
-                >Back</button>
+                <section class="agent-content">
+                    <div class="try-goal-body" ng-include="'/applications/tryGoal/component/shared/tryGoalBody.html'"></div>
+                </section>
+            <div class="agent-footer-holder modal-footer">
+                <div class="agent-button-row">
+                    <button ng-hide="tryGoal" id="exit" class="btn btn-default separate" value="Exit"
+                            ng-click="exit()"
+                            ng-style="{'background-color': config.uiSettings.tertiaryColourBG}"
+                    >Exit</button>
+                    <button id="reset" class="btn btn-default separate" value="Reset"
+                            ng-if="display !== 'init data'"
+                            ng-click="postMessage('Reset'); runGoal(goalInfo)"
+                            ng-style="{'background-color': config.uiSettings.tertiaryColourBG}"
+                    >Reset</button>
+                    <button ng-hide="tryGoal" id="done" class="btn btn-info" value="Done"
+                            ng-if="display === 'result'"
+                            ng-click="exit()"
+                            ng-style="{'background-color': config.uiSettings.primaryColourBG}"
+                    >Done</button>
+                    <button id="continue" class="btn btn-info" value="Continue"
+                            ng-if="display === 'init data'"
+                            ng-disabled="!init.objectInstance && !init.subjectInstance"
+                            ng-click="startGoalContext()"
+                            ng-style="{'background-color': config.uiSettings.primaryColourBG}"
+                    >Continue</button>
+                    <button id="continue"  class="btn btn-info" value='{{ displayContinueOrSkip() }}'
+                            ng-if="display === 'secondForm' || display === 'firstForm'"
+                            ng-disabled='disableContinue()'
+                            ng-click="respond()"
+                            ng-style="{'background-color': config.uiSettings.primaryColourBG}"
+                    >{{ displayContinueOrSkip() }}</button>
+                    <button id="back" class="btn btn-primary" value="Back"
+                            ng-show="config.uiSettings.showBackButton"
+                            ng-if="display === 'secondForm' || display === 'firstForm'"
+                            ng-click="back()"
+                            ng-style="{'background-color': config.uiSettings.tertiaryColourBG}"
+                    >Back</button>
+                </div>
+                <footer ng-class="{'split-screen-footer' : splitScreen}" class="agent-footer noTransition" ng-style="{'background-color': config.uiSettings.footerColourBG, 'border-top': config.uiSettings.border}">
+                    <img class="footer-logo" src="/applications/img/{{config.uiSettings.logoChoice ? config.uiSettings.logoChoice : 'RB_powered.png'}}" />
+                </footer>
             </div>
-            <footer class="agent-footer noTransition" ng-style="{'background-color': config.uiSettings.footerColourBG, 'border-top': config.uiSettings.border}">
-                <img class="footer-logo" src="/applications/img/{{config.uiSettings.logoChoice ? config.uiSettings.logoChoice : 'RB_powered.png'}}" />
-            </footer>
         </div>
     </div>
 </div>
