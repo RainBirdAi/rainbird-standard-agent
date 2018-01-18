@@ -49,7 +49,7 @@ services.factory('agentHttpInterceptor', ['agentMemory', '$rootScope', function(
                 log = {type: 'response'};
                 log.method = response.config.method;
                 log.url = response.config.url;   
-                log.data = response.data;   
+                log.data = JSON.parse(JSON.stringify(response.data)); 
                 log.headers = response.config.headers;
                 $rootScope.apiOutput.push(log);
             }

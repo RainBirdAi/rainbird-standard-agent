@@ -3,9 +3,12 @@
     <div ng-cloak tabindex="-1" ng-keyup="$event.keyCode == 13 && enterPressed()" >
         <div>
             <section class="agent-content" style="flex: 1 1 auto; overflow: visible;">
+                <button type="button" ng-show="tryGoal" ng-click="toggleSplitScreen()" class="splitModal" >
+                    <i ng-class=" {'fa-window-maximize' : splitScreen, 'fa-columns' : !splitScreen}" class="fa"></i>
+                </button>
                 <div class="try-goal-body" ng-include="'/applications/tryGoal/component/shared/tryGoalBody.html'"></div>
             </section>
-        <div class="agent-footer-holder modal-footer">
+        <div ng-class="{'split-screen-footer' : splitScreen}" class="agent-footer-holder modal-footer">
             <div class="agent-button-row">
                 <button ng-hide="tryGoal" id="exit" class="btn btn-default separate" value="Exit"
                         ng-click="exit()"

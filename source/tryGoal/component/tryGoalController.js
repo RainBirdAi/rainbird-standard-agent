@@ -1,6 +1,6 @@
 angular.module('rbApp.tryGoal')
-.controller('TryGoalController', ['$scope', 'agentMemory', '$compile', '$stateParams', 'config', 'GoalAPI', 'ConfigAPI', 'ApiConfig', '$state', '$location', '$filter', 'focusElementById', '$timeout', '$rootScope',
-function($scope, agentMemory, $compile, $stateParams, config, GoalAPI, ConfigAPI, ApiConfig, $state, $location, $filter, focusElementById, $timeout, $rootScope) {
+.controller('TryGoalController', ['$scope', 'agentMemory', '$compile', '$stateParams', 'config', 'GoalAPI', 'ConfigAPI', 'ApiConfig', '$state', '$location', '$filter', 'focusElementById', '$rootScope', '$timeout',
+function($scope, agentMemory, $compile, $stateParams, config, GoalAPI, ConfigAPI, ApiConfig, $state, $location, $filter, focusElementById, $rootScope, $timeout) {
 
     var contextId;
     var sessionId;
@@ -8,7 +8,6 @@ function($scope, agentMemory, $compile, $stateParams, config, GoalAPI, ConfigAPI
     $scope.otherOption = {value: '(other - not listed)'};
     $scope.yolandaUrl = ApiConfig.getConfig().url;
     $scope.tryGoal = agentMemory.tryGoal;
-    $scope.splitScreen = false;
 
     $scope.updateAlias = function() {
         sessionId = null;
@@ -93,6 +92,22 @@ function($scope, agentMemory, $compile, $stateParams, config, GoalAPI, ConfigAPI
         angular.element(ele).append(input);
     };
 
+    $scope.removePluralInput = function(questionIndex, type) {
+        var ele = document.querySelector('#' + type + 'Inputs' + questionIndex + ' #' + type + 'Input' + ($scope.response.questions[questionIndex].pluralInputCounter - 1));  //this needs proper targetting
+        ele.parentNode.removeChild(ele);
+        delete $scope.answer.selection[$scope.response.questions[questionIndex].pluralInputCounter - 1];
+        $scope.response.questions[questionIndex].pluralInputCounter--;
+    };
+
+    $scope.startGoalContext = function() {
+        $scope.display = 'thinking';
+
+        ConfigAPI.getSessionId({ id: $stateParams.id, contextid: contextId}, function(response) {
+            sessionId = response.sessionId;
+            $scope.queryGoal();
+        });
+    };
+
     $scope.$watch('apiOutput', function() {
         
         if (agentMemory.tryGoal) {
@@ -112,20 +127,8 @@ function($scope, agentMemory, $compile, $stateParams, config, GoalAPI, ConfigAPI
         
     }, true);
 
-    $scope.removePluralInput = function(questionIndex, type) {
-        var ele = document.querySelector('#' + type + 'Inputs' + questionIndex + ' #' + type + 'Input' + ($scope.response.questions[questionIndex].pluralInputCounter - 1));  //this needs proper targetting
-        ele.parentNode.removeChild(ele);
-        delete $scope.answer.selection[$scope.response.questions[questionIndex].pluralInputCounter - 1];
-        $scope.response.questions[questionIndex].pluralInputCounter--;
-    };
-
-    $scope.startGoalContext = function() {
-        $scope.display = 'thinking';
-
-        ConfigAPI.getSessionId({ id: $stateParams.id, contextid: contextId}, function(response) {
-            sessionId = response.sessionId;
-            $scope.queryGoal();
-        });
+    $scope.toggleSplitScreen = function() {
+        $scope.$parent.splitScreen = !$scope.$parent.splitScreen;
     };
 
     $scope.queryGoal = function() {
