@@ -8,3 +8,4 @@ components/
 dist/
 components/
 public/
+package-lock.json

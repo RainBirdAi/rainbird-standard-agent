@@ -13,7 +13,6 @@
     "express": "4.15.x",
     "gulp-concat": "2.4.x",
     "gulp-eslint": "2.0.x",
-    "gulp-imagemin": "3.1.x",
     "gulp-istanbul-enforcer": "1.0.x",
     "gulp-less": "3.0.x",
     "gulp-ng-annotate": "0.5.x",
@@ -21,9 +20,9 @@
     "gulp-sourcemaps": "1.6.x",
     "gulp-uglify": "1.0.x",
     "gulp-util": "3.0.x",
-    "karma": "0.12.x",
     "run-sequence": "1.2.x",
-    "superagent": "3.6.x"
+    "superagent": "3.6.x",
+    "karma": "1.7.x"
   },
   "devDependencies": {
     "angular": "1.4.8",

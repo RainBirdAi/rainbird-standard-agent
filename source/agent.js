@@ -9,7 +9,7 @@ agentApp.value('agentMemory',
 );
 
 
-agentApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
+agentApp.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', function($stateProvider, $urlRouterProvider, $httpProvider) {
 
     $urlRouterProvider.otherwise('/main');
 
@@ -61,6 +61,7 @@ agentApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvider
             params: { goalInfo: null, id: null }
         });
 
+    $httpProvider.interceptors.push('agentHttpInterceptor');
 }]);
 
 agentApp.service('ApiConfig', ['$rootScope', function($rootScope){
