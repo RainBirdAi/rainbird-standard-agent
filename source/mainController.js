@@ -1,13 +1,12 @@
 angular.module('rbAgent')
-    .controller('MainController', ['$scope', 'config', '$state', '$timeout', '$rootScope',
-        function($scope, config, $state, $timeout, $rootScope) {
+    .controller('MainController', ['$scope', 'config', '$state', '$timeout', '$rootScope', 'agentMemory',
+        function($scope, config, $state, $timeout, $rootScope, agentMemory) {
             $scope.config = config;
             $scope.state = $state;
             $state.go('main.goalList', null, {
                 location: 'replace'
             });
-
-
+            $scope.splitScreen = false;
 
             $scope.$watch('apiOutput', function() {
                 
