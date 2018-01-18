@@ -4,5 +4,8 @@ newrelic_agent.log
 coverage/
 docs/
 personalTools
+components/
+bower_components/
+dist/
 public/
 package-lock.json
