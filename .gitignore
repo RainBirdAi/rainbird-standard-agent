@@ -5,6 +5,7 @@ coverage/
 docs/
 personalTools
 components/
+bower_components/
 dist/
-components/
 public/
+package-lock.json

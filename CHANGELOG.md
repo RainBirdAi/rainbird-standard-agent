@@ -42,6 +42,7 @@ facing release notes.
   *  [Fix]   RB-1215: Prevent question text displaying twice with second form object truth questions & respond correctly.
   *  [Fix]   RB-1222: Fix jumping between page transitions.
   * [Misc]    RB-821: Allow %C to be used in answer text for certainty.
+  *  [Fix]   RB-1377: allow split screen of agent with API Log details in the split screen.
 
 ## v2.12.0
 

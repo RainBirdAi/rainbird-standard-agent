@@ -1,6 +1,6 @@
 angular.module('rbApp.tryGoal')
-.controller('TryGoalController', ['$scope', 'agentMemory', '$compile', '$stateParams', 'config', 'GoalAPI', 'ConfigAPI', 'ApiConfig', '$state', '$location', '$filter', 'focusElementById',
-function($scope, agentMemory, $compile, $stateParams, config, GoalAPI, ConfigAPI, ApiConfig, $state, $location, $filter, focusElementById) {
+.controller('TryGoalController', ['$scope', 'agentMemory', '$compile', '$stateParams', 'config', 'GoalAPI', 'ConfigAPI', 'ApiConfig', '$state', '$location', '$filter', 'focusElementById', '$rootScope', '$timeout',
+function($scope, agentMemory, $compile, $stateParams, config, GoalAPI, ConfigAPI, ApiConfig, $state, $location, $filter, focusElementById, $rootScope, $timeout) {
 
     var contextId;
     var sessionId;
@@ -41,6 +41,7 @@ function($scope, agentMemory, $compile, $stateParams, config, GoalAPI, ConfigAPI
     $scope.runGoal = function(goalInfo) {
         var requiresInitData = false;
         $scope.init = {};
+        $rootScope.apiOutput = new Array();
 
         contextId = goalInfo.contextId;
 
@@ -105,6 +106,29 @@ function($scope, agentMemory, $compile, $stateParams, config, GoalAPI, ConfigAPI
             sessionId = response.sessionId;
             $scope.queryGoal();
         });
+    };
+
+    $scope.$watch('apiOutput', function() {
+        
+        if (agentMemory.tryGoal) {
+            var displayText = JSON.stringify($rootScope.apiOutput, null, 1);
+            
+            var lines = displayText.split('\n');
+            lines.splice(0,1);
+            if (lines.length > 0) {
+                lines.splice(lines.length - 1,1);
+            }
+            $rootScope.apiOutputDisplay = lines.join('\n');
+        }
+        $timeout(function() {
+            var logPanel = document.querySelector('#scroll-content');
+            logPanel.scrollTop = logPanel.scrollHeight;
+        }, 150);
+        
+    }, true);
+
+    $scope.toggleSplitScreen = function() {
+        $scope.$parent.splitScreen = !$scope.$parent.splitScreen;
     };
 
     $scope.queryGoal = function() {

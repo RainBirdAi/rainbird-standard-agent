@@ -6,4 +6,5 @@ angular.module('rbAgent')
             $state.go('main.goalList', null, {
                 location: 'replace'
             });
+            $scope.splitScreen = false;
         }]);

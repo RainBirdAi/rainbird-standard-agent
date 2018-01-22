@@ -1,21 +1,24 @@
-<div class="agent-wrapper">
-    <div ng-cloak class="agent">
-        <header ng-show="config" class="agent-header noTransition" ng-style="{'background-color': config.uiSettings.headerColourBG, 'border-bottom': config.uiSettings.border}">
-            <h1 class="header-title noTransition" ng-style="{'color': config.uiSettings.headerColourText}">{{ config.agentName }}</h1>
-            <h3 class="header-description noTransition" ng-style="{'color': config.uiSettings.headerColourText}">{{ config.agentDescription }}</h3>
-        </header>
+<div id="log-wrapper">
+    <div class="api-log" ng-show="splitScreen" ng-include="'/applications/tryGoal/component/shared/apiLog.html'"></div>
+    <div class="agent-wrapper">
+        <div ng-cloak class="agent">
+            <header ng-show="config" class="agent-header noTransition" ng-style="{'background-color': config.uiSettings.headerColourBG, 'border-bottom': config.uiSettings.border}">
+                <h1 class="header-title noTransition" ng-style="{'color': config.uiSettings.headerColourText}">{{ config.agentName }}</h1>
+                <h3 class="header-description noTransition" ng-style="{'color': config.uiSettings.headerColourText}">{{ config.agentDescription }}</h3>
+            </header>
 
-        <div ui-view class="innerNav" >
+            <div ui-view class="innerNav" >
 
+            </div>
+            <div id="error" class="active" ng-if="display === 'error'">
+                <p>{{errorMessage}}</p>
+                <p>If the problem persists, please contact <a href="mailto:support@rainbird.ai">support@rainbird.ai</a></p>
+            </div>
+            <div style="flex:0 0 auto;" ng-style="state.current.name.indexOf('goalList') > 0 ? {height:'0px'} : {height:'60px'}">
+            </div>
+            <footer class="agent-footer noTransition" ng-style="{'background-color': config.uiSettings.footerColourBG, 'border-top': config.uiSettings.border}">
+                <img class="footer-logo" src="/applications/img/{{config.uiSettings.logoChoice ? config.uiSettings.logoChoice : 'RB_powered.png'}}" />
+            </footer>
         </div>
-        <div id="error" class="active" ng-if="display === 'error'">
-            <p>{{errorMessage}}</p>
-            <p>If the problem persists, please contact <a href="mailto:support@rainbird.ai">support@rainbird.ai</a></p>
-        </div>
-        <div style="flex:0 0 auto;" ng-style="state.current.name.indexOf('goalList') > 0 ? {height:'0px'} : {height:'60px'}">
-        </div>
-        <footer class="agent-footer noTransition" ng-style="{'background-color': config.uiSettings.footerColourBG, 'border-top': config.uiSettings.border}">
-            <img class="footer-logo" src="/applications/img/{{config.uiSettings.logoChoice ? config.uiSettings.logoChoice : 'RB_powered.png'}}" />
-        </footer>
     </div>
 </div>
