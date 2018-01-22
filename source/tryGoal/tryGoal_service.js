@@ -23,7 +23,7 @@ services.factory('agentHttpInterceptor', ['agentMemory', '$rootScope', function(
 
         'request': function(config) {
             
-            if (agentMemory.tryGoal && !config.url.endsWith('.html') && 
+            if (agentMemory.tryGoal && 
             (config.url.endsWith('query') || config.url.endsWith('response'))) {
                 var log = {type: 'request'};
                 log.method = config.method;
@@ -43,7 +43,7 @@ services.factory('agentHttpInterceptor', ['agentMemory', '$rootScope', function(
                 $rootScope.apiOutput.push(log.request);
                 $rootScope.apiOutput.push(log.response);
 
-            } else if (agentMemory.tryGoal && !response.config.url.endsWith('.html') && 
+            } else if (agentMemory.tryGoal &&
             (response.config.url.endsWith('query') || response.config.url.endsWith('response'))) {
 
                 log = {type: 'response'};
