@@ -1,6 +1,6 @@
 {
   "name": "rainbird-standard-agent",
-  "version": "2.18.0",
+  "version": "2.18.1",
   "publishConfig": {
     "registry": "https://npm.rainbird.ai"
   },
@@ -68,7 +68,7 @@
     "karma-sinon": "1.0.x",
     "karma-sinon-chai": "0.3.x",
     "lolex": "1.4.x",
-    "mocha": "1.21.x",
+    "mocha": "5.0.x",
     "mysql": "^2.11.1",
     "object-assign": "4.0.x",
     "plato": "1.2.x",

@@ -10,6 +10,10 @@ facing release notes.
   *  [Fix] A bug fix
   * [Misc] Other items
 
+## v2.18.0
+
+  *  [Fix]   YOL-941: Update version of Mocha due to historic nsp vulnerability.
+
 ## v2.17.0
 
   *  [Fix]   YOL-900: Bring up to date with release 2.16
