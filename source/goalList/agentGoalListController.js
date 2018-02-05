@@ -53,6 +53,7 @@ angular.module('rbAgent')
     }
 
     function handleError(err) {
+    	console.error(err);
         $scope.errorMessage = err.message ? err.message : 'Sorry! An error occurred. Please try again.';
         $scope.display = 'error';
     }

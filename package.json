@@ -1,6 +1,6 @@
 {
   "name": "rainbird-standard-agent",
-  "version": "2.18.1",
+  "version": "2.18.2",
   "publishConfig": {
     "registry": "https://npm.rainbird.ai"
   },
@@ -26,8 +26,9 @@
   },
   "devDependencies": {
     "angular": "1.4.8",
+    "browser-sync": "^2.18.13",
     "react": "0.14.0",
-    "jquery": "1.9.1",
+    "jquery": "3.0.x",
     "angular-mocks": "1.4.8",
     "angular-animate": "1.4.8",
     "angular-cookies": "1.4.8",
@@ -50,12 +51,12 @@
     "gulp-autoprefixer": "2.0.x",
     "gulp-concat": "2.4.x",
     "gulp-eslint": "2.0.x",
-    "gulp-imagemin": "3.1.x",
     "gulp-istanbul-enforcer": "1.0.x",
     "gulp-jshint": "1.9.x",
     "istanbul": "0.4.x",
     "jshint": "2.5.x",
     "sinon": "1.17.x",
+    "karma": "1.7.x",
     "karma-chai": "0.1.x",
     "karma-chai-jquery": "1.0.x",
     "karma-chrome-launcher": "0.1.x",

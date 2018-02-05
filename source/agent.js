@@ -1,4 +1,4 @@
-var agentApp = angular.module('rbAgent', ['ui.router', 'rbApp.tryGoal', 'rbApp.tryGoal.service', 'ui.bootstrap']);
+var agentApp = angular.module('rbAgent', ['ui.router', 'rbApp.tryGoal', 'rbApp.tryGoal.service', 'ui.bootstrap', 'semantic-ui', 'pluralNumbers', 'datePicker']);
 
 agentApp.value('agentMemory',
     {

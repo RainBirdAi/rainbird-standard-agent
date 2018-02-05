@@ -38,65 +38,28 @@
         <p ng-if="question.prompt" class="rb-note-default question-prompt">{{question.prompt}}</p>
 
         <div id="secondFormBlock" class="col-sm-12" ng-if="question.dataType === 'string'">
-            <!-- Concept type question - Singular -->
-            <select id="singularAnswerSelect" class="rb-try-goal-full-width" ng-if="unidirectionalPluralFalse(question) && question.concepts" ng-model="question.answer.selection[0]"
-                    ng-options="concept.value as concept.value disable when concept.invalidResponse for concept in question.concepts">
-                <option value=""></option>
-            </select>
-            <!-- Concept type question - Plural -->
-            <div ng-if="question.plural || !unidirectionalPluralFalse(question)" class="inlineCheckboxGrouped" ng-repeat="concept in question.concepts" style="white-space: nowrap;">
-                <label>
-                    <input class="rb-try-goal-full-width"
-                        value="concept.value" type="checkbox" ng-click="selectConcept(concept.value, $index, question)" ng-disabled="conceptIsKnownAnswer(concept.value) || concept.invalidResponse" ng-checked="conceptIsKnownAnswer(concept.value)">
-                    <span ng-class="{ 'disabled': conceptIsKnownAnswer(concept.value) || concept.invalidResponse }">{{concept.value}}</span>
-                </label>
-            </div>
-            <!-- CanAdd Plural Input - Extra inputs added when data is added -->
-            <div id="otherValueInput0"  ng-if="question.canAdd && (question.plural  || !unidirectionalPluralFalse(question))" class="inlineCheckboxGrouped" >
-                <label>
-                    <i class="fa fa-minus-square" aria-hidden="true" ng-click="removeOtherInput($index, 0);"></i>
-                    <input id="pluralOther0" ng-model="question.answer.selection[question.concepts ? question.concepts.length : 0 ]" ng-change="addOtherInput($index)" placeholder="enter other value" class="otherInput rb-try-goal-full-width"
-                           value="" type="text" autofocus>
-                </label>
-            </div>
-            <div class="col-sm-12 rb-try-goal-other" ng-show="question.answer.selection.indexOf(otherOption.value) > -1" style="padding: 0;">
-                <p class="rb-note-default">Other:</p>
-                <input id="answerOther" class="rb-try-goal-full-width" type="text" ng-model="question.answer.otherValue" />
-            </div>
+            <!--can add-->
+            <sm-dropdown ng-if="question.canAdd"  ng-class="{multiple: question.plural}" class="fluid search selection" model="question.answer.selection" items="question.conceptOptions"  default-text="Select" settings="{allowAdditions: true, hideAdditions: false}"></sm-dropdown>
+            <!--can't add-->
+            <sm-dropdown ng-if="!question.canAdd" ng-class="{multiple: question.plural}" class="fluid search selection" model="question.answer.selection" items="question.conceptOptions"  default-text="Select" settings="{allowAdditions: false}"></sm-dropdown>
         </div>
-
-        <div class="col-sm-12" ng-if="question.dataType === 'string' && !question.concepts && unidirectionalPluralFalse(question)">
-            <input id="singleOther" class="rb-try-goal-full-width" type="text" ng-model="question.answer.selection[0]" autofocus />
-        </div>
-
 
         <!-- Number type question -->
         <div class="col-sm-12" ng-if="question.dataType === 'number'">
-            <!-- any edits to the number input line should be replicated in tryGoalController.js -->
-            <div ng-attr-id="{{'numberInputs' + $index}}">
-                <input ng-if="question.plural" id="numberInput0" class="rb-try-goal-full-width numberInput" rb-number-only type="number" ng-model="question.answer.selection[0]" class="rb_input number" />
-                <input ng-if="!question.plural" id="numberInput0" class="rb-try-goal-full-width numberInput" rb-number-only type="number" ng-model="question.answer.selection[0]" class="rb_input number" />
+            <!--singular-->
+            <div class="ui input fluid">
+                <input ng-if="!question.plural" type="number" placeholder="number" ng-model="question.answer.selection[0]">
             </div>
-            <div ng-include="'/applications/tryGoal/component/shared/addRemovePluralButtons.html'"></div>
+            <!--plural-->
+            <plural-numbers ng-if="question.plural" answers="question.answer.selection"></plural-numbers>
+
         </div>
 
         <!-- Date type question -->
         <div class="col-sm-12" ng-if="question.dataType === 'date'">
-            <!-- any edits to the date input line should be replicated in tryGoalController.js -->
-            <div ng-attr-id="{{'dateInputs' + $index}}">
-                <div class="instanceDatepicker" id="dateInput0">
-                    <input id="dateInputText0" ng-if="question.plural" type="text" class="form-control" uib-datepicker-popup ng-model="question.answer.selection[0]"
-                           is-open="datePicker.instances[0]" datepicker-options="datePicker.options" ng-required="true" close-text="Close" show-button-bar="false"
-                           placeholder="yyyy-MM-dd" popup-placement="auto bottom-left" ng-model-options="{timezone: 'utc'}"/>
-                    <input id="dateInputText0" ng-if="!question.plural" type="text" class="form-control" uib-datepicker-popup ng-model="question.answer.selection[0]"
-                           is-open="datePicker.instances[0]" datepicker-options="datePicker.options" ng-required="true" close-text="Close" show-button-bar="false"
-                           placeholder="yyyy-MM-dd" popup-placement="auto bottom-left" ng-model-options="{timezone: 'utc'}"/>
-                    <button id="datePicker0" type="button" class="btn btn-default displayPicker" ng-click="datePicker.open($event, 0)">
-                        <i class="glyphicon glyphicon-calendar"></i>
-                    </button>
-                </div>
-            </div>
-            <div ng-include="'/applications/tryGoal/component/shared/addRemovePluralButtons.html'"></div>
+
+            <date-picker plural="question.plural" answers="question.answer.selection"></date-picker>
+
         </div>
     </div>
 

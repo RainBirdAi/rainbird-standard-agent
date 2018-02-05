@@ -73,32 +73,6 @@ function($scope, agentMemory, $compile, $stateParams, config, GoalAPI, ConfigAPI
         $scope.display = 'error';
     }
 
-    function getNumberInput(questionIndex, instance) {
-        return '<input id="numberInput' + instance + '" class="rb-try-goal-full-width numberInput" rb-number-only type="number" ng-model="response.questions[' + questionIndex + '].answer.selection[' + instance + ']" class="rb_input number" />';
-    }
-
-    function getDateInput(questionIndex, instance) {
-        return '<div class="instanceDatepicker" id="dateInput' + instance + '">' +
-            '<input id="dateInputText' + instance + '" type="text" class="form-control" uib-datepicker-popup ng-model="response.questions[' + questionIndex + '].answer.selection[' + instance + ']" is-open="datePicker.instances[' + instance + ']" ' +
-            'datepicker-options="datePicker.options" ng-required="true" close-text="Close" show-button-bar="false" placeholder="yyyy-MM-dd" popup-placement="auto bottom-left" ng-model-options="{timezone: \'utc\'}"/>  ' +
-            '<button id="datePicker' + instance + '" type="button" class="btn btn-default displayPicker" ng-click="datePicker.open($event, ' + instance + ')"><i class="glyphicon glyphicon-calendar"></i></button></div>';
-    }
-
-    $scope.addPluralInput = function(questionIndex, type) {
-        var instance = $scope.response.questions[questionIndex].pluralInputCounter++;
-        var input = (type == 'number') ? angular.element(getNumberInput(questionIndex, instance)) : angular.element(getDateInput(questionIndex, instance));
-        var ele = document.querySelector('#' + type + 'Inputs' + questionIndex);
-        $compile(input)($scope);
-        angular.element(ele).append(input);
-    };
-
-    $scope.removePluralInput = function(questionIndex, type) {
-        var ele = document.querySelector('#' + type + 'Inputs' + questionIndex + ' #' + type + 'Input' + ($scope.response.questions[questionIndex].pluralInputCounter - 1));  //this needs proper targetting
-        ele.parentNode.removeChild(ele);
-        delete $scope.answer.selection[$scope.response.questions[questionIndex].pluralInputCounter - 1];
-        $scope.response.questions[questionIndex].pluralInputCounter--;
-    };
-
     $scope.startGoalContext = function() {
         $scope.display = 'thinking';
 
@@ -168,16 +142,19 @@ function($scope, agentMemory, $compile, $stateParams, config, GoalAPI, ConfigAPI
 
         if (response.question) {
             if (config.uiSettings.questionGrouping && response.extraQuestions) {
-                response.questions = response.extraQuestions;
-            }
+				response.questions = response.extraQuestions;
+			}
+            response.question.answer = {selection: [], cf: 100};
             response.questions.splice(0, 0, response.question);
             response.questions.forEach(function (question) {
                 question.answer = {selection: [], cf: 100};
                 question.pluralInputCounter = 1;
-                if (question.concepts && question.concepts.length > 0 && question.canAdd !== false && $scope.unidirectionalPluralFalse(question)) {
-                    question.concepts.push($scope.otherOption);
-                }
+                question.conceptOptions = [];
+				question.concepts && question.concepts.forEach(function(concept) {
+                	question.conceptOptions.push(concept.value);
+				})
             });
+
 
             $scope.response = response;
         }
@@ -189,6 +166,7 @@ function($scope, agentMemory, $compile, $stateParams, config, GoalAPI, ConfigAPI
             } else {
                 $scope.display = 'secondForm';
             }
+
         } else if (response.result && angular.isArray(response.result) && response.result.length > 0) {
             $scope.goalResults = [];
             $scope.response = {};
@@ -221,76 +199,26 @@ function($scope, agentMemory, $compile, $stateParams, config, GoalAPI, ConfigAPI
         } else {
             handleError(response);
         }
-    };
 
-    $scope.addOtherInput = function (questionIndex) {
-        if ($scope.unidirectionalPluralFalse($scope.response.questions[questionIndex])) {
-            return;
-        }
-
-        var otherInputs = document.querySelectorAll('#question' + questionIndex + ' .otherInput');
-        var emptyOtherInputs = 0;
-
-        otherInputs.forEach(function(otherInput) {
-            if (!otherInput.value) {
-                emptyOtherInputs++;
-            }
-        });
-
-        if (!emptyOtherInputs) {
-            var conceptsLength = ($scope.response.questions[questionIndex].concepts ? $scope.response.questions[questionIndex].concepts.length : 0);
-
-            var selectionIndex = conceptsLength + $scope.response.questions[questionIndex].pluralInputCounter;
-            var input = angular.element(
-                '<div class="inlineCheckboxGrouped" id="' + ('otherValueInput' + selectionIndex) + '">' +
-                '<label>' +
-                '<i class="fa fa-minus-square" aria-hidden="true" ng-click="removeOtherInput(' + questionIndex + ', '+ selectionIndex +');"></i>' +
-                '<input id="pluralOther0" ng-model="response.questions[' + questionIndex + '].answer.selection[' + selectionIndex + ']" ng-change="addOtherInput(' + questionIndex + ')" placeholder="enter other value" class="otherInput rb-try-goal-full-width"' +
-                'value="" type="text">' +
-                '</label>' +
-                '</div>');
-            $compile(input)($scope);
-            var ele = document.querySelector('#question' + questionIndex + ' #secondFormBlock');
-            angular.element(ele).append(input);
-
-            $scope.response.questions[questionIndex].pluralInputCounter++;
-        }
-    };
-
-    $scope.removeOtherInput = function (questionIndex, selectionIndex) {
-        delete $scope.response.questions[questionIndex].answer.selection[selectionIndex];
-        var otherInputs = document.querySelectorAll('#question' + questionIndex + ' .otherInput');
-
-        var emptyOtherInputs = 0;
-
-        otherInputs.forEach(function(otherInput) {
-            if (!otherInput.value) {
-                emptyOtherInputs++;
-            }
-        });
-
-
-        for (var i = 0 ; i < otherInputs.length; i++) {
-            if (!otherInputs[i].value) {
-                if (otherInputs.length > 1 && emptyOtherInputs > 1) {
-                    emptyOtherInputs--;
-                    angular.element( document.querySelector('#question' + questionIndex + ' #otherValueInput' + selectionIndex) ).remove();
-                }
-                break;
-            }
-        }
     };
 
     $scope.enterPressed = function() {
-        if ($scope.display === 'init data') {
-            if ($scope.init.objectInstance || $scope.init.subjectInstance){
-                $scope.startGoalContext();
-            }
-        } else {
-            if (!$scope.disableContinue()) {
-                $scope.respond();
-            }
-        }
+		if ($scope.display === 'init data') {
+			if ($scope.init.objectInstance || $scope.init.subjectInstance) {
+				$scope.startGoalContext();
+			}
+		} else {
+			if ($scope.response && $scope.response.questions) {
+				var disableEnter = $scope.response.questions.some(function(question) {
+					return question.dataType === 'string';
+				});
+
+
+			}
+			if (!disableEnter && !$scope.disableContinue()) {
+				$scope.respond();
+			}
+		}
     };
 
     $scope.selectConcept = function (value, index, question) {
@@ -335,6 +263,14 @@ function($scope, agentMemory, $compile, $stateParams, config, GoalAPI, ConfigAPI
                 }
                 responseObject.push(temp);
             } else { //Second form
+				if (question.answer.selection.currentValue) {  //currentValue is used by some plural inputs where having it's value in the selection array is awkward.
+					question.answer.selection.push(question.answer.selection.currentValue);
+					delete question.answer.selection.currentValue;
+				}
+				if (typeof (question.answer.selection) == 'string') {
+					question.answer.selection = [question.answer.selection];
+				}
+
                 if (question.answer.selection.length) {
                     question.answer.selection.forEach(function (userSelection) {
                         if (!hasValue(userSelection)) {
@@ -477,6 +413,9 @@ function($scope, agentMemory, $compile, $stateParams, config, GoalAPI, ConfigAPI
 
     $scope.containsAnswer = function(answers){
         var ret = false;
+        if (answers.currentValue) {
+        	return true;
+		}
         for (var i = 0; i < answers.length; i++){
             if ($scope.hasValue(answers[i])){
                 ret = true;
@@ -519,4 +458,17 @@ function($scope, agentMemory, $compile, $stateParams, config, GoalAPI, ConfigAPI
     };
 
     init();
-}]);
+}])
+		.directive('stringToNumber', function() {
+			return {
+				require: 'ngModel',
+				link: function(scope, element, attrs, ngModel) {
+					ngModel.$parsers.push(function(value) {
+						return '' + value;
+					});
+					ngModel.$formatters.push(function(value) {
+						return parseFloat(value);
+					});
+				}
+			};
+		});
