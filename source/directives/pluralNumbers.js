@@ -5,6 +5,7 @@ angular.module('pluralNumbers', [])
 
 					//SETTINGS
 					scope.forceUniqueNumbers = true; //set to false to allow the front end to send an array like ['10', '10'].
+                    scope.fractionalPart = false;
 					//END SETTINGS
 
 					scope.inputValue = '';
@@ -15,33 +16,46 @@ angular.module('pluralNumbers', [])
 							e.preventDefault();
 							addNumberToAnswers();
 						} else if (e.key == 'Backspace') {
-							if (scope.inputValue.length > 0) {
-									//perform backspace action
-									scope.inputValue = scope.inputValue.substring(0, scope.inputValue.length -1);
-									scope.answers.currentValue = scope.inputValue;
-							} else {
+							if (typeof(scope.inputValue) != 'number' && scope.pluralNumbersInput.$valid) {
 								scope.answers.splice(scope.answers.length-1, 1);
 								scope.answers.currentValue = '';
 								e.preventDefault();
+							} else if (typeof(scope.inputValue) == 'number' && scope.inputValue.toString().indexOf('.') === -1){
+                                scope.fractionalPart = false;
 							}
 							scope.$apply();
-						} else if (!~['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.', 'ArrowLeft', 'ArrowRight'].indexOf(e.key)) {
+						} else if (!~['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.', '-', 'ArrowLeft', 'ArrowRight'].indexOf(e.key)) {
 							e.preventDefault();
-						}
+						} else {
+							// Check that the number won't become too big.
+							// We allow 15 digits.
+							if (typeof(scope.inputValue) == 'number' && !scope.fractionalPart) {
 
+								if (e.key == '.') {
+                                    scope.fractionalPart = true;
+								} else {
+                                    var newValue = scope.inputValue.toString().concat(e.key);
+                                    if (newValue.replace(/^-/, '').length > 15) {
+                                        e.preventDefault();
+                                    }
+								}
+							}
+						}
 					});
 
 					function addNumberToAnswers() {
-						scope.inputValue = scope.inputValue.replace(/\s/, '');
-						scope.inputValue = scope.inputValue.match(/(0*)(\d+)/)[2];
-						if (scope.forceUniqueNumbers && !~scope.answers.indexOf(scope.inputValue) && !!~scope.inputValue.search(/\d/)) {
-							scope.answers.push(scope.inputValue);
-						} else if (!scope.forceUniqueNumbers && !!~scope.inputValue.search(/\d/)) {
-							scope.answers.push(scope.inputValue);
+						var inputDigits = /(0*)(-*\d+)/.exec(scope.inputValue);
+						if (Array.isArray(inputDigits) && inputDigits.length == 3) {
+                            scope.inputValue = inputDigits[2];
+                            if (scope.forceUniqueNumbers && !~scope.answers.indexOf(scope.inputValue) && /-*\d/.exec(scope.inputValue)) {
+                                scope.answers.push(scope.inputValue);
+                            } else if (!scope.forceUniqueNumbers && /-*\d/.exec(scope.inputValue)) {
+                                scope.answers.push(scope.inputValue);
+                            }
+                            scope.inputValue = '';
+                            scope.answers.currentValue = '';
+                            scope.$apply();
 						}
-						scope.inputValue = '';
-						scope.answers.currentValue = '';
-						scope.$apply();
 					}
 
 					scope.deleteNumber = function (index) {
@@ -69,11 +83,11 @@ angular.module('pluralNumbers', [])
 					plural: '='
 				},
 				template:
-					'<div class="ui input selection search numberInputSemantic" >' +
+					'<div class="ui input selection search numberInputSemantic" ng-form="pluralNumbersInput" >' +
 							'<a ng-repeat="answer in answers track by $index" class="ui label transition visible" data-value="worst colour a">' +
 							'{{answer}}<i class="delete icon" ng-click="deleteNumber($index)"></i>' +
 							'</a>' +
-					'	<input ng-change="numberChange()" class="search semanticInputOverride" type="text" placeholder="number" ng-model="inputValue" >' +
+					'	<input ng-change="numberChange()" class="search semanticInputOverride" type="number" placeholder="number" ng-model="inputValue" max="999999999999999" min="-999999999999999" >' +
 					'<label class="hoverOverLightElement fa fa-plus ui label plusButton" ng-click="addNumberPressed()"></label>' +
 					'</div>'
 			};
