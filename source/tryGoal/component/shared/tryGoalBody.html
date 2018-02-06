@@ -48,7 +48,7 @@
         <div class="col-sm-12" ng-if="question.dataType === 'number'">
             <!--singular-->
             <div class="ui input fluid">
-                <input ng-if="!question.plural" type="number" placeholder="number" ng-model="question.answer.selection[0]">
+                <input ng-if="!question.plural" type="number" placeholder="number" ng-model="question.answer.selection[0]" max="999999999999999" min="-999999999999999">
             </div>
             <!--plural-->
             <plural-numbers ng-if="question.plural" answers="question.answer.selection"></plural-numbers>

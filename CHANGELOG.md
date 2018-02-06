@@ -12,6 +12,7 @@ facing release notes.
 
 ## v2.18.0
 
+  *  [Fix]   RB-1301: Fix the evidence tree for long numbers, or place a limit on the length of the number I can enter.
   *  [Fix]   YOL-941: Update version of Mocha due to historic nsp vulnerability.
 
 ## v2.17.0
