@@ -24,6 +24,14 @@ angular.module('pluralNumbers', [])
                                 scope.fractionalPart = false;
 							}
 							scope.$apply();
+						} else if (e.key === '.' && scope.inputValue) {
+							if (!!~scope.inputValue.toString().indexOf('.')) {
+								e.preventDefault();
+							}
+						} else if (e.key === '-' && scope.inputValue) {
+							if (!!~scope.inputValue.toString().indexOf('-')) {
+								e.preventDefault();
+							}
 						} else if (!~['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.', '-', 'ArrowLeft', 'ArrowRight'].indexOf(e.key)) {
 							e.preventDefault();
 						} else {
@@ -44,18 +52,18 @@ angular.module('pluralNumbers', [])
 					});
 
 					function addNumberToAnswers() {
-						var inputDigits = /(0*)(-*\d+)/.exec(scope.inputValue);
-						if (Array.isArray(inputDigits) && inputDigits.length == 3) {
-                            scope.inputValue = inputDigits[2];
-                            if (scope.forceUniqueNumbers && !~scope.answers.indexOf(scope.inputValue) && /-*\d/.exec(scope.inputValue)) {
-                                scope.answers.push(scope.inputValue);
-                            } else if (!scope.forceUniqueNumbers && /-*\d/.exec(scope.inputValue)) {
-                                scope.answers.push(scope.inputValue);
-                            }
-                            scope.inputValue = '';
-                            scope.answers.currentValue = '';
-                            scope.$apply();
+						var inputDigits = /[0-9.-]*/.exec(scope.inputValue)[0];
+						scope.inputValue = inputDigits;
+
+						if (scope.forceUniqueNumbers && !~scope.answers.indexOf(scope.inputValue)) {
+
+							scope.answers.push(scope.inputValue);
+						} else if (!scope.forceUniqueNumbers) {
+							scope.answers.push(scope.inputValue);
 						}
+						scope.inputValue = '';
+						scope.answers.currentValue = '';
+						scope.$apply();
 					}
 
 					scope.deleteNumber = function (index) {
