@@ -12,6 +12,8 @@ facing release notes.
 
 ## v2.18.0
 
+  *  [Fix]   RB-1441: Add date picker icon.
+  *  [Fix]   RB-1442: Fix date format
   *  [Fix]   RB-1429/30: Fix Evidence tree icon missing in try-query/agent
   *  [Fix]   RB-1432: Fix API Log not scrolling
   *  [Fix]   RB-1301: Fix the evidence tree for long numbers, or place a limit on the length of the number I can enter.

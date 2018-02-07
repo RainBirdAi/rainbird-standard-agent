@@ -14,7 +14,7 @@ angular.module('datePicker', [])
 								e.preventDefault();
 							}
 							scope.$apply();
-						} else if (!~['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '/', 'ArrowLeft', 'ArrowRight'].indexOf(e.key)) {
+						} else if (!~['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '-', 'ArrowLeft', 'ArrowRight'].indexOf(e.key)) {
 							e.preventDefault();
 						}
 
@@ -39,10 +39,10 @@ angular.module('datePicker', [])
 								{
 									autoclose: !scope.plural,
 									orientation: "bottom right",
-									format: 'yyyy/mm/dd',
+									format: 'yyyy-mm-dd',
 									beforeShowDay: function (date){
-										var dateString = date.getFullYear() + '/' +
-												(date.getMonth()[1] ? (date.getMonth() + 1) : '0' + (date.getMonth() + 1)) + '/' +
+										var dateString = date.getFullYear() + '-' +
+												(date.getMonth()[1] ? (date.getMonth() + 1) : '0' + (date.getMonth() + 1)) + '-' +
 												(date.getDate() < 10 ? '0' + date.getDate() : date.getDate());
 
 										if (!!~scope.answers.indexOf(dateString)) {
@@ -58,7 +58,7 @@ angular.module('datePicker', [])
 					scope.showDatePicker = true;
 
 					scope.dateAdded = function() {
-						if (!!~scope.inputValue.search(/\d{4}\/\d{2}\/\d{2}/)) {
+						if (!!~scope.inputValue.search(/\d{4}-\d{2}-\d{2}/)) {
 							if (scope.plural) {
 								if (!~scope.answers.indexOf(scope.inputValue)) {
 									scope.answers.push(scope.inputValue);
@@ -86,7 +86,8 @@ angular.module('datePicker', [])
 				'<a ng-if="plural" ng-repeat="answer in answers track by $index" class="ui label transition visible" >' +
 				'{{answer}}<i class="delete icon" ng-click="deleteAnswer($index)"></i>' +
 				'</a>' +
-				'	<input id="semanticdatepicker" class="search semanticInputOverride" type="text" placeholder="YYYY/MM/DD" ng-model="inputValue" ng-change="dateAdded()" >\n' +
+				'	<input id="semanticdatepicker" class="search semanticInputOverride" type="text" placeholder="YYYY-MM-DD" ng-model="inputValue" ng-change="dateAdded()" >\n' +
+				'<label class="hoverOverLightElement fa fa-calendar ui label calendar-label"></label>' +
 				'</div>'
 			};
 		}]);
