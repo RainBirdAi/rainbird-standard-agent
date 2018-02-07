@@ -144,14 +144,37 @@ function($scope, agentMemory, $compile, $stateParams, config, GoalAPI, ConfigAPI
             if (config.uiSettings.questionGrouping && response.extraQuestions) {
 				response.questions = response.extraQuestions;
 			}
-            response.question.answer = {selection: [], cf: 100};
+			response.question.answer = {selection: [], cf: 100};
             response.questions.splice(0, 0, response.question);
             response.questions.forEach(function (question) {
+
+            	if (question.type == 'Second Form Object') {
+            		question.knownAnswers.forEach(function(knownFact) {
+            			question.concepts.forEach(function(concInst) {
+							if (knownFact.object == concInst.value) {
+								concInst.disabled = true;
+							}
+						})
+					});
+				} else if (question.type == 'Second Form Subject') {
+					question.knownAnswers.forEach(function(knownFact) {
+						question.concepts.forEach(function(concInst) {
+							if (knownFact.subject == concInst.value) {
+								concInst.disabled = true;
+							}
+						})
+					});
+				}
+
                 question.answer = {selection: [], cf: 100};
                 question.pluralInputCounter = 1;
+                question.disabledConceptOptions = [];
                 question.conceptOptions = [];
 				question.concepts && question.concepts.forEach(function(concept) {
                 	question.conceptOptions.push(concept.value);
+                	if (concept.disabled) {
+                		question.disabledConceptOptions.push(concept.value);
+					}
 				})
             });
 
