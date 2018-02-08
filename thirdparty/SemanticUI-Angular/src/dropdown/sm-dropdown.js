@@ -58,6 +58,7 @@
 				/* Required */
 				model: '=',
 				items: '=',
+				disabledItems: '=',
 				label: '&',
 				value: '&',
 				/* Optional */
@@ -93,6 +94,10 @@
 	function SemanticDropdownController($scope)
 	{
 		var hashMap = {};
+
+		$scope.getDisabled = function (item) {
+			return !!~$scope.disabledItems.indexOf(item);
+		};
 
 		// Returns the value to be placed in the data-value attribute. If the computed value has a $$hashKey,
 		// then return the hashKey. This enables the exact instance of the item to be set to the model.
@@ -251,7 +256,7 @@
 									modelWatcher.update();
 								}
 							} else if ( element.dropdown('setting', 'allowAdditions') ) {
-								scope.model.push( value );
+								!~scope.model.indexOf(value) && scope.model.push( value );
 								modelWatcher.update();
 							}
 						}

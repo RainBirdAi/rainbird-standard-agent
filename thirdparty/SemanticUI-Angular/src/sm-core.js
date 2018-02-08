@@ -325,7 +325,7 @@
 
 			template: [
 				'<div class="menu">',
-				'  <div class="item" ng-repeat="item in items" data-value="{{ getValue(item) }}" sm-html="label({item:item})"></div>',
+				'  <div class="item" ng-class="{\'disabled\': getDisabled(item)}" ng-repeat="item in items" data-value="{{ getValue(item) }}" sm-html="label({item:item})"></div>',
 				'</div>'
 			].join('\n')
 		}
