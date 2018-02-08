@@ -12,6 +12,7 @@ facing release notes.
 
 ## v2.18.0
 
+  *  [Fix]   RB-1438: Fix interactions around decimal points.
   *  [Fix]   RB-1441: Add date picker icon.
   *  [Fix]   RB-1442: Fix date format
   *  [Fix]   RB-1429/30: Fix Evidence tree icon missing in try-query/agent
