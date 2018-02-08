@@ -80,6 +80,7 @@
 			template: [
 				'<div class="ui dropdown">',
 				'<i class="dropdown icon"></i>',
+				'<i ng-if="!settings.isMultiple" ng-hide="isEmpty()" class="remove icon" ng-click="clearSelection($event)" style="right: 30px;"></i>',
 				'<div class="text" ng-class="::{default: hasDefault()}" sm-html="::getDefaultText()"></div>',
 				'<sm-flat-menu></sm-flat-menu>',
 				'</div>'
@@ -94,6 +95,11 @@
 	function SemanticDropdownController($scope)
 	{
 		var hashMap = {};
+
+		$scope.clearSelection = function(e) {
+			$scope.domElement.dropdown('clear');
+			e.stopPropagation();
+		};
 
 		$scope.getDisabled = function (item) {
 			return !!~$scope.disabledItems.indexOf(item);
@@ -165,6 +171,7 @@
   function SemanticDropdownLink(SemanticUI, $timeout)
   {
     return function (scope, element, attributes) {
+    	scope.domElement = element;
       var applyValue = function (value) {
         $timeout(function () {
           if (value === null) {
@@ -231,7 +238,7 @@
 								var mapped = scope.findMatchingItem( value );
 								if (angular.isDefined(mapped)) {
 									var mappedValue = scope.value({item: mapped});
-									modelWatcher.set( mappedValue );
+									modelWatcher.set(mappedValue);
 								} else if ( element.dropdown('setting', 'allowAdditions') ) {
 									modelWatcher.set( value );
 								} else {

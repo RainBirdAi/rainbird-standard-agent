@@ -36,7 +36,7 @@ gulp.task('build-min', function () {
       .pipe( plugins.uglify({mangle:true}) )
     .pipe( sourcemaps.write('.') )
     .pipe( plugins.header(banner, { pkg : pkg } ))
-    .pipe( gulp.dest('.') );
+    .pipe( gulp.dest('../../source') );
 });
 
 gulp.task('default', ['build', 'build-min']);
