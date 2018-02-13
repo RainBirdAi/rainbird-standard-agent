@@ -12,6 +12,7 @@ facing release notes.
 
 ## v2.18.0
 
+  *  [Fix]   RB-1441: Date icon now toggles date picker menu.
   *  [Fix]   RB-1437: Add button for clearing dropdown selection.
   *  [Fix]   RB-1438: Fix interactions around decimal points.
   *  [Fix]   RB-1441: Add date picker icon.
