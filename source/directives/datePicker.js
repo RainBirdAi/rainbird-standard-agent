@@ -8,6 +8,7 @@ angular.module('datePicker', [])
 					scope.pickerVisible = false;
 
 					element.on('keydown', function(e) {
+						console.log('keydown');
 						if (e.key == 'Backspace') {
 
 							if (scope.inputValue.length == 0) {
@@ -59,6 +60,7 @@ angular.module('datePicker', [])
 					scope.showDatePicker = true;
 
 					scope.dateAdded = function() {
+						console.log('change');
 						if (!!~scope.inputValue.search(/\d{4}-\d{2}-\d{2}/)) {
 							if (scope.plural) {
 								if (!~scope.answers.indexOf(scope.inputValue)) {
