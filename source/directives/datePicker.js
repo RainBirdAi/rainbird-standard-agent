@@ -5,6 +5,7 @@ angular.module('datePicker', [])
 
 					scope.inputValue = '';
 					scope.answers = [];
+					scope.pickerVisible = false;
 
 					element.on('keydown', function(e) {
 						if (e.key == 'Backspace') {
@@ -73,6 +74,15 @@ angular.module('datePicker', [])
 								$(scope.input).datepicker('update', scope.inputValue);
 							}
 						}
+					};
+
+					scope.toggle = function(event) {
+						event.stopPropagation();
+						if ($('.datepicker-dropdown').length) {
+							$(scope.input).datepicker('hide');
+						} else {
+							$(scope.input).datepicker('show');
+						}
 					}
 				},
 				restrict: 'E',
@@ -87,7 +97,7 @@ angular.module('datePicker', [])
 				'{{answer}}<i class="delete icon" ng-click="deleteAnswer($index)"></i>' +
 				'</a>' +
 				'	<input id="semanticdatepicker" class="search semanticInputOverride" type="text" placeholder="YYYY-MM-DD" ng-model="inputValue" ng-change="dateAdded()" >\n' +
-				'<label class="hoverOverLightElement fa fa-calendar ui label calendar-label"></label>' +
+				'<label class="hoverOverLightElement fa fa-calendar ui label calendar-label" ng-mousedown="toggle($event)"></label>' +
 				'</div>'
 			};
 		}]);
