@@ -160,7 +160,7 @@ function($scope, agentMemory, $compile, $stateParams, config, GoalAPI, ConfigAPI
 						if (concInst.invalidResponse) {
 							concInst.disabled = true;
 						}
-					})
+					});
 				} else if (question.type == 'Second Form Subject') {
 					question.knownAnswers.forEach(function(knownFact) {
 						question.concepts.forEach(function(concInst) {
