@@ -156,6 +156,11 @@ function($scope, agentMemory, $compile, $stateParams, config, GoalAPI, ConfigAPI
 							}
 						})
 					});
+					question.concepts.forEach(function (concInst) {
+						if (concInst.invalidResponse) {
+							concInst.disabled = true;
+						}
+					});
 				} else if (question.type == 'Second Form Subject') {
 					question.knownAnswers.forEach(function(knownFact) {
 						question.concepts.forEach(function(concInst) {
@@ -163,6 +168,11 @@ function($scope, agentMemory, $compile, $stateParams, config, GoalAPI, ConfigAPI
 								concInst.disabled = true;
 							}
 						})
+					});
+					question.concepts.forEach(function (concInst) {
+						if (concInst.invalidResponse) {
+							concInst.disabled = true;
+						}
 					});
 				}
 
