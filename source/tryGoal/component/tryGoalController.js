@@ -156,7 +156,7 @@ function($scope, agentMemory, $compile, $stateParams, config, GoalAPI, ConfigAPI
 							}
 						})
 					});
-					question.concepts.forEach(function (concInst) {
+					question.concepts && question.concepts.forEach(function (concInst) {
 						if (concInst.invalidResponse) {
 							concInst.disabled = true;
 						}
@@ -169,7 +169,7 @@ function($scope, agentMemory, $compile, $stateParams, config, GoalAPI, ConfigAPI
 							}
 						})
 					});
-					question.concepts.forEach(function (concInst) {
+					question.concepts && question.concepts.forEach(function (concInst) {
 						if (concInst.invalidResponse) {
 							concInst.disabled = true;
 						}
