@@ -12,6 +12,7 @@ facing release notes.
 
 ## v2.18.0
 
+  *  [Fix]   RB-1470: Fix datasources hanging.
   *  [Fix]   RB-1463: Fix invalidResponse flag being ignored.
   *  [Fix]   RB-1462: Typing an existing date won't remove it if it exists.
   *  [Fix]   RB-1441: Date icon now toggles date picker menu.
