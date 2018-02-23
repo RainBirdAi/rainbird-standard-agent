@@ -304,7 +304,7 @@ function($scope, agentMemory, $compile, $stateParams, config, GoalAPI, ConfigAPI
 					question.answer.selection = [question.answer.selection];
 				}
 
-                if (question.answer.selection.length) {
+                if ($scope.containsAnswer(question.answer.selection)) {
                     question.answer.selection.forEach(function (userSelection) {
                         if (!hasValue(userSelection)) {
                             return;
