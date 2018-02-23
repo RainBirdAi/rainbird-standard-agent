@@ -33,12 +33,12 @@ angular.module('datePicker', [])
 
 					scope.input = element[0].children[0].children[0];
 					element.on('mousedown', function(e) {
-						openDatePicker();
+						makeDatePicker();
 						scope.input.focus();
 					});
 
 					var made = false;
-					function openDatePicker () {
+					function makeDatePicker() {
 						if (!made) {
 							made = true;
 							$(scope.input).datepicker(
@@ -57,7 +57,6 @@ angular.module('datePicker', [])
 									},
 									keyboardNavigation: false
 								}).on('changeDate', function(e) { scope.dateAdded(e.date);});
-							scope.$apply();
 						}
 					}
 
@@ -92,10 +91,15 @@ angular.module('datePicker', [])
 
 					scope.toggle = function(event) {
 						event.stopPropagation();
-						if ($('.datepicker-dropdown').length) {
-							$(scope.input).datepicker('hide');
-						} else {
+						if(!made) {
+							makeDatePicker();
 							$(scope.input).datepicker('show');
+						} else {
+							if ($('.datepicker-dropdown').length) {
+								$(scope.input).datepicker('hide');
+							} else {
+								$(scope.input).datepicker('show');
+							}
 						}
 					}
 				},

@@ -12,6 +12,7 @@ facing release notes.
 
 ## v2.18.0
 
+  *  [Fix]   RB-1473: Fix date picker occasionally initializing with the wrong date format.
   *  [Fix]   RB-1472: Fix clear not fulling clearing.
   *  [Fix]   RB-1470: Fix datasources hanging.
   *  [Fix]   RB-1463: Fix invalidResponse flag being ignored.
