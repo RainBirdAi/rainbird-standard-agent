@@ -446,7 +446,7 @@ function($scope, agentMemory, $compile, $stateParams, config, GoalAPI, ConfigAPI
 
     $scope.containsAnswer = function(answers){
         var ret = false;
-        if (answers.currentValue) {
+        if (answers.currentValue || answers.currentValue === 0) {
         	return true;
 		}
         for (var i = 0; i < answers.length; i++){
