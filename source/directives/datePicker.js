@@ -48,7 +48,7 @@ angular.module('datePicker', [])
 									format: 'yyyy-mm-dd',
 									beforeShowDay: function (date){
 										var dateString = date.getFullYear() + '-' +
-												(date.getMonth() < 10 ? '0' + (date.getMonth() + 1) : (date.getMonth() + 1)) + '-' +
+												(date.getMonth() < 9 ? '0' + (date.getMonth() + 1) : (date.getMonth() + 1)) + '-' +
 												(date.getDate() < 10 ? '0' + date.getDate() : date.getDate());
 
 										if (!!~scope.answers.indexOf(dateString)) {
@@ -66,7 +66,7 @@ angular.module('datePicker', [])
 						var keyboard = date === undefined;
 						if(date) {
 							date = date.getFullYear() + '-' +
-									(date.getMonth() < 10 ? '0' + (date.getMonth() + 1) : (date.getMonth() + 1)) + '-' +
+									(date.getMonth() < 9 ? '0' + (date.getMonth() + 1) : (date.getMonth() + 1)) + '-' +
 									(date.getDate() < 10 ? '0' + date.getDate() : date.getDate());
 						} else {
 							date = scope.inputValue;
