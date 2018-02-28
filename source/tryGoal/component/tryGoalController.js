@@ -296,7 +296,7 @@ function($scope, agentMemory, $compile, $stateParams, config, GoalAPI, ConfigAPI
                 }
                 responseObject.push(temp);
             } else { //Second form
-				if (question.answer.selection.currentValue) {  //currentValue is used by some plural inputs where having it's value in the selection array is awkward.
+				if (question.answer.selection.currentValue || question.answer.selection.currentValue === 0) {  //currentValue is used by some plural inputs where having it's value in the selection array is awkward.
 					question.answer.selection.push(question.answer.selection.currentValue);
 					delete question.answer.selection.currentValue;
 				}
