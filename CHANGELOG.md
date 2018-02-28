@@ -12,6 +12,7 @@ facing release notes.
 
 ## v2.18.0
 
+  *  [Fix]  RB-1502B: Fix 0 not being sent back to Yolanda in grouped questions.
   *  [Fix]   RB-1502: Fix 0 not being recognized as a value for whether to enable continue button.
   *  [Fix]  RB-1474B: Actually fix bug in date picker.
   *  [Fix]   RB-1474: Fix bug around Octobers in date picker
