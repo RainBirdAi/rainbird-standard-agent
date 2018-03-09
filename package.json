@@ -1,6 +1,6 @@
 {
   "name": "rainbird-standard-agent",
-  "version": "2.18.14",
+  "version": "2.19.0",
   "publishConfig": {
     "registry": "https://npm.rainbird.ai"
   },
