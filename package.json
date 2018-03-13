@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "ejs": "2.5.x",
-    "express": "4.15.x",
+    "express": "4.16.x",
     "gulp-concat": "2.4.x",
     "gulp-eslint": "2.0.x",
     "gulp-istanbul-enforcer": "1.0.x",

@@ -10,6 +10,10 @@ facing release notes.
   *  [Fix] A bug fix
   * [Misc] Other items
 
+## v2.19.0
+
+  *  [Fix]   YOL-957: Update express 4.14 to 4.16.
+
 ## v2.18.0
 
   *  [Fix]  RB-1502B: Fix 0 not being sent back to Yolanda in grouped questions.
