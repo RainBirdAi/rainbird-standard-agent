@@ -12,6 +12,7 @@ facing release notes.
 
 ## v2.19.0
 
+  *  [Fix]   RB-1435: Improve ease of using the tab key to access the 'Continue' button.
   *  [Fix]   YOL-957: Update express 4.14 to 4.16.
 
 ## v2.18.0
