@@ -89,6 +89,19 @@
   width: 87px;
 }
 
+.modal-footer button:focus {
+  outline-style: auto;
+  outline-width: 4px;
+  transition: unset;
+  box-shadow: 0 0 5px 2px @focus-outline;
+}
+
+#cfbar:focus {
+  outline-color: @focus-outline;
+  outline-width: 4px;
+  outline-style: auto;
+}
+
 .noTransition {
   -moz-transition: none;
   -webkit-transition: none;

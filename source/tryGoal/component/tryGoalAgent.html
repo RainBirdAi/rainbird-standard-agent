@@ -9,20 +9,6 @@
         </section>
     <div ng-class="{'split-screen-footer' : splitScreen}" class="agent-footer-holder modal-footer">
         <div class="agent-button-row">
-            <button ng-hide="tryGoal" id="exit" class="btn btn-default separate" value="Exit"
-                    ng-click="exit()"
-                    ng-style="{'background-color': config.uiSettings.tertiaryColourBG}"
-            >Exit</button>
-            <button id="reset" class="btn btn-default separate" value="Reset"
-                    ng-if="display !== 'init data'"
-                    ng-click="postMessage('Reset'); runGoal(goalInfo)"
-                    ng-style="{'background-color': config.uiSettings.tertiaryColourBG}"
-            >Reset</button>
-            <button ng-hide="tryGoal" id="done" class="btn btn-info" value="Done"
-                    ng-if="display === 'result'"
-                    ng-click="exit()"
-                    ng-style="{'background-color': config.uiSettings.primaryColourBG}"
-            >Done</button>
             <button id="continue" class="btn btn-info" value="Continue"
                     ng-if="display === 'init data'"
                     ng-disabled="!init.objectInstance && !init.subjectInstance"
@@ -41,6 +27,20 @@
                     ng-click="back()"
                     ng-style="{'background-color': config.uiSettings.tertiaryColourBG}"
             >Back</button>
+            <button ng-hide="tryGoal" id="done" class="btn btn-info" value="Done"
+                    ng-if="display === 'result'"
+                    ng-click="exit()"
+                    ng-style="{'background-color': config.uiSettings.primaryColourBG}"
+            >Done</button>
+            <button ng-hide="tryGoal" id="exit" class="btn btn-default separate" value="Exit"
+                    ng-click="exit()"
+                    ng-style="{'background-color': config.uiSettings.tertiaryColourBG}"
+            >Exit</button>
+            <button id="reset" class="btn btn-default separate" value="Reset"
+                    ng-if="display !== 'init data'"
+                    ng-click="postMessage('Reset'); runGoal(goalInfo)"
+                    ng-style="{'background-color': config.uiSettings.tertiaryColourBG}"
+            >Reset</button>
         </div>
     </div>
 </div>
