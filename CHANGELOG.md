@@ -10,6 +10,10 @@ facing release notes.
   *  [Fix] A bug fix
   * [Misc] Other items
 
+## v2.20.0
+
+  *  [Fix]   YOL-988: Remove console log printing agent details.
+
 ## v2.19.0
 
   *  [Fix]   RB-1435: Improve ease of using the tab key to access the 'Continue' button.
