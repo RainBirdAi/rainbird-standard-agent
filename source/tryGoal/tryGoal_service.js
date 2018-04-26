@@ -22,9 +22,15 @@ services.factory('agentHttpInterceptor', ['agentMemory', '$rootScope', function(
     return {
 
         'request': function(config) {
-            
+
+            const targetURL = config.url.split('?', 1)[0];
+
+            if (agentMemory.tryGoal && targetURL.endsWith('query')) {
+                config.url = config.url + '?profiler=true';
+            }
+
             if (agentMemory.tryGoal && 
-            (config.url.endsWith('query') || config.url.endsWith('response'))) {
+            (targetURL.endsWith('query') || targetURL.endsWith('response'))) {
                 var log = {type: 'request'};
                 log.method = config.method;
                 log.url = config.url;      
@@ -33,18 +39,21 @@ services.factory('agentHttpInterceptor', ['agentMemory', '$rootScope', function(
                 log.headers = config.headers;    
                 $rootScope.apiOutput.push(log);
             }
+
             return config;
         },
     
         'response': function(response) {
             var log;
+            const targetURL = response.config.url.split('?', 1)[0];
+
             if (response.data && response.data.apiLog) {
                 log = response.data.apiLog;
                 $rootScope.apiOutput.push(log.request);
                 $rootScope.apiOutput.push(log.response);
 
             } else if (agentMemory.tryGoal &&
-            (response.config.url.endsWith('query') || response.config.url.endsWith('response'))) {
+            (targetURL.endsWith('query') || targetURL.endsWith('response'))) {
 
                 log = {type: 'response'};
                 log.method = response.config.method;
