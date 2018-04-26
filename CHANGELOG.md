@@ -13,6 +13,7 @@ facing release notes.
 ## v2.20.0
 
   *  [New]   YOL-995: Update tryQuery so that it always passes profiler=true on a query request.
+  *  [Fix]   YOL-988: Remove console log printing agent details.
 
 ## v2.19.0
 
