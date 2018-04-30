@@ -79,6 +79,8 @@ function($scope, agentMemory, $compile, $stateParams, config, GoalAPI, ConfigAPI
         ConfigAPI.getSessionId({ id: $stateParams.id, contextid: contextId}, function(response) {
             sessionId = response.sessionId;
             $scope.queryGoal();
+        }, function (err) {
+            handleError(err.data);
         });
     };
 

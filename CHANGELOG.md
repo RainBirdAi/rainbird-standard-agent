@@ -12,6 +12,7 @@ facing release notes.
 
 ## v2.20.0
 
+  *  [Fix]  TRIN-222: Handle errors from calling the start endpoint.
   *  [New]   YOL-995: Update tryQuery so that it always passes profiler=true on a query request.
   *  [Fix]   YOL-988: Remove console log printing agent details.
 
