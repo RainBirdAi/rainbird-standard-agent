@@ -44,9 +44,9 @@
 
         <div id="secondFormBlock" class="col-sm-12" ng-if="question.dataType === 'string'">
             <!--can add-->
-            <sm-dropdown ng-if="question.canAdd"  ng-class="{multiple: question.plural}" class="fluid search selection" model="question.answer.selection" items="question.conceptOptions" disabled-items="question.disabledConceptOptions" default-text="Select" settings="{allowAdditions: true, hideAdditions: false, isMultiple: question.plural}"></sm-dropdown>
+            <sm-dropdown ng-if="question.canAdd"  ng-class="{multiple: question.plural}" class="fluid search selection" model="question.answer.selection" items="question.conceptOptions" disabled-items="question.disabledConceptOptions" default-text="Select" settings="{allowAdditions: true, hideAdditions: false, isMultiple: question.plural, forceSelection: false}"></sm-dropdown>
             <!--can't add-->
-            <sm-dropdown ng-if="!question.canAdd" ng-class="{multiple: question.plural}" class="fluid search selection" model="question.answer.selection" items="question.conceptOptions" disabled-items="question.disabledConceptOptions" default-text="Select" settings="{allowAdditions: false, isMultiple: question.plural}"></sm-dropdown>
+            <sm-dropdown ng-if="!question.canAdd" ng-class="{multiple: question.plural}" class="fluid search selection" model="question.answer.selection" items="question.conceptOptions" disabled-items="question.disabledConceptOptions" default-text="Select" settings="{allowAdditions: false, isMultiple: question.plural, forceSelection: false}"></sm-dropdown>
         </div>
 
         <!-- Number type question -->
