@@ -12,6 +12,7 @@ facing release notes.
 
 ## v2.20.0
 
+  *  [Fix]   RB-1543: Allow second form dropdowns to open when it's items are disabled.
   *  [Fix]   RB-1487: Top instance in a dropdown is 'selected' even when you haven't chosen it.
   *  [Fix]  TRIN-222: Handle errors from calling the start endpoint.
   *  [New]   YOL-995: Update tryQuery so that it always passes profiler=true on a query request.
