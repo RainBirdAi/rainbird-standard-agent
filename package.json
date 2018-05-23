@@ -1,6 +1,6 @@
 {
   "name": "rainbird-standard-agent",
-  "version": "2.21.0",
+  "version": "2.21.1",
   "publishConfig": {
     "registry": "https://npm.rainbird.ai"
   },
@@ -14,7 +14,7 @@
     "gulp-concat": "2.4.x",
     "gulp-eslint": "2.0.x",
     "gulp-istanbul-enforcer": "1.0.x",
-    "gulp-less": "3.0.x",
+    "gulp-less": "3.5.x",
     "gulp-ng-annotate": "0.5.x",
     "gulp-rename": "1.2.x",
     "gulp-sourcemaps": "1.6.x",
