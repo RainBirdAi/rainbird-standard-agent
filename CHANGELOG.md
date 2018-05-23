@@ -10,6 +10,10 @@ facing release notes.
   *  [Fix] A bug fix
   * [Misc] Other items
 
+## v2.21.0
+
+  *  [Fix]   RB-1605: Updated gulp-less version to avoid vulnerable version of Hoek package.
+
 ## v2.20.0
 
   *  [Fix]   RB-1543: Allow second form dropdowns to open when it's items are disabled.
