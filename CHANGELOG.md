@@ -10,6 +10,10 @@ facing release notes.
   *  [Fix] A bug fix
   * [Misc] Other items
 
+## v2.22.0
+  
+  *  [Fix]   RB-1493: Updated dependencies which nsp was reporting as bringing in high vulnerabilities.
+
 ## v2.21.0
 
   *  [Fix]   RB-1605: Updated gulp-less version to avoid vulnerable version of Hoek package.
