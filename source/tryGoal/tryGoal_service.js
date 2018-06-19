@@ -23,7 +23,7 @@ services.factory('agentHttpInterceptor', ['agentMemory', '$rootScope', function(
 
         'request': function(config) {
 
-            const targetURL = config.url.split('?', 1)[0];
+            var targetURL = config.url.split('?', 1)[0];
 
             if (agentMemory.tryGoal && targetURL.endsWith('query')) {
                 config.url = config.url + '?profiler=true';
@@ -45,7 +45,7 @@ services.factory('agentHttpInterceptor', ['agentMemory', '$rootScope', function(
     
         'response': function(response) {
             var log;
-            const targetURL = response.config.url.split('?', 1)[0];
+            var targetURL = response.config.url.split('?', 1)[0];
 
             if (response.data && response.data.apiLog) {
                 log = response.data.apiLog;

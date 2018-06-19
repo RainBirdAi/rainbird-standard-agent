@@ -1,12 +1,15 @@
 {
   "name": "rainbird-standard-agent",
-  "version": "2.22.0",
+  "version": "2.22.1",
   "publishConfig": {
     "registry": "https://npm.rainbird.ai"
   },
   "scripts": {
     "test": "istanbul cover _mocha -- -R spec test/*.test.js",
     "//": "istanbul report html"
+  },
+  "engines": {
+    "node": "8.9.3"
   },
   "dependencies": {
     "ejs": "2.5.x",
@@ -18,11 +21,11 @@
     "gulp-ng-annotate": "0.5.x",
     "gulp-rename": "1.2.x",
     "gulp-sourcemaps": "1.6.x",
-    "gulp-uglify": "1.0.x",
+    "gulp-uglify": "3.0.x",
     "gulp-util": "3.0.x",
     "run-sequence": "1.2.x",
-    "superagent": "3.6.x",
-    "karma": "1.7.x"
+    "superagent": "3.8.x",
+    "karma": "2.x.x"
   },
   "devDependencies": {
     "angular": "1.4.8",
