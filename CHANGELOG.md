@@ -12,6 +12,7 @@ facing release notes.
 
 ## v2.22.0
   
+  * [Misc]   RB-1636: Add unique ids to questions to ease automated testing.
   *  [Fix]   RB-1493: Updated dependencies which nsp was reporting as bringing in high vulnerabilities.
 
 ## v2.21.0

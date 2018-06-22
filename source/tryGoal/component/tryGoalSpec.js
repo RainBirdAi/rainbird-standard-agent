@@ -1875,6 +1875,17 @@ describe('Try Goal Controller', function() {
 
             });
 
+            describe('generateQuestionId', function() {
+                it('should return an id to be applied to the question div', function() {
+                    const result = scope.generateQuestionId('lives in');
+                    expect(result).to.equal('qinput_lives_in');
+                });
+
+                it('should replace invalid characters spaces with underscores', function() {
+                    const result = scope.generateQuestionId('lives in * !');
+                    expect(result).to.equal('qinput_lives_in____');
+                });
+            });
         });
     });
 });
