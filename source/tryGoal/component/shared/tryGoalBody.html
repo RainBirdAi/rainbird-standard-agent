@@ -36,9 +36,9 @@
 </div>
 
 <!-- Second form questions -->
-<div class="lineBreakBetween" ng-repeat="question in response.questions track by $index">
+<div class="lineBreakBetween" ng-repeat="question in response.questions">
 
-    <div ng-attr-id="{{'question' + $index}}" ng-if="display === 'secondForm' && question.dataType !== 'truth'" class="clearfix">
+    <div ng-attr-id="{{generateQuestionId(question.relationship)}}" ng-if="display === 'secondForm' && question.dataType !== 'truth'" class="clearfix">
 
         <p ng-if="question.prompt" class="rb-note-default question-prompt">{{question.prompt}}</p>
 
@@ -70,7 +70,7 @@
 
     <!-- Yes/No questions -->
 
-    <div ng-if="display === 'firstForm' || (display === 'secondForm' && question.dataType === 'truth')" class="clearfix">
+    <div ng-attr-id="{{generateQuestionId(question.relationship)}}" ng-if="display === 'firstForm' || (display === 'secondForm' && question.dataType === 'truth')" class="clearfix">
 
         <div>
             <p ng-if="question.prompt" class="rb-note-default">{{question.prompt}}</p>
