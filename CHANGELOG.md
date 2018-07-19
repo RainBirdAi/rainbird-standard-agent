@@ -10,6 +10,10 @@ facing release notes.
   *  [Fix] A bug fix
   * [Misc] Other items
 
+## v2.23.0
+
+  * [Misc]   RB-3191: Added basic Google analytics - page view tracking.
+
 ## v2.22.0
   
   * [Misc]   RB-1636: Add unique ids to questions to ease automated testing.
