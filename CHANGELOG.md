@@ -10,6 +10,10 @@ facing release notes.
   *  [Fix] A bug fix
   * [Misc] Other items
 
+## v2.24.0
+
+  *  [Fix]   RB-3209: Ignore responses from old Yolanda sessions.
+
 ## v2.23.0
 
   * [Misc]   RB-3191: Added basic Google analytics - page view tracking.
