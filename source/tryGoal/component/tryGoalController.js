@@ -42,7 +42,7 @@ function($scope, agentMemory, $compile, $stateParams, config, GoalAPI, ConfigAPI
         var requiresInitData = false;
         $scope.init = {};
         $rootScope.apiOutput = new Array();
-
+        sessionId = null;
         contextId = goalInfo.contextId;
 
         if (goalInfo.objectInstance === 'user provided') {
@@ -78,7 +78,12 @@ function($scope, agentMemory, $compile, $stateParams, config, GoalAPI, ConfigAPI
 
         ConfigAPI.getSessionId({ id: $stateParams.id, contextid: contextId}, function(response) {
             sessionId = response.sessionId;
-            $scope.queryGoal();
+
+            // Proceed unless the user has since pressed the reset button.
+            if ($scope.display !== 'init data'){
+                $scope.queryGoal();
+            }
+
         }, function (err) {
             handleError(err.data);
         });
@@ -121,10 +126,20 @@ function($scope, agentMemory, $compile, $stateParams, config, GoalAPI, ConfigAPI
         GoalAPI.queryGoal(goalInfo, function (response) {
             $scope.showError = false;
             $scope.processResponse(response);
-        }, function (err) {
-            handleError(err.data);
-        });
+        }, validateAndHandleError);
     };
+
+    function currentSession(id) {
+        return id === sessionId;
+    }
+
+    function validateAndHandleError(err) {
+        if (err && err.config && err.config.data && (!currentSession(err.config.data.sessionId))) {
+            return;
+        }
+
+        handleError(err.data);
+    }
 
     function formatObjectDateInQuestion(response) {
         if (response.question.objectType === 'date') {
@@ -134,6 +149,10 @@ function($scope, agentMemory, $compile, $stateParams, config, GoalAPI, ConfigAPI
     }
 
     $scope.processResponse = function (response) {
+        if (!currentSession(response.sid)) {
+            return;
+        }
+
         $scope.postMessage(response);
         
         if (response.question && response.question.allowUnknown) {
@@ -357,10 +376,7 @@ function($scope, agentMemory, $compile, $stateParams, config, GoalAPI, ConfigAPI
         },
         function(result) {
             $scope.processResponse(result);
-        },
-        function(err) {
-            handleError(err.data);
-        });
+        }, validateAndHandleError);
     };
 
     $scope.back = function() {
@@ -372,9 +388,7 @@ function($scope, agentMemory, $compile, $stateParams, config, GoalAPI, ConfigAPI
             } else {
                 $scope.processResponse(result);
             }
-        },function(err) {
-            handleError(err.data);
-        });
+        }, validateAndHandleError);
     };
 
     function alreadyDisplayingQuestion(question){
