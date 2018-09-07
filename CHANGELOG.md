@@ -10,6 +10,10 @@ facing release notes.
   *  [Fix] A bug fix
   * [Misc] Other items
 
+## v2.25.0
+
+  * [Misc]   RB-3278: The ability to add formatting to questions (first form, second form sub+obj).
+
 ## v2.24.0
 
   *  [Fix]   RB-3209: Ignore responses from old Yolanda sessions.
