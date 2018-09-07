@@ -40,7 +40,7 @@
 
     <div ng-attr-id="{{generateQuestionId(question.relationship)}}" ng-if="display === 'secondForm' && question.dataType !== 'truth'" class="clearfix">
 
-        <p ng-if="question.prompt" class="rb-note-default question-prompt">{{question.prompt}}</p>
+        <p ng-if="question.prompt" class="rb-note-default question-prompt" markdown-to-html="question.prompt"></p>
 
         <div id="secondFormBlock" class="col-sm-12" ng-if="question.dataType === 'string'">
             <!--can add-->
@@ -73,7 +73,7 @@
     <div ng-attr-id="{{generateQuestionId(question.relationship)}}" ng-if="display === 'firstForm' || (display === 'secondForm' && question.dataType === 'truth')" class="clearfix">
 
         <div>
-            <p ng-if="question.prompt" class="rb-note-default">{{question.prompt}}</p>
+            <p ng-if="question.prompt" class="rb-note-default" markdown-to-html="question.prompt"></p>
 
             <div class="form-group col-sm-12">
                 <div>
