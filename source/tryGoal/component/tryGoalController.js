@@ -8,9 +8,39 @@ function($scope, agentMemory, $compile, $stateParams, config, GoalAPI, ConfigAPI
     $scope.otherOption = {value: '(other - not listed)'};
     $scope.yolandaUrl = ApiConfig.getConfig().url;
     $scope.tryGoal = agentMemory.tryGoal;
+    $scope.certaintyOptions = [
+        {
+            certainty: '0',
+            copy: 'Uncertain'
+        },
+        {
+            certainty: '20',
+            copy: 'Not very sure'
+        },
+        {
+            certainty: '40',
+            copy: 'Fairly sure'
+        },
+        {
+            certainty: '60',
+            copy: 'Sure'
+        }
+        ,{
+            certainty: '80',
+            copy: 'Very Sure'
+        }
+        ,{
+            certainty: '100',
+            copy: 'Certain'
+        }
+    ];
 
     $scope.updateAlias = function() {
         sessionId = null;
+    };
+
+    $scope.setCertainty = function(certaintyOption) {
+        this.question.answer.cf = certaintyOption.certainty;
     };
 
     $scope.$on('tryGoal', function(event, args) {
