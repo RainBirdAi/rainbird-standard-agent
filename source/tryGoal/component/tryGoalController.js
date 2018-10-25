@@ -5,6 +5,14 @@ function($scope, agentMemory, $compile, $stateParams, config, GoalAPI, ConfigAPI
     var contextId;
     var sessionId;
     $scope.config = config;
+    $scope.certaintyStrings = {
+        '0': 'Uncertain',
+        '20': 'Not very sure',
+        '40': 'Fairly sure',
+        '60': 'Sure',
+        '80': 'Very Sure',
+        '100': 'Certain'
+    };
     $scope.otherOption = {value: '(other - not listed)'};
     $scope.yolandaUrl = ApiConfig.getConfig().url;
     $scope.tryGoal = agentMemory.tryGoal;

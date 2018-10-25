@@ -94,8 +94,8 @@
     <div ng-if="display === 'firstForm' || display === 'secondForm'" class="clearfix">
         <div class="col-sm-12 rb-goal-try-cfdiv question-certainty" ng-if="question.allowCF">
             <p>How sure are you?</p>
-            <input id="cfbar" class='rb-shared-try-goal-cf-input noTransition' name='cf' type="range" min="1" max="100" step="1" value="100" ng-model="question.answer.cf"/>
-            <output class='rb-try-goal-cf-output question-cf-text'>{{question.answer.cf}}%</output>
+            <input id="cfbar" class='rb-shared-try-goal-cf-input noTransition' name='cf' type="range" min="0" max="100" step="20" value="100" ng-model="question.answer.cf"/>
+            <output class='rb-try-goal-cf-output question-cf-text'>{{certaintyStrings[question.answer.cf]}}</output>
         </div>
     </div>
 </div>
