@@ -13,6 +13,7 @@ facing release notes.
 ## v2.25.0
 
   * [Misc]   RB-3278: The ability to add formatting to questions (first form, second form sub+obj).
+  * [Misc]   RB-3173: 'Agent' in Safari intermittently displays command buttons incorrectly when running a query
 
 ## v2.24.0
 
