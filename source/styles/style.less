@@ -1,5 +1,11 @@
+.clearfix::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
 .agent {
-  height: 100vh;
+  height: 100%;
 
   .agent-footer {
     background-color: @deep_purple;
@@ -221,7 +227,7 @@ span.disabled {
 
 #log-wrapper {
   display: flex;
-  resize: horizontal;
+  height: 100%;
 }
 
 .split-screen-footer {
