@@ -148,3 +148,15 @@ agentApp.directive('autofocus', ['$timeout', function($timeout) {
         }
     };
 }]);
+
+agentApp.filter('rbDateOutputFormat', ['$filter', function($filter) {
+    var suffixes = ['th', 'st', 'nd', 'rd'];
+    return function (input) {
+        var dtfilter = $filter('date')(input, 'd MMMM yyyy');
+        var split = dtfilter.split(' ');
+        var day = parseInt(split[0]);
+        var relevantDigits = (day < 30) ? day % 20 : day % 30;
+        var suffix = (relevantDigits <= 3) ? suffixes[relevantDigits] : suffixes[0];
+        return split[0] + suffix + ' ' + split[1] + ', ' + split[2];
+    };
+}]);
