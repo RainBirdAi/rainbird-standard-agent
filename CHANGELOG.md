@@ -10,6 +10,10 @@ facing release notes.
   *  [Fix] A bug fix
   * [Misc] Other items
 
+## v2.28.0
+
+  * [Fix]    RB-3295: Fix missing injector error in console when formatting dates.
+  
 ## v2.27.0
   * [Misc]   RB-3173: 'Agent' in Safari intermittently displays command buttons incorrectly when running a query
 
