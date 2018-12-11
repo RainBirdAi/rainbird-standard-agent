@@ -10,6 +10,10 @@ facing release notes.
   *  [Fix] A bug fix
   * [Misc] Other items
 
+## v2.26.0
+
+  * [Fix]    RB-3295: Fix missing injector error in console when formatting dates.
+
 ## v2.25.0
 
   * [Misc]   RB-3278: The ability to add formatting to questions (first form, second form sub+obj).
