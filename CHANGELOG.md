@@ -10,7 +10,7 @@ facing release notes.
   *  [Fix] A bug fix
   * [Misc] Other items
 
-## v2.28.1
+## v2.28.2
   * [Fix]   RB-3627: First form questions in the standard agent are not treated as different radio button groups
 
 ## v2.28.0
