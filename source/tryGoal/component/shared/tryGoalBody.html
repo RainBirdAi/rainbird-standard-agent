@@ -74,13 +74,12 @@
 
         <div>
             <p ng-if="question.prompt" class="rb-note-default" markdown-to-html="question.prompt"></p>
-
             <div class="form-group col-sm-12">
                 <div>
-                    <label><input id="answerYes" class="rb-try-radio" type='radio' name='value' value='yes' ng-model="question.answer.selection[0]">Yes</label>
+                    <label><input id="answerYes_{{ $index }}" class="rb-try-radio" type='radio' name='yes-value-{{ $index }}' value='yes' ng-model="question.answer.selection[0]">Yes</label>
                 </div>
                 <div>
-                    <label><input id="answerNo" class="rb-try-radio" type='radio' name='value' value='no' ng-model="question.answer.selection[0]">No</label>
+                    <label><input id="answerNo_{{ $index }}" class="rb-try-radio" type='radio' name='no-value-{{ $index }}' value='no' ng-model="question.answer.selection[0]">No</label>
                 </div>
             </div>
         </div>

@@ -10,10 +10,13 @@ facing release notes.
   *  [Fix] A bug fix
   * [Misc] Other items
 
+## v2.28.2
+  * [Fix]   RB-3627: First form questions in the standard agent are not treated as different radio button groups
+
 ## v2.28.0
 
   * [Fix]    RB-3295: Fix missing injector error in console when formatting dates.
-  
+
 ## v2.27.0
   * [Misc]   RB-3173: 'Agent' in Safari intermittently displays command buttons incorrectly when running a query
 
@@ -30,7 +33,7 @@ facing release notes.
   * [Misc]   RB-3191: Added basic Google analytics - page view tracking.
 
 ## v2.22.0
-  
+
   * [Misc]   RB-1636: Add unique ids to questions to ease automated testing.
   *  [Fix]   RB-1493: Updated dependencies which nsp was reporting as bringing in high vulnerabilities.
 
@@ -81,7 +84,7 @@ facing release notes.
   *  [Fix]   YOL-900: Fix canAdd setting being ignored.
 
 ## v2.16.0
-  
+
   * [Misc] YOL-865-3: Make unidirectional plural false a toggled off feature.
   *  [Fix] YOL-865-2: Disable invalid responses when presenting second form subject questions.
   *  [New]   YOL-865: Apply plural false in one direction only, subject > object.
@@ -120,7 +123,7 @@ facing release notes.
 
 ## v2.11.0
 
-  *  [Fix]   RB-915: Ensure enter selects continue in try/query and agents.  Set focus on results page to 'reset' button 
+  *  [Fix]   RB-915: Ensure enter selects continue in try/query and agents.  Set focus on results page to 'reset' button
   					 in try/query and the 'done' button in agents.
   *  [Fix]  RB-1147: Remove Firefox class which sets the word-break css property to break between any two letters.
   *  [Misc] RB-1108: Change Evidence Tree link in order to serve from rainbird-applications.
