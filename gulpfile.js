@@ -126,6 +126,8 @@ gulp.task('copy-html', function() {
         .pipe(gulp.dest('dist/goalList'));
     gulp.src(['source/main.html'])
         .pipe(gulp.dest('dist'));
+    gulp.src(['source/results/component/results.html'])
+        .pipe(gulp.dest('dist/results/'));
 	gulp.src(['source/angular-semantic-ui.min.js'])
 			.pipe(gulp.dest('dist'));
 });
