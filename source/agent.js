@@ -1,4 +1,4 @@
-var agentApp = angular.module('rbAgent', ['ui.router', 'rbApp.tryGoal', 'rbApp.tryGoal.service', 'ui.bootstrap', 'semantic-ui', 'pluralNumbers', 'datePicker']);
+var agentApp = angular.module('rbAgent', ['ui.router', 'rbApp.tryGoal', 'rbApp.tryGoal.service', 'ui.bootstrap', 'semantic-ui', 'pluralNumbers', 'datePicker', 'rbApp.results']);
 
 agentApp.value('agentMemory',
     {
@@ -64,13 +64,7 @@ agentApp.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', functi
             url: '/results',
             templateUrl: '/applications/results/results.html',
             controller: 'ResultsController',
-            resolve: {
-                config: ['ConfigAPI', '$rootScope', function(ConfigAPI, $rootScope) {
-                    return ConfigAPI.config({ id: $rootScope.id });
-                }]
-            },
-            params: { goalInfo: null, id: null }
-    });;
+        });
 
 
     $httpProvider.interceptors.push('agentHttpInterceptor');

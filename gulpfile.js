@@ -22,6 +22,7 @@ var paths = {
         'source/tryGoal/tryGoal_app.js',
         'source/agent.js',
         'source/tryGoal/component/tryGoalController.js',
+        'source/results/component/resultsController.js',
         'source/goalList/**/*.js',
         'source/mainController.js',
         'source/directives/**/*.js',
