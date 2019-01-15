@@ -64,6 +64,7 @@ agentApp.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', functi
             url: '/results',
             templateUrl: '/applications/results/results.html',
             controller: 'ResultsController',
+            params: { goalInfo: null, responseData: null }
         });
 
 

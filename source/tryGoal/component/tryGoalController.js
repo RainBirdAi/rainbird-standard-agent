@@ -222,31 +222,37 @@ function($scope, agentMemory, $compile, $stateParams, config, GoalAPI, ConfigAPI
             }
 
         } else if (response.result && angular.isArray(response.result) && response.result.length > 0) {
-            $scope.goalResults = [];
-            $scope.response = {};
-            response.result.forEach(function(element) {
-                var resultText = ($scope.goalInfo.goalText ? $scope.goalInfo.goalText : $scope.goalInfo.text);
-
-                var metaData = element.objectMetadata ? element.objectMetadata : '';
-
-                resultText = resultText.replace(/%O/g, element.object);
-                resultText = resultText.replace(/%R/g, element.relationship);
-                resultText = resultText.replace(/%S/g, element.subject);
-                resultText = resultText.replace(/%C/g, element.certainty);
-
-                if ($scope.config.showEvidence) {
-                    $scope.goalResults.push({text: resultText, cf: element.certainty, meta: metaData, factID: element.factID });
-                } else {
-                    $scope.goalResults.push({text: resultText, cf: element.certainty, meta: metaData});
-                }
+            $state.go('main.results', {
+                goalInfo: $scope.goalInfo,
+                responseData: response
+            }, {
+                location: 'replace'
             });
-            $scope.display = 'result';
-
-            if ($scope.tryGoal){
-                focusElementById('reset');
-            } else {
-                focusElementById('done');
-            }
+            // $scope.goalResults = [];
+            // $scope.response = {};
+            // response.result.forEach(function(element) {
+            //     var resultText = ($scope.goalInfo.goalText ? $scope.goalInfo.goalText : $scope.goalInfo.text);
+            //
+            //     var metaData = element.objectMetadata ? element.objectMetadata : '';
+            //
+            //     resultText = resultText.replace(/%O/g, element.object);
+            //     resultText = resultText.replace(/%R/g, element.relationship);
+            //     resultText = resultText.replace(/%S/g, element.subject);
+            //     resultText = resultText.replace(/%C/g, element.certainty);
+            //
+            //     if ($scope.config.showEvidence) {
+            //         $scope.goalResults.push({text: resultText, cf: element.certainty, meta: metaData, factID: element.factID });
+            //     } else {
+            //         $scope.goalResults.push({text: resultText, cf: element.certainty, meta: metaData});
+            //     }
+            // });
+            // $scope.display = 'result';
+            //
+            // if ($scope.tryGoal){
+            //     focusElementById('reset');
+            // } else {
+            //     focusElementById('done');
+            // }
 
         } else if (angular.isArray(response.result)) {
             $scope.display = 'end';
