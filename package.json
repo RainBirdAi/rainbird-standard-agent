@@ -12,6 +12,7 @@
     "node": "8.9.3"
   },
   "dependencies": {
+    "del": "^3.0.0",
     "ejs": "2.5.x",
     "express": "4.16.x",
     "gulp-concat": "2.4.x",
@@ -23,9 +24,9 @@
     "gulp-sourcemaps": "1.6.x",
     "gulp-uglify": "3.0.x",
     "gulp-util": "3.0.x",
+    "karma": "2.x.x",
     "run-sequence": "1.2.x",
-    "superagent": "3.8.x",
-    "karma": "2.x.x"
+    "superagent": "3.8.x"
   },
   "devDependencies": {
     "angular": "1.4.8",

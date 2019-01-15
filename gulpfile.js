@@ -152,14 +152,13 @@ gulp.task('default', ['dev']);
 
 
 //BrowserSync
-gulp.task('js-watch', ['build'], function (done) {
+gulp.task('build-and-reload', ['build'], function (done) {
 	browserSync.reload();
 	done();
 });
 
 
 gulp.task('watchandrefresh', ['build'], function () {
-
 	// Serve files from the root of this project
 	browserSync.init({
 		proxy: "localhost:3051",
@@ -167,7 +166,7 @@ gulp.task('watchandrefresh', ['build'], function () {
 		notify: true
 	});
 
-	gulp.watch('source/**/*.js', ['js-watch']);
+	gulp.watch(['source/**/*.js', 'source/**/*.html'], ['build-and-reload']);
 });
 
 gulp.task('watch-less', function() {
