@@ -9,7 +9,7 @@ function($scope, agentMemory, $compile, $stateParams, config, GoalAPI, ConfigAPI
     $scope.yolandaUrl = ApiConfig.getConfig().url;
     $scope.tryGoal = agentMemory.tryGoal;
     $scope.response;
-    $scope.responseData;
+    $scope.resultData;
 
     $scope.updateAlias = function() {
         sessionId = null;
@@ -224,7 +224,7 @@ function($scope, agentMemory, $compile, $stateParams, config, GoalAPI, ConfigAPI
             }
 
         } else if (response.result && angular.isArray(response.result) && response.result.length > 0) {
-            $scope.responseData = response;
+            $scope.resultData = response;
             $scope.display = 'result';
             if ($scope.tryGoal){
                 focusElementById('reset');
