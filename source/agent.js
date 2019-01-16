@@ -61,7 +61,7 @@ agentApp.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', functi
             params: { goalInfo: null, id: null }
         })
         .state('main.results', {
-            url: '/results',
+            url: '/results/:sid',
             templateUrl: '/applications/results/results.html',
             controller: 'ResultsController',
             resolve: {
