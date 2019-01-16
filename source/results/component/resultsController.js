@@ -10,7 +10,6 @@ angular.module('rbApp.results', [])
             },
             templateUrl: '/applications/results/results.html',
             link: function (scope, element, attrs, controller) {
-                scope.config = scope.config || {showEvidence: false};
                 controller.init();
             }
         };
