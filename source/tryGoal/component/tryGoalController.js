@@ -8,7 +8,6 @@ function($scope, agentMemory, $compile, $stateParams, config, GoalAPI, ConfigAPI
     $scope.otherOption = {value: '(other - not listed)'};
     $scope.yolandaUrl = ApiConfig.getConfig().url;
     $scope.tryGoal = agentMemory.tryGoal;
-    $scope.response;
     $scope.resultData;
 
     $scope.updateAlias = function() {

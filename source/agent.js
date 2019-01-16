@@ -68,8 +68,7 @@ agentApp.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', functi
                 config: ['ConfigAPI', '$rootScope', function(ConfigAPI, $rootScope) {
                     return ConfigAPI.config({ id: $rootScope.id });
                 }]
-            },
-            params: { goalInfo: null, responseData: null }
+            }
         });
 
 
