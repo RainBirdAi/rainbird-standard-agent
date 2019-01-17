@@ -8,6 +8,7 @@ function($scope, agentMemory, $compile, $stateParams, config, GoalAPI, ConfigAPI
     $scope.otherOption = {value: '(other - not listed)'};
     $scope.yolandaUrl = ApiConfig.getConfig().url;
     $scope.tryGoal = agentMemory.tryGoal;
+    $scope.resultData;
 
     $scope.updateAlias = function() {
         sessionId = null;
@@ -222,26 +223,8 @@ function($scope, agentMemory, $compile, $stateParams, config, GoalAPI, ConfigAPI
             }
 
         } else if (response.result && angular.isArray(response.result) && response.result.length > 0) {
-            $scope.goalResults = [];
-            $scope.response = {};
-            response.result.forEach(function(element) {
-                var resultText = ($scope.goalInfo.goalText ? $scope.goalInfo.goalText : $scope.goalInfo.text);
-
-                var metaData = element.objectMetadata ? element.objectMetadata : '';
-
-                resultText = resultText.replace(/%O/g, element.object);
-                resultText = resultText.replace(/%R/g, element.relationship);
-                resultText = resultText.replace(/%S/g, element.subject);
-                resultText = resultText.replace(/%C/g, element.certainty);
-
-                if ($scope.config.showEvidence) {
-                    $scope.goalResults.push({text: resultText, cf: element.certainty, meta: metaData, factID: element.factID });
-                } else {
-                    $scope.goalResults.push({text: resultText, cf: element.certainty, meta: metaData});
-                }
-            });
+            $scope.resultData = response;
             $scope.display = 'result';
-
             if ($scope.tryGoal){
                 focusElementById('reset');
             } else {

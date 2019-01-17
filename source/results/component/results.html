@@ -1,0 +1,23 @@
+<div class="result clearfix">
+    <p class="results-title">Your Results</p>
+    <ul class="results-list">
+        <li class="result" ng-repeat="response in goalResults">
+            <span>{{response.text}}</span>
+            <span class="result-cf" ng-hide="config.uiSettings.hideCF">{{response.cf}}%</span>
+            <a ng-show="config.showEvidence" target="_blank" ng-href="/applications/components/rainbird-analysis-ui/whyAnalysis.html?id={{response.factID}}?api={{yolandaUrl}}">
+                <span class="ui icon" data-tooltip="Show Evidence Tree" data-inverted="">
+                    <i class="why-analysis-icon result-analysis fa fa-info-circle">
+                    </i>
+                </span>
+            </a>
+            <div ng-repeat="meta in response.meta.en">
+                <div class="markdown-metadata" ng-if="meta.dataType === 'md'" markdown-to-html="meta.data"></div>
+                <div class="text-metadata" ng-if="meta.dataType === 'text'">{{meta.data}}</div>
+            </div>
+        </li>
+    </ul>
+
+    <div class="result-download">
+        <a class="btn btn-download btn-primary" href="#TODO">Download PDF</a>
+    </div>
+</div>
