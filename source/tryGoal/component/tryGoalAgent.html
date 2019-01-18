@@ -12,7 +12,9 @@
         <div class="question-context" ng-include="'/applications/tryGoal/component/shared/questionContext.html'"></div>
     </div>
     <button class="question-context-btn" type="button" ng-show="tryGoal" ng-click="toggleQuestionContext()">
-        <i ng-class=" {'fa-question-circle' : !displayQuestionContext, 'fa-times-circle' : displayQuestionContext}" class="fa"></i>
+        <i ng-class=" {'fa-question-circle' : !displayQuestionContext, 'fa-times-circle' : displayQuestionContext}"
+           class="fa" style="background-color: white; border-radius: 30px;">
+        </i>
     </button>
     <div ng-class="{'split-screen-footer' : splitScreen}" class="agent-footer-holder modal-footer">
         <div class="agent-button-row">
