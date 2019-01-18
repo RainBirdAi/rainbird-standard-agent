@@ -116,6 +116,12 @@ function($scope, agentMemory, $compile, $stateParams, config, GoalAPI, ConfigAPI
         $scope.$parent.displayQuestionContext = !$scope.$parent.displayQuestionContext;
     }
 
+    $scope.formatRule = function (rule) {
+        var concept = rule.match(/\((.*?)\)/);
+        var relationship = rule.match(/\[(.*?)\]/);
+        return concept[1] + ' ' + relationship[1]
+    }
+
     $scope.queryGoal = function() {
         var goalInfo = {
             id: $stateParams.id,

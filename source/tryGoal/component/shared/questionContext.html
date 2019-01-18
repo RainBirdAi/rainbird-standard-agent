@@ -1,1 +1,18 @@
-<div class="question-context__inner-wrapper"></div>
+<div class="question-context__inner-wrapper">
+    <div class="question-context__response-container" style="margin: 10px;">
+        <div ng-show="!response">
+            Nothing to show :(
+        </div>
+        <div ng-show="response">
+            <p>Rule Stack</p>
+            <ul>
+               <li ng-repeat="rule in response.question.meta.ruleStack">{{formatRule(rule.name)}}</li>
+            </ul>
+            <p>Question Type: {{response.question.type}}</p>
+            <p>Plural: {{response.question.plural}}</p>
+            <br />
+            <br />
+            {{response}}
+        </div>
+    </div>
+</div>
