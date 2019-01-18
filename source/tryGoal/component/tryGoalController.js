@@ -112,6 +112,10 @@ function($scope, agentMemory, $compile, $stateParams, config, GoalAPI, ConfigAPI
         $scope.$parent.splitScreen = !$scope.$parent.splitScreen;
     };
 
+    $scope.toggleQuestionContext = function () {
+        $scope.$parent.displayQuestionContext = !$scope.$parent.displayQuestionContext;
+    }
+
     $scope.queryGoal = function() {
         var goalInfo = {
             id: $stateParams.id,
