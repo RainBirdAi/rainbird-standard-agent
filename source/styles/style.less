@@ -195,22 +195,26 @@ span.disabled {
   text-shadow: none;
 }
 
-.splitModal:hover {
+.splitModal .active {
+  color: @rb_lightblue;
+}
+
+.splitModal:hover, .question-context-btn:hover {
   color: @rb_lightblue;
   opacity: 1;
 }
 
 .question-context-btn {
   position: absolute;
-  right: 12px;
-  bottom: 112px;
-  font-size: 20px;
-  opacity: 0.8;
+  right: 80px;
+  top: 9px;
+  color: white;
+  text-shadow: none;
+  font-size: 18px;
 }
 
-.question-context-btn:hover {
-  opacity: 0.7;
-  color: #4FBBC5;
+.question-context-btn .active {
+  color: @rb_lightblue;
 }
 
 .question-context__inner-wrapper {

@@ -1,9 +1,6 @@
-<div class="question-context__inner-wrapper">
+<div class="question-context__inner-wrapper" ng-show="response.question">
     <div class="question-context__response-container" style="margin: 10px;">
-        <div ng-show="!response">
-            Nothing to show :(
-        </div>
-        <div ng-show="response">
+        <div>
             <p>Rule Stack</p>
             <ul>
                <li ng-repeat="rule in response.question.meta.ruleStack">{{formatRule(rule.name)}}</li>

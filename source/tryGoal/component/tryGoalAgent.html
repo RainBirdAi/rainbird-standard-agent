@@ -2,8 +2,11 @@
 <div ng-cloak tabindex="-1" ng-keyup="$event.keyCode == 13 && enterPressed()" >
     <div>
         <section class="agent-content" style="flex: 1 1 auto; overflow: visible;">
-            <button type="button" ng-show="tryGoal" ng-click="toggleSplitScreen()" class="splitModal" >
-                <i ng-class=" {'fa-window-maximize' : splitScreen, 'fa-columns' : !splitScreen}" class="fa"></i>
+            <button class="question-context-btn" type="button" ng-show="tryGoal" ng-click="toggleQuestionContext()" title="Track question context">
+                <i class="fa fa-info" ng-class="{'active' : displayQuestionContext}"></i>
+            </button>
+            <button type="button" ng-show="tryGoal" ng-click="toggleSplitScreen()" ng-class="{'active' : splitScreen}" class="splitModal" title="View API log" >
+                <i ng-class=" {'fa-window-maximize active' : splitScreen, 'fa-columns' : !splitScreen}" class="fa"></i>
             </button>
             <div class="try-goal-body" ng-include="'/applications/tryGoal/component/shared/tryGoalBody.html'"></div>
         </section>
@@ -11,11 +14,6 @@
     <div ng-show="displayQuestionContext">
         <div class="question-context" ng-include="'/applications/tryGoal/component/shared/questionContext.html'"></div>
     </div>
-    <button class="question-context-btn" type="button" ng-show="tryGoal" ng-click="toggleQuestionContext()">
-        <i ng-class=" {'fa-question-circle' : !displayQuestionContext, 'fa-times-circle' : displayQuestionContext}"
-           class="fa" style="background-color: white; border-radius: 30px;">
-        </i>
-    </button>
     <div ng-class="{'split-screen-footer' : splitScreen}" class="agent-footer-holder modal-footer">
         <div class="agent-button-row">
             <button id="continue" class="btn btn-info" value="Continue"
