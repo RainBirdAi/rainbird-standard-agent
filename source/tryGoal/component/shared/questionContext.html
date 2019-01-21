@@ -1,15 +1,31 @@
-<div class="question-context__inner-wrapper" ng-show="response.question">
-    <div class="question-context__response-container" style="margin: 10px;">
-        <div>
-            <p>Rule Stack</p>
-            <ul>
+<div class="question-context-inner-wrapper" ng-show="display === 'secondForm' || display === 'firstForm' || display === 'error'">
+    <div class="question-context-response-container" style="margin: 10px;">
+
+        <!--  Technical error -->
+        <div ng-if="display === 'error'">
+            <p>Sorry, but we are unable to show additional information for this question.</p>
+        </div>
+
+        <!-- Normal question -->
+        <div ng-if="display !== 'error' && display !== 'end' && display !== 'thinking'">
+            <p>Rule Stack:</p>
+            <ul class="question-context-ul">
                <li ng-repeat="rule in response.question.meta.ruleStack">{{formatRule(rule.name)}}</li>
             </ul>
-            <p>Question Type: {{response.question.type}}</p>
-            <p>Plural: {{response.question.plural}}</p>
-            <br />
-            <br />
-            {{response}}
+            <div ng-if="!response.extraQuestions">
+                <p>Question Type: {{response.question.type}}</p>
+                <p>Plural: {{response.question.plural}}</p>
+            </div>
+            <div ng-if="response.extraQuestions">
+                <div ng-repeat="extraQuestion in response.extraQuestions">
+                    <p>{{ extraQuestion.prompt }}</p>
+                    <ul class="question-context-ul">
+                        <li>Question Type: {{extraQuestion.type}}</li>
+                        <li>Plural: {{extraQuestion.plural}}</li>
+                    </ul>
+                </div>
+            </div>
         </div>
+
     </div>
 </div>
