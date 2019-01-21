@@ -7,4 +7,5 @@ angular.module('rbAgent')
                 location: 'replace'
             });
             $scope.splitScreen = false;
+            $scope.displayQuestionContext = false;
         }]);

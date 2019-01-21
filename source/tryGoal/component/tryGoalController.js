@@ -41,6 +41,7 @@ function($scope, agentMemory, $compile, $stateParams, config, GoalAPI, ConfigAPI
     $scope.runGoal = function(goalInfo) {
         var requiresInitData = false;
         $scope.init = {};
+        $scope.response = {};
         $rootScope.apiOutput = new Array();
         sessionId = null;
         contextId = goalInfo.contextId;
@@ -110,6 +111,28 @@ function($scope, agentMemory, $compile, $stateParams, config, GoalAPI, ConfigAPI
 
     $scope.toggleSplitScreen = function() {
         $scope.$parent.splitScreen = !$scope.$parent.splitScreen;
+    };
+
+    $scope.toggleQuestionContext = function () {
+        $scope.$parent.displayQuestionContext = !$scope.$parent.displayQuestionContext;
+    }
+
+    function formatConcept(concept) {
+        if (concept === '(null)') {
+            return '(*)';
+        } else {
+            return concept;
+        }
+    };
+
+    $scope.formatRule = function (rule) {
+        var concepts = rule.match(/\((.*?)\)/gm);
+        var relationship = rule.match(/\[(.*?)\]/);
+
+        concepts[0] = formatConcept(concepts[0]);
+        concepts[1] = formatConcept(concepts[1]);
+
+        return concepts[0] + ' ' + relationship[1] + ' ' + concepts[1] + ' ' + concepts[2];
     };
 
     $scope.queryGoal = function() {
