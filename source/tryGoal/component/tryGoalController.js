@@ -117,11 +117,23 @@ function($scope, agentMemory, $compile, $stateParams, config, GoalAPI, ConfigAPI
         $scope.$parent.displayQuestionContext = !$scope.$parent.displayQuestionContext;
     }
 
+    function formatConcept(concept) {
+        if (concept === '(null)') {
+            return '(*)';
+        } else {
+            return concept;
+        }
+    };
+
     $scope.formatRule = function (rule) {
-        var concept = rule.match(/\((.*?)\)/);
+        var concepts = rule.match(/\((.*?)\)/gm);
         var relationship = rule.match(/\[(.*?)\]/);
-        return concept[1] + ' ' + relationship[1]
-    }
+
+        concepts[0] = formatConcept(concepts[0]);
+        concepts[1] = formatConcept(concepts[1]);
+
+        return concepts[0] + ' ' + relationship[1] + ' ' + concepts[1] + ' ' + concepts[2];
+    };
 
     $scope.queryGoal = function() {
         var goalInfo = {
