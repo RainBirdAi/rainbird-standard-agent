@@ -41,6 +41,7 @@ function($scope, agentMemory, $compile, $stateParams, config, GoalAPI, ConfigAPI
     $scope.runGoal = function(goalInfo) {
         var requiresInitData = false;
         $scope.init = {};
+        $scope.response = {};
         $rootScope.apiOutput = new Array();
         sessionId = null;
         contextId = goalInfo.contextId;
