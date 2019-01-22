@@ -129,10 +129,13 @@ function($scope, agentMemory, $compile, $stateParams, config, GoalAPI, ConfigAPI
         var concepts = rule.match(/\((.*?)\)/gm);
         var relationship = rule.match(/\[(.*?)\]/);
 
-        concepts[0] = formatConcept(concepts[0]);
-        concepts[1] = formatConcept(concepts[1]);
-
-        return concepts[0] + ' ' + relationship[1] + ' ' + concepts[1] + ' ' + concepts[2];
+        if (concepts && relationship) {
+            concepts[0] = formatConcept(concepts[0]);
+            concepts[1] = formatConcept(concepts[1]);
+            return concepts[0] + ' ' + relationship[1] + ' ' + concepts[1] + ' ' + concepts[2];
+        } else {
+            return 'There has been a problem presenting this rule.';
+        }
     };
 
     $scope.queryGoal = function() {
