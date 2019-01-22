@@ -1,27 +1,27 @@
 var services = angular.module('rbApp.tryGoal.service', ['ngResource']);
 
-services.factory('ConfigAPI', ['$resource', function($resource) {
+services.factory('ConfigAPI', ['$resource', function ($resource) {
 
     return $resource('', {}, {
         config: {
-            method:'GET', url: '/agent/:id/config', interceptor : {responseError : resourceErrorHandler}
+            method: 'GET', url: '/agent/:id/config', interceptor: { responseError: resourceErrorHandler }
         },
         getGoalInfo: {
-            method:'GET', url: '/goal/info/:goalid/:id', interceptor : {responseError : resourceErrorHandler}
+            method: 'GET', url: '/goal/info/:goalid/:id', interceptor: { responseError: resourceErrorHandler }
         },
         getSessionId: {
-            method:'GET', url: '/agent/:id/start/contextid', interceptor : {responseError : resourceErrorHandler}
+            method: 'GET', url: '/agent/:id/start/contextid', interceptor: { responseError: resourceErrorHandler }
         }
     });
 }]);
 
-services.factory('agentHttpInterceptor', ['agentMemory', '$rootScope', function(agentMemory, $rootScope) {
-    
+services.factory('agentHttpInterceptor', ['agentMemory', '$rootScope', function (agentMemory, $rootScope) {
+
     $rootScope.apiOutput = new Array();
 
     return {
 
-        'request': function(config) {
+        'request': function (config) {
 
             var targetURL = config.url.split('?', 1)[0];
 
@@ -29,21 +29,21 @@ services.factory('agentHttpInterceptor', ['agentMemory', '$rootScope', function(
                 config.url = config.url + '?profiler=true';
             }
 
-            if (agentMemory.tryGoal && 
-            (targetURL.endsWith('query') || targetURL.endsWith('response'))) {
-                var log = {type: 'request'};
+            if (agentMemory.tryGoal &&
+                (targetURL.endsWith('query') || targetURL.endsWith('response'))) {
+                var log = { type: 'request' };
                 log.method = config.method;
-                log.url = config.url;      
-                log.params = config.params;  
-                log.data = config.data;   
-                log.headers = config.headers;    
+                log.url = config.url;
+                log.params = config.params;
+                log.data = config.data;
+                log.headers = config.headers;
                 $rootScope.apiOutput.push(log);
             }
 
             return config;
         },
-    
-        'response': function(response) {
+
+        'response': function (response) {
             var log;
             var targetURL = response.config.url.split('?', 1)[0];
 
@@ -53,12 +53,12 @@ services.factory('agentHttpInterceptor', ['agentMemory', '$rootScope', function(
                 $rootScope.apiOutput.push(log.response);
 
             } else if (agentMemory.tryGoal &&
-            (targetURL.endsWith('query') || targetURL.endsWith('response'))) {
+                (targetURL.endsWith('query') || targetURL.endsWith('response'))) {
 
-                log = {type: 'response'};
+                log = { type: 'response' };
                 log.method = response.config.method;
-                log.url = response.config.url;   
-                log.data = JSON.parse(JSON.stringify(response.data)); 
+                log.url = response.config.url;
+                log.data = JSON.parse(JSON.stringify(response.data));
                 log.headers = response.config.headers;
                 $rootScope.apiOutput.push(log);
             }
@@ -68,28 +68,41 @@ services.factory('agentHttpInterceptor', ['agentMemory', '$rootScope', function(
     };
 }]);
 
-services.factory('GoalAPI', ['$resource', 'ApiConfig', function($resource, ApiConfig) {
-    return $resource('', {sessionId: '@sessionId'}, {
+services.factory('GoalAPI', ['$resource', 'ApiConfig', function ($resource, ApiConfig) {
+    return $resource('', { sessionId: '@sessionId' }, {
         startGoal: {
             method: 'GET', url: ApiConfig.getConfig().url + '/start/:id',
-            interceptor: {responseError: resourceErrorHandler},
-            headers: {'Authorization': ApiConfig.getConfig().auth}
+            interceptor: { responseError: resourceErrorHandler },
+            headers: { 'Authorization': ApiConfig.getConfig().auth }
         },
         queryGoal: {
             method: 'POST', url: ApiConfig.getConfig().url + '/:sessionId/query',
-            interceptor: {responseError: resourceErrorHandler}
+            interceptor: { responseError: resourceErrorHandler }
         },
         response: {
             method: 'POST', url: ApiConfig.getConfig().url + '/:sessionId/response',
-            interceptor: {responseError: resourceErrorHandler}
+            interceptor: { responseError: resourceErrorHandler }
         },
         back: {
             method: 'POST', url: ApiConfig.getConfig().url + '/:sessionId/undo',
-            interceptor: {responseError: resourceErrorHandler}
+            interceptor: { responseError: resourceErrorHandler }
         }
 
     });
 
+}]);
+
+services.factory('ResultsAPI', ['$http', 'ApiConfig', function ($http, ApiConfig) {
+    return function (options) {
+        return $http({
+            method: 'GET',
+            url: ApiConfig.getConfig().url + '/interactions/' + options.interactionId + '/results',
+            interceptor: { responseError: resourceErrorHandler },
+            headers: {
+                'Authorization': 'jwt ' + options.token
+            }
+        });
+    };
 }]);
 
 function resourceErrorHandler(response) {
