@@ -113,8 +113,8 @@ function($scope, agentMemory, $compile, $stateParams, config, GoalAPI, ConfigAPI
         $scope.$parent.splitScreen = !$scope.$parent.splitScreen;
     };
 
-    $scope.toggleQuestionContext = function () {
-        $scope.$parent.displayQuestionContext = !$scope.$parent.displayQuestionContext;
+    $scope.toggleQueryContext = function () {
+        $scope.$parent.displayQueryContext = !$scope.$parent.displayQueryContext;
     }
 
     function formatConcept(concept) {

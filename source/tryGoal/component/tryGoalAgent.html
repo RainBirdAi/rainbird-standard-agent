@@ -2,15 +2,15 @@
 <div ng-cloak tabindex="-1" ng-keyup="$event.keyCode == 13 && enterPressed()" >
     <div>
         <section class="agent-content" style="flex: 1 1 auto; overflow: visible;">
-            <button class="question-context-btn" type="button" ng-show="tryGoal" ng-click="toggleQuestionContext()" title="Track question context">
-                <i class="fa fa-list-ul" ng-class="{'active' : displayQuestionContext}"></i>
+            <button class="question-context-btn" type="button" ng-show="tryGoal" ng-click="toggleQueryContext()" title="Track question context">
+                <i class="fa fa-list-ul" ng-class="{'active' : displayQueryContext}"></i>
             </button>
             <button type="button" ng-show="tryGoal" ng-click="toggleSplitScreen()" ng-class="{'active' : splitScreen}" class="splitModal" title="View API log" >
                 <i ng-class=" {'fa-window-maximize active' : splitScreen, 'fa-columns' : !splitScreen}" class="fa"></i>
             </button>
             <div class="try-goal-body" ng-include="'/applications/tryGoal/component/shared/tryGoalBody.html'"></div>
-            <div ng-show="displayQuestionContext">
-                <div class="question-context" ng-include="'/applications/tryGoal/component/shared/questionContext.html'"></div>
+            <div ng-show="displayQueryContext">
+                <div class="question-context" ng-include="'/applications/tryGoal/component/shared/queryContext.html'"></div>
             </div>
         </section>
     </div>

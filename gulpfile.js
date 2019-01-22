@@ -119,7 +119,8 @@ gulp.task('copy-html', function() {
         [
             'source/tryGoal/component/shared/addRemovePluralButtons.html',
             'source/tryGoal/component/shared/tryGoalBody.html',
-            'source/tryGoal/component/shared/apiLog.html'
+            'source/tryGoal/component/shared/apiLog.html',
+            'source/tryGoal/component/shared/queryContext.html',
         ])
         .pipe(gulp.dest('dist/tryGoal/component/shared'));
     gulp.src(['source/goalList/agentGoalList.html'])
