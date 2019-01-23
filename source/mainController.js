@@ -3,8 +3,11 @@ angular.module('rbAgent')
         function($scope, config, $state) {
             $scope.config = config;
             $scope.state = $state;
-            $state.go('main.goalList', null, {
-                location: 'replace'
-            });
+
+            if ($state.current.name !== 'main.results') {
+                $state.go('main.goalList', null, {
+                    location: 'replace'
+                });
+            }
             $scope.splitScreen = false;
         }]);

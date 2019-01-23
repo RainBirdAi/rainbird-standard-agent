@@ -17,3 +17,34 @@
         }
     }
 }
+
+@media print {
+
+    .agent-footer-holder,
+    .agent-footer,
+    .result-download {
+        display: none;
+    }
+
+    .agent-header {
+        text-align: left !important;
+
+        h1, h3 {
+            margin-left: 24px !important;
+        }
+    }
+
+    .innerNav {
+      overflow-y: unset;
+    }
+
+    .result .clearfix {
+      margin: 0px;
+    }
+
+    .try-goal-body {
+      margin-left: 12px;
+      margin-right: 12px;
+    }
+
+}
