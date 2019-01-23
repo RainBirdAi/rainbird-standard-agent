@@ -12,6 +12,7 @@ facing release notes.
 
 ## v2.29.0
   * [New]   RB-3668: Add timeout to pdf download button, and condition to button.
+  * [New]   RB-3558: Enable PDF downloads of agent interactions
 
 ## v2.28.2
   * [Fix]   RB-3627: First form questions in the standard agent are not treated as different radio button groups
