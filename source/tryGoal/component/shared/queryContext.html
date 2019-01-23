@@ -1,12 +1,5 @@
-<div class="question-context-inner-wrapper" ng-show="display === 'secondForm' || display === 'firstForm' || display === 'error'">
+<div class="question-context-inner-wrapper" ng-show="display === 'secondForm' || display === 'firstForm'">
     <div class="question-context-response-container" style="margin: 10px;">
-
-        <!--  Technical error -->
-        <div ng-if="display === 'error'">
-            <p>Sorry, but we are unable to show additional information for this question.</p>
-        </div>
-
-        <!-- Normal question -->
         <div ng-if="display !== 'error' && display !== 'end' && display !== 'thinking'">
             <p>Rule Stack:</p>
             <ul class="question-context-ul">
