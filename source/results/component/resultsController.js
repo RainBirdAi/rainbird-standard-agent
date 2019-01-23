@@ -71,4 +71,5 @@ angular.module('rbApp.results', [])
                     $scope.pdfExpired = true;
                 }, 900000);
             }
+
         }]);
