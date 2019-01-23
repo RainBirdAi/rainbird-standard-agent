@@ -10,6 +10,9 @@ facing release notes.
   *  [Fix] A bug fix
   * [Misc] Other items
 
+## v2.29.0
+  * [New]   RB-3668: Add timeout to pdf download button, and condition to button.
+
 ## v2.28.2
   * [Fix]   RB-3627: First form questions in the standard agent are not treated as different radio button groups
 
