@@ -66,7 +66,9 @@ angular.module('rbApp.results', [])
                 setResponses($scope.resultData, $scope.goalInfo);
             }
 
-            $timeout(function() {
-                $scope.pdfExpired = true;
-            }, 900000);
+            if ($scope.$parent.enablePdfDownloads) {
+                $timeout(function () {
+                    $scope.pdfExpired = true;
+                }, 900000);
+            }
         }]);
