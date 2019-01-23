@@ -11,12 +11,13 @@ angular.module('rbApp.results', [])
             templateUrl: '/applications/results/results.html'
         };
     })
-    .controller('ResultsController', ['$scope', '$state', '$stateParams', 'ResultsAPI', 'ConfigAPI', 'ApiConfig',
-        function ($scope, $state, $stateParams, ResultsAPI, ConfigAPI, ApiConfig) {
+    .controller('ResultsController', ['$scope', '$state', '$stateParams', '$timeout', 'ResultsAPI', 'ConfigAPI', 'ApiConfig',
+        function ($scope, $state, $stateParams, $timeout, ResultsAPI, ConfigAPI, ApiConfig) {
 
             $scope.token = $stateParams.token || false;
             $scope.goalId = $stateParams.goalId || $scope.goalInfo._id;
             $scope.sid = $stateParams.sid || $scope.resultData.sid;
+            $scope.pdfExpired = false;
 
             function setResponses(resultData, goalInfo) {
                 $scope.yolandaUrl = ApiConfig.getConfig().url;
@@ -64,4 +65,11 @@ angular.module('rbApp.results', [])
             } else {
                 setResponses($scope.resultData, $scope.goalInfo);
             }
+
+            if ($scope.$parent.enablePdfDownloads) {
+                $timeout(function () {
+                    $scope.pdfExpired = true;
+                }, 900000);
+            }
+
         }]);

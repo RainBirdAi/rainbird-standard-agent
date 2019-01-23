@@ -17,7 +17,7 @@
         </li>
     </ul>
 
-    <div class="result-download">
-        <a class="btn btn-download btn-primary" ng-href="{{ getPDFDownload() }}">Download PDF</a>
+    <div class="result-download" ng-if="$parent.config.enablePdfDownloads && !pdfExpired">
+        <a class="btn btn-download btn-primary" ng-href="{{ getPDFDownload() }}" target="_blank">Download PDF</a>
     </div>
 </div>
