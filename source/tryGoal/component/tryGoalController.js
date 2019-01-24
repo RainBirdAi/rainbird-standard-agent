@@ -45,6 +45,7 @@ function($scope, $window, agentMemory, $compile, $stateParams, config, GoalAPI, 
     $scope.runGoal = function(goalInfo) {
         var requiresInitData = false;
         $scope.init = {};
+        $scope.response = {};
         $rootScope.apiOutput = new Array();
         sessionId = null;
         contextId = goalInfo.contextId;
@@ -114,6 +115,31 @@ function($scope, $window, agentMemory, $compile, $stateParams, config, GoalAPI, 
 
     $scope.toggleSplitScreen = function() {
         $scope.$parent.splitScreen = !$scope.$parent.splitScreen;
+    };
+
+    $scope.toggleQueryContext = function () {
+        $scope.$parent.displayQueryContext = !$scope.$parent.displayQueryContext;
+    }
+
+    function formatConcept(concept) {
+        if (concept === '(null)') {
+            return '(*)';
+        } else {
+            return concept;
+        }
+    };
+
+    $scope.formatRule = function (rule) {
+        var concepts = rule.match(/\((.*?)\)/gm);
+        var relationship = rule.match(/\[(.*?)\]/);
+
+        if (concepts && relationship) {
+            concepts[0] = formatConcept(concepts[0]);
+            concepts[1] = formatConcept(concepts[1]);
+            return concepts[0] + ' ' + relationship[1] + ' ' + concepts[1] + ' ' + concepts[2];
+        } else {
+            return 'There has been a problem presenting this rule.';
+        }
     };
 
     $scope.queryGoal = function() {
