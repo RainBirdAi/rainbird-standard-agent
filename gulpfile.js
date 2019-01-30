@@ -22,6 +22,7 @@ var paths = {
         'source/tryGoal/tryGoal_app.js',
         'source/agent.js',
         'source/tryGoal/component/tryGoalController.js',
+        'source/results/component/resultsController.js',
         'source/goalList/**/*.js',
         'source/mainController.js',
         'source/directives/**/*.js',
@@ -126,6 +127,8 @@ gulp.task('copy-html', function() {
         .pipe(gulp.dest('dist/goalList'));
     gulp.src(['source/main.html'])
         .pipe(gulp.dest('dist'));
+    gulp.src(['source/results/component/results.html'])
+        .pipe(gulp.dest('dist/results/'));
 	gulp.src(['source/angular-semantic-ui.min.js'])
 			.pipe(gulp.dest('dist'));
 });
@@ -152,14 +155,13 @@ gulp.task('default', ['dev']);
 
 
 //BrowserSync
-gulp.task('js-watch', ['build'], function (done) {
+gulp.task('build-and-reload', ['build'], function (done) {
 	browserSync.reload();
 	done();
 });
 
 
 gulp.task('watchandrefresh', ['build'], function () {
-
 	// Serve files from the root of this project
 	browserSync.init({
 		proxy: "localhost:3051",
@@ -167,7 +169,7 @@ gulp.task('watchandrefresh', ['build'], function () {
 		notify: true
 	});
 
-	gulp.watch('source/**/*.js', ['js-watch']);
+	gulp.watch(['source/**/*.js', 'source/**/*.html'], ['build-and-reload']);
 });
 
 gulp.task('watch-less', function() {
