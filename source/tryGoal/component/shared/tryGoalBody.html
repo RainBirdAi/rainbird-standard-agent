@@ -27,6 +27,9 @@
             </div>
         </li>
     </ul>
+    <div class="result-download" ng-if="$parent.config.enablePdfDownloads">
+        <a class="btn btn-download btn-primary" ng-click="getPDFDownload()" target="_blank">Print results</a>
+    </div>
 </div>
 
 <div ng-if="display === 'end'" class="clearfix">

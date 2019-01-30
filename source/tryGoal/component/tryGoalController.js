@@ -1,6 +1,6 @@
 angular.module('rbApp.tryGoal')
-.controller('TryGoalController', ['$scope', 'agentMemory', '$compile', '$stateParams', 'config', 'GoalAPI', 'ConfigAPI', 'ApiConfig', '$state', '$location', '$filter', 'focusElementById', '$rootScope', '$timeout',
-function($scope, agentMemory, $compile, $stateParams, config, GoalAPI, ConfigAPI, ApiConfig, $state, $location, $filter, focusElementById, $rootScope, $timeout) {
+.controller('TryGoalController', ['$scope', '$window', 'agentMemory', '$compile', '$stateParams', 'config', 'GoalAPI', 'ConfigAPI', 'ApiConfig', '$state', '$location', '$filter', 'focusElementById', '$rootScope', '$timeout',
+function($scope, $window, agentMemory, $compile, $stateParams, config, GoalAPI, ConfigAPI, ApiConfig, $state, $location, $filter, focusElementById, $rootScope, $timeout) {
 
     var contextId;
     var sessionId;
@@ -8,6 +8,10 @@ function($scope, agentMemory, $compile, $stateParams, config, GoalAPI, ConfigAPI
     $scope.otherOption = {value: '(other - not listed)'};
     $scope.yolandaUrl = ApiConfig.getConfig().url;
     $scope.tryGoal = agentMemory.tryGoal;
+
+    $scope.getPDFDownload = function () {
+        return $window.print();
+    };
 
     $scope.updateAlias = function() {
         sessionId = null;
@@ -90,10 +94,10 @@ function($scope, agentMemory, $compile, $stateParams, config, GoalAPI, ConfigAPI
     };
 
     $scope.$watch('apiOutput', function() {
-        
+
         if (agentMemory.tryGoal) {
             var displayText = JSON.stringify($rootScope.apiOutput, null, 1);
-            
+
             var lines = displayText.split('\n');
             lines.splice(0,1);
             if (lines.length > 0) {
@@ -105,7 +109,7 @@ function($scope, agentMemory, $compile, $stateParams, config, GoalAPI, ConfigAPI
             var logPanel = document.querySelector('#scroll-content');
             logPanel.scrollTop = logPanel.scrollHeight;
         }, 150);
-        
+
     }, true);
 
     $scope.toggleSplitScreen = function() {
@@ -154,7 +158,7 @@ function($scope, agentMemory, $compile, $stateParams, config, GoalAPI, ConfigAPI
         }
 
         $scope.postMessage(response);
-        
+
         if (response.question && response.question.allowUnknown) {
             focusElementById('mainAgent');
         }

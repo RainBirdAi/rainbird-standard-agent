@@ -6,10 +6,10 @@
         padding: @spacing*2 @spacing;
         transform: translate3d(0,0,0);
     }
-    
+
     &.agent--not-started {
         .agent-header {
-            padding: @spacing*4 @spacing;   
+            padding: @spacing*4 @spacing;
             .header-description {
                 opacity: 1;
                 height: initial;
@@ -19,6 +19,22 @@
 }
 
 @media print {
+
+    @page { margin: 0; }
+    body { padding: 1cm; }
+
+    ui-view {
+        display: block;
+        width: 100%;
+    }
+
+    .agent-wrapper {
+        width: 100%;
+    }
+
+    .agent-wrapper .agent {
+        height: auto !important;
+    }
 
     .agent-footer-holder,
     .agent-footer,
