@@ -11,6 +11,8 @@ facing release notes.
   * [Misc] Other items
 
 ## v2.29.0
+  * [Fix]   RB-3672a: Fix font url paths.
+  * [Fix]   RB-3672: Fix custom font on pdf download refusing to load and alter layout.
   * [New]   RB-3552: Add button to Try Query to show context of question.
   * [New]   RB-3668: Add timeout to pdf download button, and condition to button.
   * [New]   RB-3558: Enable PDF downloads of agent interactions
