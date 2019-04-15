@@ -10,6 +10,9 @@ facing release notes.
   *  [Fix] A bug fix
   * [Misc] Other items
 
+## v2.32.0
+  * [New]   RB-3820: Add padding to modal inner
+
 ## v2.29.0
   * [New]   RB-3552: Add button to Try Query to show context of question.
   * [New]   RB-3558: Enable PDF downloads of agent interactions
