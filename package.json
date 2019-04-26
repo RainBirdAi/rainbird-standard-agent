@@ -32,7 +32,7 @@
     "angular": "1.4.8",
     "browser-sync": "^2.18.13",
     "react": "0.14.0",
-    "jquery": "3.0.x",
+    "jquery": "3.4.x",
     "angular-mocks": "1.4.8",
     "angular-animate": "1.4.8",
     "angular-cookies": "1.4.8",
