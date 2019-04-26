@@ -10,6 +10,9 @@ facing release notes.
   *  [Fix] A bug fix
   * [Misc] Other items
 
+## v2.33.0
+  * [Misc]  RB-3905: Update jQuery to 3.4 in response to a potential vulnerability in 3.0 
+
 ## v2.32.0
   * [New]   RB-3820: Add padding to modal inner
 
