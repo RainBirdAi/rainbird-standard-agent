@@ -254,6 +254,7 @@ function($scope, $window, agentMemory, $compile, $stateParams, config, GoalAPI, 
         } else if (response.result && angular.isArray(response.result) && response.result.length > 0) {
             $scope.goalResults = [];
             $scope.response = {};
+            $scope.sid = sessionId;
             response.result.forEach(function(element) {
                 var resultText = ($scope.goalInfo.goalText ? $scope.goalInfo.goalText : $scope.goalInfo.text);
 

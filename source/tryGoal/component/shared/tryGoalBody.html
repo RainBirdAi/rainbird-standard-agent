@@ -15,7 +15,7 @@
         <li class="result" ng-repeat="response in goalResults">
             <span>{{response.text}}</span>
             <span class="result-cf" ng-hide="config.uiSettings.hideCF">{{response.cf}}%</span>
-            <a ng-show="config.showEvidence" target="_blank" ng-href="/applications/components/rainbird-analysis-ui/whyAnalysis.html?id={{response.factID}}?api={{yolandaUrl}}">
+            <a ng-show="config.showEvidence" target="_blank" ng-href="/applications/components/rainbird-analysis-ui/whyAnalysis.html?id={{response.factID}}&sid={{sid}}&api={{yolandaUrl}}">
                 <span class="ui icon" data-tooltip="Show Evidence Tree" data-inverted="">
                     <i class="why-analysis-icon result-analysis fa fa-info-circle">
                     </i>
