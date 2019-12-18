@@ -1,6 +1,6 @@
 {
   "name": "rainbird-standard-agent",
-  "version": "2.39.0",
+  "version": "2.39.1",
   "publishConfig": {
     "registry": "https://npm.rainbird.ai"
   },
@@ -9,7 +9,7 @@
     "//": "istanbul report html"
   },
   "engines": {
-    "node": "8.9.3"
+    "node": "8.x.x"
   },
   "dependencies": {
     "del": "^3.0.0",
