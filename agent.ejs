@@ -15,7 +15,7 @@
 
     <script src="/components/jquery/dist/jquery.min.js"></script>
     <script src="/components/semantic-ui/dist/semantic.js"></script>
-    
+
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -25,7 +25,7 @@
 </head>
 <body>
     <div ng-app="rbAgent" ng-init="id='<%= id %>'; api='<%= api %>'; syncToken='<%= syncToken %>';" ng-strict-di ng-cloak>
-        <div class="agent-wrapper">
+        <div class="agent-wrapper" style="width: 100%;">
             <ui-view>
             </ui-view>
         </div>
