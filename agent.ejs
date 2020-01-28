@@ -10,24 +10,21 @@
     <link href="/components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="/components/angular/angular-csp.css" rel="stylesheet" />
     <link href="/components/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="/components/semantic-ui/dist/semantic.min.css" rel="stylesheet" />
     <link href="/dist/agent.min.css" rel="stylesheet" />
 
+    <script src="/components/jquery/dist/jquery.min.js"></script>
+    <script src="/components/semantic-ui/dist/semantic.js"></script>
+    
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-43281177-2"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'UA-43281177-2');
-    </script>
 </head>
 <body>
-    <div ng-app="rbAgent" ng-init="id='<%= id %>'; api='<%= api %>';" ng-strict-di ng-cloak>
+    <div ng-app="rbAgent" ng-init="id='<%= id %>'; api='<%= api %>'; syncToken='<%= syncToken %>';" ng-strict-di ng-cloak>
         <div class="agent-wrapper">
             <ui-view>
             </ui-view>
@@ -41,7 +38,7 @@
     <script src="/components/showdown/dist/showdown.min.js"></script>
     <script src="/components/ng-showdown/dist/ng-showdown.min.js"></script>
     <script src="/components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
-
+    <script src="/dist/angular-semantic-ui.min.js"></script>
     <script src="/dist/agent.min.js"></script>
 </body>
 </html>
