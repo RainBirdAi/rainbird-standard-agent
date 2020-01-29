@@ -49,6 +49,7 @@ describe('Try Goal Controller', function() {
 
         beforeEach(inject(
             function ($rootScope, $controller, _$httpBackend_, $stateParams, _ConfigAPI_, _GoalAPI_, _$state_, _$location_) { // jshint ignore:line
+                rootScope = $rootScope;
                 scope = $rootScope.$new();
 
                 $httpBackend = _$httpBackend_;
@@ -60,6 +61,7 @@ describe('Try Goal Controller', function() {
 
                 ctrl = $controller('TryGoalController', {
                     $scope: scope,
+                    $rootScope: rootScope,
                     $stateParams: $stateParams,
                     GoalAPI: GoalAPI,
                     ConfigAPI: ConfigAPI,
@@ -1259,7 +1261,31 @@ describe('Try Goal Controller', function() {
 
             scope.startGoalContext();
 
-            spyOnConfigAPI.should.have.been.calledOnce;
+            const expectedParams = {
+                id: '10000001',
+                contextid: undefined,
+                syncToken: undefined,
+            };
+           
+            expect(spyOnConfigAPI.getCall(0).args[0]).to.deep.equal(expectedParams);
+            spyOnGoalAPI.should.not.have.been.called;
+        });
+
+        it('Agent should call GetSessionID with a syncToken when it is present', function () {
+            var spyOnConfigAPI = sinon.spy(ConfigAPI, 'getSessionId');
+            var spyOnGoalAPI = sinon.spy(GoalAPI, 'startGoal');
+            rootScope.syncToken = '123456abcde';
+            location.url('/agent/10000001');
+
+            scope.startGoalContext();
+
+            const expectedParams = {
+                id: '10000001',
+                contextid: undefined,
+                syncToken: '123456abcde',
+            };
+           
+            expect(spyOnConfigAPI.getCall(0).args[0]).to.deep.equal(expectedParams);
             spyOnGoalAPI.should.not.have.been.called;
         });
 
