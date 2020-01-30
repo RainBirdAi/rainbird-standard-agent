@@ -18,8 +18,9 @@ app.set('view engine', 'ejs');
 app.get('/', function(req, res) {
     //Contains a demo agent id
     return res.render('agent', {
-        id: 'a2c1ebb9-aa02-4f6b-8e3a-3f21fffb481f',
-        api: 'https://api.rainbird.ai'
+        id: 'dbd8b876-56d6-4db0-acaa-0c250619e26d',
+        api: 'https://api.rainbird.ai',
+        syncToken: undefined,
     });
 });
 

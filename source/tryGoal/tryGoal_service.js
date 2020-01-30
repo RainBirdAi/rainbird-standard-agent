@@ -10,7 +10,7 @@ services.factory('ConfigAPI', ['$resource', function($resource) {
             method:'GET', url: '/goal/info/:goalid/:id', interceptor : {responseError : resourceErrorHandler}
         },
         getSessionId: {
-            method:'GET', url: '/agent/:id/start/contextid', interceptor : {responseError : resourceErrorHandler}
+            method:'GET', url: '/agent/:id/start/contextid/:syncToken', interceptor : {responseError : resourceErrorHandler}
         }
     });
 }]);
