@@ -1272,8 +1272,8 @@ describe('Try Goal Controller', function() {
         });
 
         it('Agent should call GetSessionID with a syncToken when it is present', function () {
-            var spyOnConfigAPI = sinon.spy(ConfigAPI, 'getSessionId');
-            var spyOnGoalAPI = sinon.spy(GoalAPI, 'startGoal');
+            const spyOnConfigAPI = sinon.spy(ConfigAPI, 'getSessionId');
+            const spyOnGoalAPI = sinon.spy(GoalAPI, 'startGoal');
             rootScope.syncToken = '123456abcde';
             location.url('/agent/10000001');
 
