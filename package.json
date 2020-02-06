@@ -6,7 +6,8 @@
   },
   "scripts": {
     "test": "istanbul cover _mocha -- -R spec test/*.test.js",
-    "//": "istanbul report html"
+    "//": "istanbul report html",
+    "postinstall": "gulp build"
   },
   "engines": {
     "node": "8.x.x"
