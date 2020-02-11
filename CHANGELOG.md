@@ -10,6 +10,9 @@ facing release notes.
   *  [Fix] A bug fix
   * [Misc] Other items
 
+## v2.42.1
+  * [Misc]  RB-3781: Build the standard agent in the postinstall hook to simplify Rainbird Applications Dockerfile.
+
 ## v2.41.1
   *  [New]  RB-4332: To allow try/query not to be rate limited, accept a sync token & pass in the start request. 
 
