@@ -1,12 +1,13 @@
 {
   "name": "rainbird-standard-agent",
-  "version": "2.42.0",
+  "version": "2.42.1",
   "publishConfig": {
     "registry": "https://npm.rainbird.ai"
   },
   "scripts": {
     "test": "istanbul cover _mocha -- -R spec test/*.test.js",
-    "//": "istanbul report html"
+    "//": "istanbul report html",
+    "postinstall": "gulp build"
   },
   "engines": {
     "node": "8.x.x"
@@ -15,6 +16,7 @@
     "del": "^3.0.0",
     "ejs": "2.5.x",
     "express": "4.16.x",
+    "gulp": "3.8.x",
     "gulp-concat": "2.4.x",
     "gulp-eslint": "2.0.x",
     "gulp-istanbul-enforcer": "1.0.x",
@@ -48,7 +50,6 @@
     "eslint-plugin-mocha": "2.0.x",
     "eslint-plugin-react": "3.16.x",
     "flux": "2.1.x",
-    "gulp": "3.8.x",
     "gulp-autoprefixer": "2.0.x",
     "gulp-concat": "2.4.x",
     "gulp-eslint": "2.0.x",
