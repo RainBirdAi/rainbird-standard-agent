@@ -1,4 +1,4 @@
-var gulp = require('gulp');
+const { src, dest, watch } = require('gulp');
 var uglify = require('gulp-uglify');
 var concat = require('gulp-concat');
 var less = require('gulp-less');
@@ -22,7 +22,6 @@ var paths = {
         'source/tryGoal/tryGoal_app.js',
         'source/agent.js',
         'source/tryGoal/component/tryGoalController.js',
-        'source/results/component/resultsController.js',
         'source/goalList/**/*.js',
         'source/mainController.js',
         'source/directives/**/*.js',
@@ -33,13 +32,12 @@ var paths = {
 };
 
 // Delete content of dist folder to ensure a clean build
-gulp.task('clean', function() {
-    del(['dist/**.*']);
-});
-
+function clean() {
+    return del(['dist/**.*']);
+}
 
 // Run tests once and exit use for running build
-gulp.task('test', function (done) {
+function test(done) {
     karma.start({
         configFile: __dirname + '/karma.conf.js',
         singleRun: true,
@@ -53,10 +51,10 @@ gulp.task('test', function (done) {
             done();
         }
     });
-});
+}
 
 // Run tests headless
-gulp.task('test-headless', function (done) {
+function testHeadless(done) {
     karma.start({
         configFile: __dirname + '/karma.conf.js',
         singleRun: true,
@@ -70,11 +68,10 @@ gulp.task('test-headless', function (done) {
             done();
         }
     });
-});
+}
 
-
-gulp.task('eslint', function() {
-    var eslintRun = gulp.src(['source/**/*.js', 'test/**/*.js', 'gulpfile.js'])
+function eslint() {
+    var eslintRun = src(['source/**/*.js', 'test/**/*.js', 'gulpfile.js'])
                .pipe(eslint())
                .pipe(eslint.format());
 
@@ -83,110 +80,117 @@ gulp.task('eslint', function() {
     } else {
         return eslintRun;
     }
-});
+}
 
 //Angular Agent Compilation
-gulp.task('minifyAgentJS', function () {
-    return gulp.src(paths.scripts)
+function minifyAgentJS() {
+    return src(paths.scripts)
         .pipe(ngAnnotate())
         .pipe(uglify())
         .pipe(concat('agent.min.js'))
-        .pipe(gulp.dest('dist'));
-});
+        .pipe(dest('dist'));
+}
 
-gulp.task('agent-build', ['minifyAgentJS', 'agent-styles']);
+function agentBuild(done) {
+    return runSequence(['minifyAgentJS', 'agentStyles'], done);
+}
 
-gulp.task('agent-styles', function() {
-    gulp.src('source/styles/agent.less')
+function agentStyles() {
+    return src('source/styles/agent.less')
         .pipe(less({compress: true}))
         .on('error', errorHandler.bind(this, 'LESS Compiler Error:'))
         //.pipe(autoprefixer())
         .pipe(rename('agent.min.css'))
-        .pipe(gulp.dest('dist'));
-});
+        .pipe(dest('dist'));
+}
 
 var errorHandler = function(title, e) {
     gutil.log(title, e.message);
 };
 
-gulp.task('copy-html', function() {
-    gulp.src(
+function copyHtml(done) {
+    src(
         [
             'source/tryGoal/component/tryGoalModal.html', //remove when we embed agents - refactor out references to shared
             'source/tryGoal/component/tryGoalAgent.html'
         ])
-        .pipe(gulp.dest('dist/tryGoal/component'));
-    gulp.src(
+        .pipe(dest('dist/tryGoal/component'));
+    src(
         [
-            'source/tryGoal/component/shared/addRemovePluralButtons.html',
             'source/tryGoal/component/shared/tryGoalBody.html',
             'source/tryGoal/component/shared/apiLog.html',
             'source/tryGoal/component/shared/queryContext.html',
         ])
-        .pipe(gulp.dest('dist/tryGoal/component/shared'));
-    gulp.src(['source/goalList/agentGoalList.html'])
-        .pipe(gulp.dest('dist/goalList'));
-    gulp.src(['source/main.html'])
-        .pipe(gulp.dest('dist'));
-    gulp.src(['source/results/component/results.html'])
-        .pipe(gulp.dest('dist/results/'));
-	gulp.src(['source/angular-semantic-ui.min.js'])
-			.pipe(gulp.dest('dist'));
-});
+        .pipe(dest('dist/tryGoal/component/shared'));
+    src(['source/goalList/agentGoalList.html'])
+        .pipe(dest('dist/goalList'));
+    src(['source/main.html'])
+        .pipe(dest('dist'));
+	src(['source/angular-semantic-ui.min.js'])
+            .pipe(dest('dist'));
+    done();
+}
 
 // Clear dist folder, check quality (jshint, unit tests pass, test coverage), build minified app.
-gulp.task('build', function() {
-    runSequence(['clean'],
-    ['less'],
-    ['agent-build'],
-    ['copy-html'],
-    //['test'],
-    ['minifyAgentJS'],
-    function(result) {
-        if (!result) {
-            gutil.log(gutil.colors.green('Build successful!'));
-        } else {
-            gutil.log(gutil.colors.red('Build failed!'));
-        }
-    });
-});
-
-
-gulp.task('default', ['dev']);
-
+function standardAgentBuild(done) {
+    return runSequence(['clean'],
+        ['standardAgentLess'],
+        ['agentBuild'],
+        ['copyHtml'],
+        //['test'],
+        ['minifyAgentJS'],
+        function(result) {
+            if (!result) {
+                gutil.log(gutil.colors.green('Build successful!'));
+            } else {
+                gutil.log(gutil.colors.red('Build failed!'));
+            }
+            done(result);
+        });
+}
 
 //BrowserSync
-gulp.task('build-and-reload', ['build'], function (done) {
-	browserSync.reload();
-	done();
-});
+function buildAndReload(done) {
+    return runSequence(
+        ['build'], function (done) {
+            browserSync.reload();
+            done();}
+    )
+}
 
+function watchAndRefresh(done) {
+    return runSequence(
+        ['build'], function (done) {
+            // Serve files from the root of this project
+            browserSync.init({
+                proxy: "localhost:3051",
+                port: 8080,
+                notify: true
+            });
+        
+            watch(['source/**/*.js', 'source/**/*.html'], ['build-and-reload']);
+            done();
+        });
+}
 
-gulp.task('watchandrefresh', ['build'], function () {
-	// Serve files from the root of this project
-	browserSync.init({
-		proxy: "localhost:3051",
-		port: 8080,
-		notify: true
-	});
+function watchLess() {
+	watch('source/styles/**/*.less', ['standardAgentLess']);
+	watch('dist/*.css').on('change', function() {});
+}
 
-	gulp.watch(['source/**/*.js', 'source/**/*.html'], ['build-and-reload']);
-});
-
-gulp.task('watch-less', function() {
-	gulp.watch('source/styles/**/*.less', ['less']);
-	gulp.watch('dist/*.css').on('change', function() {
-
-	});
-});
-
-gulp.task('less', function () {
-
-	return gulp.src(paths.less)
+function standardAgentLess() {
+	return src(paths.less)
 			.pipe(less({compress: true}))
 			.pipe(rename({
 				suffix: '.min'
 			}))
-			.pipe(gulp.dest('dist'))
-});
+			.pipe(dest('dist'))
+}
 
+exports.build = standardAgentBuild;
+exports.clean = clean;
+exports.standardAgentLess = standardAgentLess;
+exports.agentBuild = agentBuild;
+exports.agentStyles = agentStyles;
+exports.copyHtml = copyHtml;
+exports.minifyAgentJS = minifyAgentJS;
