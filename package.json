@@ -1,6 +1,6 @@
 {
   "name": "rainbird-standard-agent",
-  "version": "2.42.1-beta.4",
+  "version": "2.42.1-beta.5",
   "publishConfig": {
     "registry": "https://npm.rainbird.ai"
   },
@@ -16,7 +16,7 @@
     "del": "^3.0.0",
     "ejs": "2.5.x",
     "express": "4.16.x",
-    "gulp": "3.8.x",
+    "gulp": "4.0.2",
     "gulp-concat": "2.4.x",
     "gulp-eslint": "2.0.x",
     "gulp-istanbul-enforcer": "1.0.x",
@@ -26,7 +26,7 @@
     "gulp-sourcemaps": "1.6.x",
     "gulp-uglify": "3.0.x",
     "gulp-util": "3.0.x",
-    "run-sequence": "1.2.x",
+    "gulp4-run-sequence": "1.0.1",
     "superagent": "3.8.x"
   },
   "devDependencies": {
