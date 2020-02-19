@@ -194,3 +194,4 @@ exports.agentBuild = agentBuild;
 exports.agentStyles = agentStyles;
 exports.copyHtml = copyHtml;
 exports.minifyAgentJS = minifyAgentJS;
+exports.test = test;
