@@ -4,7 +4,7 @@ angular.module('pluralNumbers', [])
 				link: function (scope, element) {
 
 					//SETTINGS
-					scope.forceUniqueNumbers = true; //set to false to allow the front end to send an array like ['10', '10'].
+					scope.forceUniqueNumbers = false; //set to false to allow the front end to send an array like ['10', '10'].
                     scope.fractionalPart = false;
 					//END SETTINGS
 
