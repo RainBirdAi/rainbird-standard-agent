@@ -370,7 +370,7 @@ function($scope, $window, agentMemory, $compile, $stateParams, config, GoalAPI, 
                             cf: question.answer.cf
                         });
                     });
-                } else if (question.knownAnswers.length == 0) {  //no answer
+                } else {  //no answer
                     responseObject.push({
                         subject: question.type == 'Second Form Subject' ? '' : question.subject,
                         object: question.type == 'Second Form Object' ? '' : question.object,
@@ -380,16 +380,6 @@ function($scope, $window, agentMemory, $compile, $stateParams, config, GoalAPI, 
                     });
                 }
             }
-
-            question.knownAnswers && question.knownAnswers.forEach(function(knownAnswer) {
-                responseObject.push({
-                    subject: knownAnswer.subject,
-                    object: knownAnswer.object,
-                    relationship: knownAnswer.relationship.name,
-                    cf: knownAnswer.cf
-                });
-            });
-
         });
 
         //THIS IS CRITICAL FOR EC
