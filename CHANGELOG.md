@@ -10,6 +10,9 @@ facing release notes.
   *  [Fix] A bug fix
   * [Misc] Other items
 
+## v2.49.1
+  *  [New]  RB-4704: Allow plural numbers of the same value to be selected & answered.  Prevent the submission of known answers.
+
 ## v2.42.1
   * [Misc]  RB-3781: Build the standard agent in the postinstall hook to simplify Rainbird Applications Dockerfile.
 
