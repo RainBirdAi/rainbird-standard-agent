@@ -52,4 +52,4 @@ When creating your own implementation, you will need to retrieve the appropriate
 
 ## Resources
 
-* [Rainbird API documentation](https://app.rainbird.ai/rainbird_api_guide.pdf)
+* [Rainbird API documentation](https://rainbird-ai.gitlab.io/rainbird-docs/)
