@@ -69,27 +69,45 @@ services.factory('agentHttpInterceptor', ['agentMemory', '$rootScope', function(
 }]);
 
 services.factory('GoalAPI', ['$resource', 'ApiConfig', function($resource, ApiConfig) {
+    var engine = function(requestConfig) {
+        return requestConfig.data.engine;
+    };
+
     return $resource('', {sessionId: '@sessionId'}, {
         startGoal: {
-            method: 'GET', url: ApiConfig.getConfig().url + '/start/:id',
+            method: 'GET',
+            url: ApiConfig.getConfig().url + '/start/:id',
             interceptor: {responseError: resourceErrorHandler},
-            headers: {'Authorization': ApiConfig.getConfig().auth}
+            headers: {
+                'Authorization': ApiConfig.getConfig().auth,
+                'x-rainbird-engine': engine
+            },
         },
         queryGoal: {
-            method: 'POST', url: ApiConfig.getConfig().url + '/:sessionId/query',
-            interceptor: {responseError: resourceErrorHandler}
+            method: 'POST',
+            url: ApiConfig.getConfig().url + '/:sessionId/query',
+            interceptor: {responseError: resourceErrorHandler},
+            headers: {
+                'x-rainbird-engine': engine
+            }
         },
         response: {
-            method: 'POST', url: ApiConfig.getConfig().url + '/:sessionId/response',
-            interceptor: {responseError: resourceErrorHandler}
+            method: 'POST',
+            url: ApiConfig.getConfig().url + '/:sessionId/response',
+            interceptor: {responseError: resourceErrorHandler},
+            headers: {
+                'x-rainbird-engine': engine
+            }
         },
         back: {
-            method: 'POST', url: ApiConfig.getConfig().url + '/:sessionId/undo',
-            interceptor: {responseError: resourceErrorHandler}
+            method: 'POST',
+            url: ApiConfig.getConfig().url + '/:sessionId/undo',
+            interceptor: {responseError: resourceErrorHandler},
+            headers: {
+                'x-rainbird-engine': engine
+            }
         }
-
     });
-
 }]);
 
 function resourceErrorHandler(response) {

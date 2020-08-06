@@ -148,7 +148,8 @@ function($scope, $window, agentMemory, $compile, $stateParams, config, GoalAPI, 
             sessionId: sessionId,
             object: $scope.goalInfo.objectInstance == 'user provided' ? $scope.init.objectInstance : $scope.goalInfo.objectInstance,
             subject:  $scope.goalInfo.subjectInstance == 'user provided' ? $scope.init.subjectInstance : $scope.goalInfo.subjectInstance,
-            relationship: ($scope.goalInfo.relationship ? $scope.goalInfo.relationship : $scope.goalInfo.rel)
+            relationship: ($scope.goalInfo.relationship ? $scope.goalInfo.relationship : $scope.goalInfo.rel),
+            engine: config.uiSettings.questionGrouping
         };
 
         $scope.postMessage(goalInfo);
@@ -392,7 +393,8 @@ function($scope, $window, agentMemory, $compile, $stateParams, config, GoalAPI, 
         GoalAPI.response({
             id: $stateParams.id,
             sessionId: sessionId,
-            answers: responseObject
+            answers: responseObject,
+            engine: config.uiSettings.questionGrouping
         },
         function(result) {
             $scope.processResponse(result);
@@ -401,7 +403,10 @@ function($scope, $window, agentMemory, $compile, $stateParams, config, GoalAPI, 
 
     $scope.back = function() {
         $scope.display = 'thinking';
-        GoalAPI.back({ sessionId: sessionId },function(result) {
+        GoalAPI.back({
+            sessionId: sessionId,
+            engine: config.uiSettings.questionGrouping
+        },function(result) {
             if (alreadyDisplayingQuestion(result.question)){
                 //Likely to already be at the opening question, so perform a 'reset'.
                 $scope.runGoal($scope.goalInfo);
