@@ -1,6 +1,9 @@
 var services = angular.module('rbApp.tryGoal.service', ['ngResource']);
 
 services.factory('ConfigAPI', ['$resource', function($resource) {
+    var engine = function(requestConfig) {
+        return requestConfig.params.engine;
+    };
 
     return $resource('', {}, {
         config: {
@@ -10,7 +13,10 @@ services.factory('ConfigAPI', ['$resource', function($resource) {
             method:'GET', url: '/goal/info/:goalid/:id', interceptor : {responseError : resourceErrorHandler}
         },
         getSessionId: {
-            method:'GET', url: '/agent/:id/start/contextid/:syncToken', interceptor : {responseError : resourceErrorHandler}
+            method:'GET', url: '/agent/:id/start/contextid/:syncToken', interceptor : {responseError : resourceErrorHandler},
+            headers: {
+                'x-rainbird-engine': engine
+            }
         }
     });
 }]);
