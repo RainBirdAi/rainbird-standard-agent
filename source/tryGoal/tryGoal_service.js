@@ -4,6 +4,10 @@ services.factory('ConfigAPI', ['$resource', function($resource) {
     var engine = function(requestConfig) {
         return requestConfig.params.engine;
     };
+    var stripParams = function(request) {
+        delete request.params.engine;
+        return request;
+    };
 
     return $resource('', {}, {
         config: {
@@ -13,43 +17,43 @@ services.factory('ConfigAPI', ['$resource', function($resource) {
             method:'GET', url: '/goal/info/:goalid/:id', interceptor : {responseError : resourceErrorHandler}
         },
         getSessionId: {
-            method:'GET', url: '/agent/:id/start/contextid/:syncToken', interceptor : {responseError : resourceErrorHandler},
+            method:'GET',
+            url: '/agent/:id/start/contextid/:syncToken',
+            interceptor : {
+                request: stripParams,
+                responseError : resourceErrorHandler
+            },
             headers: {
                 'x-rainbird-engine': engine
             },
-            params: {},
         }
     });
 }]);
 
 services.factory('agentHttpInterceptor', ['agentMemory', '$rootScope', function(agentMemory, $rootScope) {
-    
     $rootScope.apiOutput = new Array();
-
     return {
-
         'request': function(config) {
-
             var targetURL = config.url.split('?', 1)[0];
 
             if (agentMemory.tryGoal && targetURL.endsWith('query')) {
                 config.url = config.url + '?profiler=true';
             }
 
-            if (agentMemory.tryGoal && 
+            if (agentMemory.tryGoal &&
             (targetURL.endsWith('query') || targetURL.endsWith('response'))) {
                 var log = {type: 'request'};
                 log.method = config.method;
-                log.url = config.url;      
-                log.params = config.params;  
-                log.data = config.data;   
-                log.headers = config.headers;    
+                log.url = config.url;
+                log.params = config.params;
+                log.data = config.data;
+                log.headers = config.headers;
                 $rootScope.apiOutput.push(log);
             }
 
             return config;
         },
-    
+
         'response': function(response) {
             var log;
             var targetURL = response.config.url.split('?', 1)[0];
@@ -64,8 +68,8 @@ services.factory('agentHttpInterceptor', ['agentMemory', '$rootScope', function(
 
                 log = {type: 'response'};
                 log.method = response.config.method;
-                log.url = response.config.url;   
-                log.data = JSON.parse(JSON.stringify(response.data)); 
+                log.url = response.config.url;
+                log.data = JSON.parse(JSON.stringify(response.data));
                 log.headers = response.config.headers;
                 $rootScope.apiOutput.push(log);
             }
@@ -79,8 +83,7 @@ services.factory('GoalAPI', ['$resource', 'ApiConfig', function($resource, ApiCo
     var engine = function(requestConfig) {
         return requestConfig.data.engine;
     };
-    var stripBody = function(request, b, c, d, e) {
-        console.log('BBBBBB', request, b, c, d, e);
+    var stripBody = function(request) {
         delete request.data.engine;
         return request;
     };

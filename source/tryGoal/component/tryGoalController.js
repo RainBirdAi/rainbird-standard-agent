@@ -1,7 +1,6 @@
 angular.module('rbApp.tryGoal')
 .controller('TryGoalController', ['$scope', '$window', 'agentMemory', '$compile', '$stateParams', 'config', 'GoalAPI', 'ConfigAPI', 'ApiConfig', '$state', '$location', '$filter', 'focusElementById', '$rootScope', '$timeout',
 function($scope, $window, agentMemory, $compile, $stateParams, config, GoalAPI, ConfigAPI, ApiConfig, $state, $location, $filter, focusElementById, $rootScope, $timeout) {
-
     var contextId;
     var sessionId;
     $scope.config = config;
@@ -149,8 +148,7 @@ function($scope, $window, agentMemory, $compile, $stateParams, config, GoalAPI, 
             object: $scope.goalInfo.objectInstance == 'user provided' ? $scope.init.objectInstance : $scope.goalInfo.objectInstance,
             subject:  $scope.goalInfo.subjectInstance == 'user provided' ? $scope.init.subjectInstance : $scope.goalInfo.subjectInstance,
             relationship: ($scope.goalInfo.relationship ? $scope.goalInfo.relationship : $scope.goalInfo.rel),
-            //engine: config.uiSettings.engine
-            engine: undefined // DEBUG
+            engine: config.uiSettings.engine
         };
 
         $scope.postMessage(goalInfo);
