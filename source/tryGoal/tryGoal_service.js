@@ -1,11 +1,22 @@
 var services = angular.module('rbApp.tryGoal.service', ['ngResource']);
 
 services.factory('ConfigAPI', ['$resource', function($resource) {
-    var engine = function(requestConfig) {
-        return requestConfig.params.engine;
-    };
-    var stripParams = function(request) {
-        delete request.params.engine;
+    var requestIntercept = function(request) {
+        var engine;
+        if (request.data)
+            engine = request.data.engine;
+        else if (request.params)
+            engine = request.params.engine;
+
+        if (!request.headers)
+            request.headers = {};
+        if (engine)
+            request.headers['x-rainbird-engine'] = engine;
+
+        if (request.params)
+            delete request.params.engine;
+        if (request.data)
+            delete request.data.engine;
         return request;
     };
 
@@ -20,12 +31,9 @@ services.factory('ConfigAPI', ['$resource', function($resource) {
             method:'GET',
             url: '/agent/:id/start/contextid/:syncToken',
             interceptor : {
-                request: stripParams,
+                request: requestIntercept,
                 responseError : resourceErrorHandler
-            },
-            headers: {
-                'x-rainbird-engine': engine
-            },
+            }
         }
     });
 }]);
@@ -80,11 +88,22 @@ services.factory('agentHttpInterceptor', ['agentMemory', '$rootScope', function(
 }]);
 
 services.factory('GoalAPI', ['$resource', 'ApiConfig', function($resource, ApiConfig) {
-    var engine = function(requestConfig) {
-        return requestConfig.data.engine;
-    };
-    var stripBody = function(request) {
-        delete request.data.engine;
+    var requestIntercept = function(request) {
+        var engine;
+        if (request.data)
+            engine = request.data.engine;
+        else if (request.params)
+            engine = request.params.engine;
+
+        if (!request.headers)
+            request.headers = {};
+        if (engine)
+            request.headers['x-rainbird-engine'] = engine;
+
+        if (request.params)
+            delete request.params.engine;
+        if (request.data)
+            delete request.data.engine;
         return request;
     };
 
@@ -93,45 +112,35 @@ services.factory('GoalAPI', ['$resource', 'ApiConfig', function($resource, ApiCo
             method: 'GET',
             url: ApiConfig.getConfig().url + '/start/:id',
             interceptor: {
-                request: stripBody,
+                request: requestIntercept,
                 responseError: resourceErrorHandler
             },
             headers: {
                 'Authorization': ApiConfig.getConfig().auth,
-                'x-rainbird-engine': engine
-            },
+            }
         },
         queryGoal: {
             method: 'POST',
             url: ApiConfig.getConfig().url + '/:sessionId/query',
             interceptor: {
-                request: stripBody,
+                request: requestIntercept,
                 responseError: resourceErrorHandler
-            },
-            headers: {
-                'x-rainbird-engine': engine
-            },
+            }
         },
         response: {
             method: 'POST',
             url: ApiConfig.getConfig().url + '/:sessionId/response',
             interceptor: {
-                request: stripBody,
+                request: requestIntercept,
                 responseError: resourceErrorHandler
-            },
-            headers: {
-                'x-rainbird-engine': engine
             }
         },
         back: {
             method: 'POST',
             url: ApiConfig.getConfig().url + '/:sessionId/undo',
             interceptor: {
-                request: stripBody,
+                request: requestIntercept,
                 responseError: resourceErrorHandler
-            },
-            headers: {
-                'x-rainbird-engine': engine
             }
         }
     });
