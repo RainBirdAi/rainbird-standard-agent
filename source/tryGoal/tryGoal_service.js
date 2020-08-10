@@ -16,7 +16,8 @@ services.factory('ConfigAPI', ['$resource', function($resource) {
             method:'GET', url: '/agent/:id/start/contextid/:syncToken', interceptor : {responseError : resourceErrorHandler},
             headers: {
                 'x-rainbird-engine': engine
-            }
+            },
+            params: {},
         }
     });
 }]);
@@ -78,12 +79,20 @@ services.factory('GoalAPI', ['$resource', 'ApiConfig', function($resource, ApiCo
     var engine = function(requestConfig) {
         return requestConfig.data.engine;
     };
+    var stripBody = function(request, b, c, d, e) {
+        console.log('BBBBBB', request, b, c, d, e);
+        delete request.data.engine;
+        return request;
+    };
 
     return $resource('', {sessionId: '@sessionId'}, {
         startGoal: {
             method: 'GET',
             url: ApiConfig.getConfig().url + '/start/:id',
-            interceptor: {responseError: resourceErrorHandler},
+            interceptor: {
+                request: stripBody,
+                responseError: resourceErrorHandler
+            },
             headers: {
                 'Authorization': ApiConfig.getConfig().auth,
                 'x-rainbird-engine': engine
@@ -92,15 +101,21 @@ services.factory('GoalAPI', ['$resource', 'ApiConfig', function($resource, ApiCo
         queryGoal: {
             method: 'POST',
             url: ApiConfig.getConfig().url + '/:sessionId/query',
-            interceptor: {responseError: resourceErrorHandler},
+            interceptor: {
+                request: stripBody,
+                responseError: resourceErrorHandler
+            },
             headers: {
                 'x-rainbird-engine': engine
-            }
+            },
         },
         response: {
             method: 'POST',
             url: ApiConfig.getConfig().url + '/:sessionId/response',
-            interceptor: {responseError: resourceErrorHandler},
+            interceptor: {
+                request: stripBody,
+                responseError: resourceErrorHandler
+            },
             headers: {
                 'x-rainbird-engine': engine
             }
@@ -108,7 +123,10 @@ services.factory('GoalAPI', ['$resource', 'ApiConfig', function($resource, ApiCo
         back: {
             method: 'POST',
             url: ApiConfig.getConfig().url + '/:sessionId/undo',
-            interceptor: {responseError: resourceErrorHandler},
+            interceptor: {
+                request: stripBody,
+                responseError: resourceErrorHandler
+            },
             headers: {
                 'x-rainbird-engine': engine
             }

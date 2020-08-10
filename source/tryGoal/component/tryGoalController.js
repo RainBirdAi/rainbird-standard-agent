@@ -149,7 +149,8 @@ function($scope, $window, agentMemory, $compile, $stateParams, config, GoalAPI, 
             object: $scope.goalInfo.objectInstance == 'user provided' ? $scope.init.objectInstance : $scope.goalInfo.objectInstance,
             subject:  $scope.goalInfo.subjectInstance == 'user provided' ? $scope.init.subjectInstance : $scope.goalInfo.subjectInstance,
             relationship: ($scope.goalInfo.relationship ? $scope.goalInfo.relationship : $scope.goalInfo.rel),
-            engine: config.uiSettings.engine
+            //engine: config.uiSettings.engine
+            engine: undefined // DEBUG
         };
 
         $scope.postMessage(goalInfo);
