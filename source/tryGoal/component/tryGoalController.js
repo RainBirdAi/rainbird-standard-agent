@@ -80,7 +80,12 @@ function($scope, $window, agentMemory, $compile, $stateParams, config, GoalAPI, 
     $scope.startGoalContext = function() {
         $scope.display = 'thinking';
 
-        ConfigAPI.getSessionId({ id: $stateParams.id, contextid: contextId, syncToken: $rootScope.syncToken, engine: config.uiSettings.engine }, function(response) {
+        ConfigAPI.getSessionId({
+            id: $stateParams.id,
+            contextid: contextId,
+            syncToken: $rootScope.syncToken,
+            engine: config.uiSettings.engine
+        }, function(response) {
             sessionId = response.sessionId;
 
             // Proceed unless the user has since pressed the reset button.
