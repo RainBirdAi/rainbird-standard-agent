@@ -84,7 +84,7 @@ function($scope, $window, agentMemory, $compile, $stateParams, config, GoalAPI, 
             id: $stateParams.id,
             contextid: contextId,
             syncToken: $rootScope.syncToken,
-            engine: config.uiSettings.engine
+            engine: config.uiSettings && config.uiSettings.engine
         }, function(response) {
             sessionId = response.sessionId;
 
@@ -153,7 +153,7 @@ function($scope, $window, agentMemory, $compile, $stateParams, config, GoalAPI, 
             object: $scope.goalInfo.objectInstance == 'user provided' ? $scope.init.objectInstance : $scope.goalInfo.objectInstance,
             subject:  $scope.goalInfo.subjectInstance == 'user provided' ? $scope.init.subjectInstance : $scope.goalInfo.subjectInstance,
             relationship: ($scope.goalInfo.relationship ? $scope.goalInfo.relationship : $scope.goalInfo.rel),
-            engine: config.uiSettings.engine
+            engine: config.uiSettings && config.uiSettings.engine
         };
 
         $scope.postMessage(goalInfo);
@@ -398,7 +398,7 @@ function($scope, $window, agentMemory, $compile, $stateParams, config, GoalAPI, 
             id: $stateParams.id,
             sessionId: sessionId,
             answers: responseObject,
-            engine: config.uiSettings.engine
+            engine: config.uiSettings && config.uiSettings.engine
         },
         function(result) {
             $scope.processResponse(result);
@@ -409,7 +409,7 @@ function($scope, $window, agentMemory, $compile, $stateParams, config, GoalAPI, 
         $scope.display = 'thinking';
         GoalAPI.back({
             sessionId: sessionId,
-            engine: config.uiSettings.engine
+            engine: config.uiSettings && config.uiSettings.engine
         },function(result) {
             if (alreadyDisplayingQuestion(result.question)){
                 //Likely to already be at the opening question, so perform a 'reset'.
