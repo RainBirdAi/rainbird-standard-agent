@@ -9,9 +9,9 @@ agentApp.value('agentMemory',
 );
 
 
-agentApp.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', function($stateProvider, $urlRouterProvider, $httpProvider) {
-
+agentApp.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$qProvider', function($stateProvider, $urlRouterProvider, $httpProvider, $qProvider) {
     $urlRouterProvider.otherwise('/main');
+    $qProvider.errorOnUnhandledRejections(false);
 
     $stateProvider
         .state('unauthorised', {
