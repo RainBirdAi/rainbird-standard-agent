@@ -1,162 +1,206 @@
-var agentApp = angular.module('rbAgent', ['ui.router', 'rbApp.tryGoal', 'rbApp.tryGoal.service', 'ui.bootstrap', 'semantic-ui', 'pluralNumbers', 'datePicker']);
+var agentApp = angular.module("rbAgent", [
+  "ui.router",
+  "rbApp.tryGoal",
+  "rbApp.tryGoal.service",
+  "ui.bootstrap",
+  "semantic-ui",
+  "pluralNumbers",
+  "datePicker",
+]);
 
-agentApp.value('agentMemory',
-    {
-        contextId: '',
-        sessionId: '',
-        tryGoal: false
-    }
-);
+agentApp.value("agentMemory", {
+  contextId: "",
+  sessionId: "",
+  tryGoal: false,
+});
 
-
-agentApp.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$qProvider', function($stateProvider, $urlRouterProvider, $httpProvider, $qProvider) {
-    $urlRouterProvider.otherwise('/main');
+agentApp.config([
+  "$stateProvider",
+  "$urlRouterProvider",
+  "$httpProvider",
+  "$qProvider",
+  function ($stateProvider, $urlRouterProvider, $httpProvider, $qProvider) {
+    $urlRouterProvider.otherwise("/main");
     $qProvider.errorOnUnhandledRejections(false);
 
     $stateProvider
-        .state('unauthorised', {
-            url: '/unauthorised'
-        })
-        .state('main', {
-            url: '/main',
-            templateUrl: '/applications/main.html',
-            controller: 'MainController',
-            resolve: {
-                config: ['ConfigAPI', '$rootScope', function(ConfigAPI, $rootScope) {
-                    return ConfigAPI.config({ id: $rootScope.id });
-                }]
-            }
-        })
-        .state('main.goalList', {
-            url: '/goalList',
-            templateUrl: '/applications/goalList/agentGoalList.html',
-            controller: 'AgentGoalListController',
-            resolve: {
-                config: ['$q', 'ConfigAPI', '$rootScope', 'Security', '$state', function($q, ConfigAPI, $rootScope, Security, $state) {
-                    var deferred = $q.defer();
-                    ConfigAPI.config({ id: $rootScope.id }).$promise.then(function(config){
-
-                        $rootScope.config = config;
-
-                        if (Security.checkReferrerValid(config.authorisedDomains)) {
-                            deferred.resolve(config);
-                        } else {
-                            $state.go('unauthorised');
-                            deferred.reject();
-                        }
-                    });
-                    return deferred.promise;
-                }]
-            }
-        })
-        .state('main.startGoal', {
-            url: '/startGoal',
-            templateUrl: '/applications/tryGoal/component/tryGoalAgent.html',
-            controller: 'TryGoalController',
-            resolve: {
-                config: ['ConfigAPI', '$rootScope', function(ConfigAPI, $rootScope) {
-                    return ConfigAPI.config({ id: $rootScope.id });
-                }]
+      .state("unauthorised", {
+        url: "/unauthorised",
+      })
+      .state("main", {
+        url: "/main",
+        templateUrl: "/applications/main.html",
+        controller: "MainController",
+        resolve: {
+          config: [
+            "ConfigAPI",
+            "$rootScope",
+            function (ConfigAPI, $rootScope) {
+              return ConfigAPI.config({ id: $rootScope.id });
             },
-            params: { goalInfo: null, id: null }
-        });
+          ],
+        },
+      })
+      .state("main.goalList", {
+        url: "/goalList",
+        templateUrl: "/applications/goalList/agentGoalList.html",
+        controller: "AgentGoalListController",
+        resolve: {
+          config: [
+            "$q",
+            "ConfigAPI",
+            "$rootScope",
+            "Security",
+            "$state",
+            function ($q, ConfigAPI, $rootScope, Security, $state) {
+              var deferred = $q.defer();
+              ConfigAPI.config({ id: $rootScope.id }).$promise.then(function (
+                config
+              ) {
+                $rootScope.config = config;
+                if (Security.checkReferrerValid(config.authorisedDomains)) {
+                  deferred.resolve(config);
+                } else {
+                  $state.go("unauthorised");
+                  deferred.reject();
+                }
+              });
+              return deferred.promise;
+            },
+          ],
+        },
+      })
+      .state("main.startGoal", {
+        url: "/startGoal",
+        templateUrl: "/applications/tryGoal/component/tryGoalAgent.html",
+        controller: "TryGoalController",
+        resolve: {
+          config: [
+            "ConfigAPI",
+            "$rootScope",
+            function (ConfigAPI, $rootScope) {
+              return ConfigAPI.config({ id: $rootScope.id });
+            },
+          ],
+        },
+        params: { goalInfo: null, id: null },
+      });
 
-    $httpProvider.interceptors.push('agentHttpInterceptor');
-}]);
+    $httpProvider.interceptors.push("agentHttpInterceptor");
+  },
+]);
 
-agentApp.service('ApiConfig', ['$rootScope', function($rootScope){
-
+agentApp.service("ApiConfig", [
+  "$rootScope",
+  function ($rootScope) {
     var config = { url: $rootScope.api };
 
     return {
-        getConfig: function () {
-            return config;
-        }
+      getConfig: function () {
+        return config;
+      },
     };
+  },
+]);
 
-}]);
-
-agentApp.factory('focusElementById', function($timeout, $window) {
-    return function(id) {
-        $timeout(function() {
-            var element = $window.document.getElementById(id);
-            if (element) {
-                element.focus();
-            }
-        });
-    };
+agentApp.factory("focusElementById", function ($timeout, $window) {
+  return function (id) {
+    $timeout(function () {
+      var element = $window.document.getElementById(id);
+      if (element) {
+        element.focus();
+      }
+    });
+  };
 });
 
-agentApp.factory('Security', ['$window', 'formatHelpers', function($window, formatHelpers) {
+agentApp.factory("Security", [
+  "$window",
+  "formatHelpers",
+  function ($window, formatHelpers) {
     return {
-        'checkReferrerValid': function(authorisedDomains) {
-            var validReferrer = true;
+      checkReferrerValid: function (authorisedDomains) {
+        var validReferrer = true;
 
-            // Are we in an iFrame?
-            if ($window.self != $window.top) {
+        // Are we in an iFrame?
+        if ($window.self != $window.top) {
+          var referrer = $window.document.referrer;
 
-                var referrer = $window.document.referrer;
+          if (
+            Array.isArray(authorisedDomains) &&
+            authorisedDomains.length > 0 &&
+            referrer
+          ) {
+            var formattedAuthorisedDomains = formatHelpers.formatAuthorisedDomain(
+              authorisedDomains
+            );
+            var formattedReferrer = formatHelpers.extractSchemeAndHost(
+              referrer
+            );
 
-                if (Array.isArray(authorisedDomains) && authorisedDomains.length > 0 && referrer) {
+            var referrerIndex = formattedAuthorisedDomains.indexOf(
+              formattedReferrer
+            );
 
-                    var formattedAuthorisedDomains = formatHelpers.formatAuthorisedDomain(authorisedDomains);
-                    var formattedReferrer = formatHelpers.extractSchemeAndHost(referrer);
-
-                    var referrerIndex = formattedAuthorisedDomains.indexOf(formattedReferrer);
-
-                    if (referrerIndex === -1) {
-                        validReferrer = false;
-                    }
-                }
+            if (referrerIndex === -1) {
+              validReferrer = false;
             }
-            return validReferrer;
+          }
         }
+        return validReferrer;
+      },
     };
-}]);
+  },
+]);
 
-agentApp.factory('formatHelpers', function() {
+agentApp.factory("formatHelpers", function () {
+  var helpers = {};
 
-    var helpers = {};
+  // Input:  http://www.example.org:8080/mypage/theone?query=hello
+  // Output: http://www.example.org:8080
+  helpers.extractSchemeAndHost = function (url) {
+    var matches = url.match(/(^https?\:\/\/([^\/?#]+))(?:[\/?#]|$)/i);
+    return matches && matches[1];
+  };
 
-    // Input:  http://www.example.org:8080/mypage/theone?query=hello
-    // Output: http://www.example.org:8080
-    helpers.extractSchemeAndHost = function(url) {
-        var matches = url.match(/(^https?\:\/\/([^\/?#]+))(?:[\/?#]|$)/i);
-        return matches && matches[1];
-    };
+  helpers.formatAuthorisedDomain = function (domains) {
+    var formatedDomains = [];
+    domains.forEach(function (domain) {
+      formatedDomains.push(helpers.extractSchemeAndHost(domain));
+    });
+    return formatedDomains;
+  };
 
-    helpers.formatAuthorisedDomain = function(domains) {
-        var formatedDomains = [];
-        domains.forEach(function(domain){
-            formatedDomains.push(helpers.extractSchemeAndHost(domain));
-        });
-        return formatedDomains;
-    };
-
-    return helpers;
+  return helpers;
 });
 
 // 500 delay is needed for the userProvided input.
 // A shorter delay causes it to lose focus.
-agentApp.directive('autofocus', ['$timeout', function($timeout) {
+agentApp.directive("autofocus", [
+  "$timeout",
+  function ($timeout) {
     return {
-        restrict: 'A',
-        link : function($scope, $element) {
-            $timeout(function() {
-                $element[0].focus();
-            }, 500);
-        }
+      restrict: "A",
+      link: function ($scope, $element) {
+        $timeout(function () {
+          $element[0].focus();
+        }, 500);
+      },
     };
-}]);
+  },
+]);
 
-agentApp.filter('rbDateOutputFormat', ['$filter', function($filter) {
-    var suffixes = ['th', 'st', 'nd', 'rd'];
+agentApp.filter("rbDateOutputFormat", [
+  "$filter",
+  function ($filter) {
+    var suffixes = ["th", "st", "nd", "rd"];
     return function (input) {
-        var dtfilter = $filter('date')(input, 'd MMMM yyyy');
-        var split = dtfilter.split(' ');
-        var day = parseInt(split[0]);
-        var relevantDigits = (day < 30) ? day % 20 : day % 30;
-        var suffix = (relevantDigits <= 3) ? suffixes[relevantDigits] : suffixes[0];
-        return split[0] + suffix + ' ' + split[1] + ', ' + split[2];
+      var dtfilter = $filter("date")(input, "d MMMM yyyy");
+      var split = dtfilter.split(" ");
+      var day = parseInt(split[0]);
+      var relevantDigits = day < 30 ? day % 20 : day % 30;
+      var suffix = relevantDigits <= 3 ? suffixes[relevantDigits] : suffixes[0];
+      return split[0] + suffix + " " + split[1] + ", " + split[2];
     };
-}]);
+  },
+]);
