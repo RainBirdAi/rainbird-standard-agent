@@ -1,7 +1,6 @@
 angular.module('rbApp.tryGoal')
 .controller('TryGoalController', ['$scope', '$window', 'agentMemory', '$compile', '$stateParams', 'config', 'GoalAPI', 'ConfigAPI', 'ApiConfig', '$state', '$location', '$filter', 'focusElementById', '$rootScope', '$timeout',
 function($scope, $window, agentMemory, $compile, $stateParams, config, GoalAPI, ConfigAPI, ApiConfig, $state, $location, $filter, focusElementById, $rootScope, $timeout) {
-
     var contextId;
     var sessionId;
     $scope.config = config;
@@ -81,7 +80,12 @@ function($scope, $window, agentMemory, $compile, $stateParams, config, GoalAPI, 
     $scope.startGoalContext = function() {
         $scope.display = 'thinking';
 
-        ConfigAPI.getSessionId({ id: $stateParams.id, contextid: contextId, syncToken: $rootScope.syncToken }, function(response) {
+        ConfigAPI.getSessionId({
+            id: $stateParams.id,
+            contextid: contextId,
+            syncToken: $rootScope.syncToken,
+            engine: config.uiSettings && config.uiSettings.engine
+        }, function(response) {
             sessionId = response.sessionId;
 
             // Proceed unless the user has since pressed the reset button.
@@ -148,7 +152,8 @@ function($scope, $window, agentMemory, $compile, $stateParams, config, GoalAPI, 
             sessionId: sessionId,
             object: $scope.goalInfo.objectInstance == 'user provided' ? $scope.init.objectInstance : $scope.goalInfo.objectInstance,
             subject:  $scope.goalInfo.subjectInstance == 'user provided' ? $scope.init.subjectInstance : $scope.goalInfo.subjectInstance,
-            relationship: ($scope.goalInfo.relationship ? $scope.goalInfo.relationship : $scope.goalInfo.rel)
+            relationship: ($scope.goalInfo.relationship ? $scope.goalInfo.relationship : $scope.goalInfo.rel),
+            engine: config.uiSettings && config.uiSettings.engine
         };
 
         $scope.postMessage(goalInfo);
@@ -392,7 +397,8 @@ function($scope, $window, agentMemory, $compile, $stateParams, config, GoalAPI, 
         GoalAPI.response({
             id: $stateParams.id,
             sessionId: sessionId,
-            answers: responseObject
+            answers: responseObject,
+            engine: config.uiSettings && config.uiSettings.engine
         },
         function(result) {
             $scope.processResponse(result);
@@ -401,7 +407,10 @@ function($scope, $window, agentMemory, $compile, $stateParams, config, GoalAPI, 
 
     $scope.back = function() {
         $scope.display = 'thinking';
-        GoalAPI.back({ sessionId: sessionId },function(result) {
+        GoalAPI.back({
+            sessionId: sessionId,
+            engine: config.uiSettings && config.uiSettings.engine
+        },function(result) {
             if (alreadyDisplayingQuestion(result.question)){
                 //Likely to already be at the opening question, so perform a 'reset'.
                 $scope.runGoal($scope.goalInfo);

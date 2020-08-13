@@ -1,6 +1,6 @@
 {
   "name": "rainbird-standard-agent",
-  "version": "2.50.0",
+  "version": "2.50.1-beta9",
   "publishConfig": {
     "registry": "https://npm.rainbird.ai"
   },
@@ -31,14 +31,14 @@
     "superagent": "3.8.x"
   },
   "devDependencies": {
-    "angular": "^1.6.10",
-    "angular-animate": "1.4.8",
-    "angular-cookies": "1.4.8",
-    "angular-messages": "1.4.8",
-    "angular-mocks": "1.4.8",
-    "angular-resource": "1.4.8",
-    "angular-route": "1.4.8",
-    "angular-sanitize": "1.4.8",
+    "angular": "^1.8.0",
+    "angular-animate": "1.8.0",
+    "angular-cookies": "1.8.0",
+    "angular-messages": "1.8.0",
+    "angular-mocks": "1.8.0",
+    "angular-resource": "1.8.0",
+    "angular-route": "1.8.0",
+    "angular-sanitize": "1.8.0",
     "angular-xeditable": "0.1.11",
     "basic-auth-parser": "0.0.x",
     "boron": "0.2.x",

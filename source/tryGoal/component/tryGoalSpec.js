@@ -1260,13 +1260,13 @@ describe('Try Goal Controller', function() {
             location.url('/agent/10000001');
 
             scope.startGoalContext();
-
             const expectedParams = {
                 id: '10000001',
                 contextid: undefined,
                 syncToken: undefined,
+                engine: undefined,
             };
-           
+
             expect(spyOnConfigAPI.getCall(0).args[0]).to.deep.equal(expectedParams);
             spyOnGoalAPI.should.not.have.been.called;
         });
@@ -1278,13 +1278,13 @@ describe('Try Goal Controller', function() {
             location.url('/agent/10000001');
 
             scope.startGoalContext();
-
             const expectedParams = {
                 id: '10000001',
                 contextid: undefined,
                 syncToken: '123456abcde',
+                engine: undefined,
             };
-           
+
             expect(spyOnConfigAPI.getCall(0).args[0]).to.deep.equal(expectedParams);
             spyOnGoalAPI.should.not.have.been.called;
         });
