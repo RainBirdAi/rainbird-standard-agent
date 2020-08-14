@@ -123,7 +123,9 @@ angular
             id: $stateParams.id,
             contextid: contextId,
             syncToken: $rootScope.syncToken,
-            engine: config.uiSettings && config.uiSettings.engine,
+            engine:
+              $location.search().engine ||
+              (config.uiSettings && config.uiSettings.engine),
           },
           function (response) {
             sessionId = response.sessionId;
@@ -213,7 +215,9 @@ angular
           relationship: $scope.goalInfo.relationship
             ? $scope.goalInfo.relationship
             : $scope.goalInfo.rel,
-          engine: config.uiSettings && config.uiSettings.engine,
+          engine:
+            $location.search().engine ||
+            (config.uiSettings && config.uiSettings.engine),
         };
 
         $scope.postMessage(goalInfo);
@@ -502,7 +506,9 @@ angular
             id: $stateParams.id,
             sessionId: sessionId,
             answers: responseObject,
-            engine: config.uiSettings && config.uiSettings.engine,
+            engine:
+              $location.search().engine ||
+              (config.uiSettings && config.uiSettings.engine),
           },
           function (result) {
             $scope.processResponse(result);
@@ -516,7 +522,9 @@ angular
         GoalAPI.back(
           {
             sessionId: sessionId,
-            engine: config.uiSettings && config.uiSettings.engine,
+            engine:
+              $location.search().engine ||
+              (config.uiSettings && config.uiSettings.engine),
           },
           function (result) {
             if (alreadyDisplayingQuestion(result.question)) {
