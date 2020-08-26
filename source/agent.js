@@ -36,7 +36,10 @@ agentApp.config([
             "ConfigAPI",
             "$rootScope",
             function (ConfigAPI, $rootScope) {
-              return ConfigAPI.config({ id: $rootScope.id });
+              return ConfigAPI.config({
+                engine: $rootScope.engine,
+                id: $rootScope.id,
+              });
             },
           ],
         },
@@ -54,9 +57,10 @@ agentApp.config([
             "$state",
             function ($q, ConfigAPI, $rootScope, Security, $state) {
               var deferred = $q.defer();
-              ConfigAPI.config({ id: $rootScope.id }).$promise.then(function (
-                config
-              ) {
+              ConfigAPI.config({
+                engine: $rootScope.engine,
+                id: $rootScope.id,
+              }).$promise.then(function (config) {
                 $rootScope.config = config;
                 if (Security.checkReferrerValid(config.authorisedDomains)) {
                   deferred.resolve(config);
@@ -79,7 +83,10 @@ agentApp.config([
             "ConfigAPI",
             "$rootScope",
             function (ConfigAPI, $rootScope) {
-              return ConfigAPI.config({ id: $rootScope.id });
+              return ConfigAPI.config({
+                engine: $rootScope.engine,
+                id: $rootScope.id,
+              });
             },
           ],
         },

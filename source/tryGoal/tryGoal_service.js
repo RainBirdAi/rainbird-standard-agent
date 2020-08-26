@@ -22,7 +22,7 @@ services.factory("ConfigAPI", [
       {
         config: {
           method: "GET",
-          url: "/agent/:id/config",
+          url: "/agent/:id/config?engine=:engine",
           interceptor: { responseError: resourceErrorHandler },
         },
         getGoalInfo: {
