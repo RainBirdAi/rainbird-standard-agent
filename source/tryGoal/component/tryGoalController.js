@@ -507,7 +507,7 @@ angular
               $rootScope.engine,
           },
           function (result) {
-            if (result.data) handleError({ message: result.data.err[0] });
+            if (result.data) return handleError({ message: result.data.err[0] });
             $scope.processResponse(result);
           },
           validateAndHandleError
