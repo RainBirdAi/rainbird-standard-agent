@@ -1,21 +1,21 @@
 angular
-  .module("rbApp.tryGoal")
-  .controller("TryGoalController", [
-    "$scope",
-    "$window",
-    "agentMemory",
-    "$compile",
-    "$stateParams",
-    "config",
-    "GoalAPI",
-    "ConfigAPI",
-    "ApiConfig",
-    "$state",
-    "$location",
-    "$filter",
-    "focusElementById",
-    "$rootScope",
-    "$timeout",
+  .module('rbApp.tryGoal')
+  .controller('TryGoalController', [
+    '$scope',
+    '$window',
+    'agentMemory',
+    '$compile',
+    '$stateParams',
+    'config',
+    'GoalAPI',
+    'ConfigAPI',
+    'ApiConfig',
+    '$state',
+    '$location',
+    '$filter',
+    'focusElementById',
+    '$rootScope',
+    '$timeout',
     function (
       $scope,
       $window,
@@ -36,7 +36,7 @@ angular
       var contextId;
       var sessionId;
       $scope.config = config;
-      $scope.otherOption = { value: "(other - not listed)" };
+      $scope.otherOption = { value: '(other - not listed)' };
       $scope.yolandaUrl = ApiConfig.getConfig().url;
       $scope.tryGoal = agentMemory.tryGoal;
 
@@ -48,9 +48,9 @@ angular
         sessionId = null;
       };
 
-      $scope.$on("tryGoal", function (event, args) {
-        $("#tryGoalModal").modal("show");
-        $scope.display = "thinking";
+      $scope.$on('tryGoal', function (event, args) {
+        $('#tryGoalModal').modal('show');
+        $scope.display = 'thinking';
 
         // get goal info
         ConfigAPI.getGoalInfo(
@@ -63,7 +63,7 @@ angular
       });
 
       $scope.getGoalInfo = function (goalId) {
-        $scope.display = "thinking";
+        $scope.display = 'thinking';
 
         // get goal info
         ConfigAPI.getGoalInfo(
@@ -76,7 +76,7 @@ angular
       };
 
       $scope.postMessage = function (message) {
-        parent.postMessage(message, "*");
+        parent.postMessage(message, '*');
       };
 
       $scope.runGoal = function (goalInfo) {
@@ -87,11 +87,11 @@ angular
         sessionId = null;
         contextId = goalInfo.contextId;
 
-        if (goalInfo.objectInstance === "user provided") {
+        if (goalInfo.objectInstance === 'user provided') {
           $scope.objectPrompt = goalInfo.object;
           $scope.subjectPrompt = null;
           requiresInitData = true;
-        } else if (goalInfo.subjectInstance === "user provided") {
+        } else if (goalInfo.subjectInstance === 'user provided') {
           $scope.subjectPrompt = goalInfo.subject;
           $scope.objectPrompt = null;
           requiresInitData = true;
@@ -101,7 +101,7 @@ angular
         }
 
         if (requiresInitData) {
-          $scope.display = "init data";
+          $scope.display = 'init data';
         } else {
           $scope.startGoalContext();
         }
@@ -111,12 +111,12 @@ angular
         $scope.errorMessage =
           err && err.message
             ? err.message
-            : "Unfortunately Rainbird has been unable to process the goal against the current Knowledge Map.";
-        $scope.display = "error";
+            : 'Unfortunately Rainbird has been unable to process the goal against the current Knowledge Map.';
+        $scope.display = 'error';
       }
 
       $scope.startGoalContext = function () {
-        $scope.display = "thinking";
+        $scope.display = 'thinking';
 
         ConfigAPI.getSessionId(
           {
@@ -129,7 +129,7 @@ angular
             sessionId = response.sessionId;
 
             // Proceed unless the user has since pressed the reset button.
-            if ($scope.display !== "init data") {
+            if ($scope.display !== 'init data') {
               $scope.queryGoal();
             }
           },
@@ -140,20 +140,20 @@ angular
       };
 
       $scope.$watch(
-        "apiOutput",
+        'apiOutput',
         function () {
           if (agentMemory.tryGoal) {
             var displayText = JSON.stringify($rootScope.apiOutput, null, 1);
 
-            var lines = displayText.split("\n");
+            var lines = displayText.split('\n');
             lines.splice(0, 1);
             if (lines.length > 0) {
               lines.splice(lines.length - 1, 1);
             }
-            $rootScope.apiOutputDisplay = lines.join("\n");
+            $rootScope.apiOutputDisplay = lines.join('\n');
           }
           $timeout(function () {
-            var logPanel = document.querySelector("#scroll-content");
+            var logPanel = document.querySelector('#scroll-content');
             logPanel.scrollTop = logPanel.scrollHeight;
           }, 150);
         },
@@ -170,8 +170,8 @@ angular
       };
 
       function formatConcept(concept) {
-        if (concept === "(null)") {
-          return "(*)";
+        if (concept === '(null)') {
+          return '(*)';
         } else {
           return concept;
         }
@@ -186,15 +186,15 @@ angular
           concepts[1] = formatConcept(concepts[1]);
           return (
             concepts[0] +
-            " " +
+            ' ' +
             relationship[1] +
-            " " +
+            ' ' +
             concepts[1] +
-            " " +
+            ' ' +
             concepts[2]
           );
         } else {
-          return "There has been a problem presenting this rule.";
+          return 'There has been a problem presenting this rule.';
         }
       };
 
@@ -203,11 +203,11 @@ angular
           id: $stateParams.id,
           sessionId: sessionId,
           object:
-            $scope.goalInfo.objectInstance == "user provided"
+            $scope.goalInfo.objectInstance == 'user provided'
               ? $scope.init.objectInstance
               : $scope.goalInfo.objectInstance,
           subject:
-            $scope.goalInfo.subjectInstance == "user provided"
+            $scope.goalInfo.subjectInstance == 'user provided'
               ? $scope.init.subjectInstance
               : $scope.goalInfo.subjectInstance,
           relationship: $scope.goalInfo.relationship
@@ -233,6 +233,7 @@ angular
       }
 
       function validateAndHandleError(err) {
+        console.log('YYYYYYYYYYYYYY');
         if (
           err &&
           err.config &&
@@ -246,10 +247,10 @@ angular
       }
 
       function formatObjectDateInQuestion(response) {
-        if (response.question.objectType === "date") {
+        if (response.question.objectType === 'date') {
           response.question.prompt = response.question.prompt.replace(
             response.question.object,
-            $filter("rbDateOutputFormat")(response.question.object)
+            $filter('rbDateOutputFormat')(response.question.object)
           );
         }
       }
@@ -262,7 +263,7 @@ angular
         $scope.postMessage(response);
 
         if (response.question && response.question.allowUnknown) {
-          focusElementById("mainAgent");
+          focusElementById('mainAgent');
         }
 
         response.questions = [];
@@ -274,7 +275,7 @@ angular
           response.question.answer = { selection: [], cf: 100 };
           response.questions.splice(0, 0, response.question);
           response.questions.forEach(function (question) {
-            if (question.type == "Second Form Object") {
+            if (question.type == 'Second Form Object') {
               question.knownAnswers.forEach(function (knownFact) {
                 question.concepts.forEach(function (concInst) {
                   if (knownFact.object == concInst.value) {
@@ -288,7 +289,7 @@ angular
                     concInst.disabled = true;
                   }
                 });
-            } else if (question.type == "Second Form Subject") {
+            } else if (question.type == 'Second Form Subject') {
               question.knownAnswers.forEach(function (knownFact) {
                 question.concepts.forEach(function (concInst) {
                   if (knownFact.subject == concInst.value) {
@@ -321,11 +322,11 @@ angular
         }
 
         if (response.question) {
-          if (response.question.type === "First Form") {
-            $scope.display = "firstForm";
+          if (response.question.type === 'First Form') {
+            $scope.display = 'firstForm';
             formatObjectDateInQuestion(response);
           } else {
-            $scope.display = "secondForm";
+            $scope.display = 'secondForm';
           }
         } else if (
           response.result &&
@@ -339,7 +340,7 @@ angular
               ? $scope.goalInfo.goalText
               : $scope.goalInfo.text;
 
-            var metaData = element.objectMetadata ? element.objectMetadata : "";
+            var metaData = element.objectMetadata ? element.objectMetadata : '';
 
             resultText = resultText.replace(/%O/g, element.object);
             resultText = resultText.replace(/%R/g, element.relationship);
@@ -361,22 +362,22 @@ angular
               });
             }
           });
-          $scope.display = "result";
+          $scope.display = 'result';
 
           if ($scope.tryGoal) {
-            focusElementById("reset");
+            focusElementById('reset');
           } else {
-            focusElementById("done");
+            focusElementById('done');
           }
         } else if (angular.isArray(response.result)) {
-          $scope.display = "end";
+          $scope.display = 'end';
         } else {
           handleError(response);
         }
       };
 
       $scope.enterPressed = function () {
-        if ($scope.display === "init data") {
+        if ($scope.display === 'init data') {
           if ($scope.init.objectInstance || $scope.init.subjectInstance) {
             $scope.startGoalContext();
           }
@@ -385,7 +386,7 @@ angular
             var disableEnter = $scope.response.questions.some(function (
               question
             ) {
-              return question.dataType === "string";
+              return question.dataType === 'string';
             });
           }
           if (!disableEnter && !$scope.disableContinue()) {
@@ -395,7 +396,7 @@ angular
       };
 
       $scope.selectConcept = function (value, index, question) {
-        if (question.answer.selection[index] === value || value === "") {
+        if (question.answer.selection[index] === value || value === '') {
           delete question.answer.selection[index];
         } else {
           question.answer.selection[index] = value;
@@ -404,12 +405,12 @@ angular
 
       $scope.respond = function () {
         var formatObjectByDataType = function (dataType, usersAnswer) {
-          if (dataType == "date") {
+          if (dataType == 'date') {
             return usersAnswer.getTime
               ? usersAnswer.getTime()
               : new Date(usersAnswer).getTime();
-          } else if (dataType == "truth") {
-            return usersAnswer == "yes";
+          } else if (dataType == 'truth') {
+            return usersAnswer == 'yes';
           } else {
             return usersAnswer;
           }
@@ -419,11 +420,11 @@ angular
           return value == false || value == 0 || value;
         };
 
-        $scope.display = "thinking";
+        $scope.display = 'thinking';
 
         var responseObject = [];
         $scope.response.questions.forEach(function (question) {
-          if (question.type == "First Form") {
+          if (question.type == 'First Form') {
             var temp = {
               subject: question.subject,
               object: question.object,
@@ -448,7 +449,7 @@ angular
               );
               delete question.answer.selection.currentValue;
             }
-            if (typeof question.answer.selection == "string") {
+            if (typeof question.answer.selection == 'string') {
               question.answer.selection = [question.answer.selection];
             }
 
@@ -462,11 +463,11 @@ angular
                 }
                 responseObject.push({
                   subject:
-                    question.type == "Second Form Subject"
+                    question.type == 'Second Form Subject'
                       ? userSelection
                       : question.subject,
                   object:
-                    question.type == "Second Form Object"
+                    question.type == 'Second Form Object'
                       ? formatObjectByDataType(question.dataType, userSelection)
                       : question.object,
                   relationship: question.relationship,
@@ -477,11 +478,11 @@ angular
               //no answer
               responseObject.push({
                 subject:
-                  question.type == "Second Form Subject"
-                    ? ""
+                  question.type == 'Second Form Subject'
+                    ? ''
                     : question.subject,
                 object:
-                  question.type == "Second Form Object" ? "" : question.object,
+                  question.type == 'Second Form Object' ? '' : question.object,
                 relationship: question.relationship,
                 cf: question.answer.cf,
                 unanswered: true,
@@ -507,7 +508,7 @@ angular
               $rootScope.engine,
           },
           function (result) {
-            if (result.data) return handleError({ message: result.data.err[0] });
+            // if (result.data) return handleError({ message: result.data.err[0] });
             $scope.processResponse(result);
           },
           validateAndHandleError
@@ -515,7 +516,7 @@ angular
       };
 
       $scope.back = function () {
-        $scope.display = "thinking";
+        $scope.display = 'thinking';
         GoalAPI.back(
           {
             sessionId: sessionId,
@@ -542,8 +543,8 @@ angular
       }
 
       $scope.done = function () {
-        $scope.postMessage("Done");
-        $("#tryGoalModal").modal("hide");
+        $scope.postMessage('Done');
+        $('#tryGoalModal').modal('hide');
       };
 
       $scope.datePicker = (function () {
@@ -566,9 +567,9 @@ angular
       })();
 
       $scope.exit = function () {
-        $scope.postMessage("Reset");
-        $state.go("main.goalList", null, {
-          location: "replace",
+        $scope.postMessage('Reset');
+        $state.go('main.goalList', null, {
+          location: 'replace',
         });
       };
 
@@ -577,9 +578,9 @@ angular
         $scope.response.question.knownAnswers.forEach(function (knownAnswer) {
           if (
             (concept === knownAnswer.subject &&
-              $scope.response.question.type === "Second Form Subject") ||
+              $scope.response.question.type === 'Second Form Subject') ||
             (concept === knownAnswer.object &&
-              $scope.response.question.type === "Second Form Object")
+              $scope.response.question.type === 'Second Form Object')
           ) {
             found = true;
           }
@@ -598,7 +599,7 @@ angular
             skip = false;
           }
         });
-        return skip ? "Skip" : "Continue";
+        return skip ? 'Skip' : 'Continue';
       };
 
       $scope.disableContinue = function () {
@@ -631,23 +632,23 @@ angular
       };
 
       $scope.hasValue = function (value) {
-        return value !== "" && value !== undefined;
+        return value !== '' && value !== undefined;
       };
 
       function runAgentGoal() {
         if ($stateParams.goalInfo != null) {
-          $scope.display = "thinking";
+          $scope.display = 'thinking';
           $scope.goalInfo = $stateParams.goalInfo;
           $scope.runGoal($scope.goalInfo);
         } else {
-          $state.go("main.goalList", null, {
-            location: "replace",
+          $state.go('main.goalList', null, {
+            location: 'replace',
           });
         }
       }
 
       function init() {
-        if ($stateParams.hasOwnProperty("goalInfo")) {
+        if ($stateParams.hasOwnProperty('goalInfo')) {
           runAgentGoal();
         }
       }
@@ -662,18 +663,18 @@ angular
       };
 
       $scope.generateQuestionId = function (relationship) {
-        return "qinput_" + relationship.replace(/[^A-Za-z0-9\-_\.]/g, "_");
+        return 'qinput_' + relationship.replace(/[^A-Za-z0-9\-_\.]/g, '_');
       };
 
       init();
     },
   ])
-  .directive("stringToNumber", function () {
+  .directive('stringToNumber', function () {
     return {
-      require: "ngModel",
+      require: 'ngModel',
       link: function (scope, element, attrs, ngModel) {
         ngModel.$parsers.push(function (value) {
-          return "" + value;
+          return '' + value;
         });
         ngModel.$formatters.push(function (value) {
           return parseFloat(value);

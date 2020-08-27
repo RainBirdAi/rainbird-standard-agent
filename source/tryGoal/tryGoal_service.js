@@ -1,7 +1,7 @@
-var services = angular.module("rbApp.tryGoal.service", ["ngResource"]);
+var services = angular.module('rbApp.tryGoal.service', ['ngResource']);
 
-services.factory("ConfigAPI", [
-  "$resource",
+services.factory('ConfigAPI', [
+  '$resource',
   function ($resource) {
     var requestIntercept = function (request) {
       var engine;
@@ -9,7 +9,7 @@ services.factory("ConfigAPI", [
       else if (request.params) engine = request.params.engine;
 
       if (!request.headers) request.headers = {};
-      if (engine) request.headers["x-rainbird-engine"] = engine;
+      if (engine) request.headers['x-rainbird-engine'] = engine;
 
       if (request.params) delete request.params.engine;
       if (request.data) delete request.data.engine;
@@ -18,25 +18,25 @@ services.factory("ConfigAPI", [
     };
 
     return $resource(
-      "",
+      '',
       {},
       {
         config: {
-          method: "GET",
-          url: "/agent/:id/config?engine=:engine",
-          interceptor: { responseError: resourceErrorHandler },
+          method: 'GET',
+          url: '/agent/:id/config?engine=:engine',
+          // interceptor: { responseError: resourceErrorHandler },
         },
         getGoalInfo: {
-          method: "GET",
-          url: "/goal/info/:goalid/:id",
-          interceptor: { responseError: resourceErrorHandler },
+          method: 'GET',
+          url: '/goal/info/:goalid/:id',
+          // interceptor: { responseError: resourceErrorHandler },
         },
         getSessionId: {
-          method: "GET",
-          url: "/agent/:id/start/contextid/:syncToken",
+          method: 'GET',
+          url: '/agent/:id/start/contextid/:syncToken',
           interceptor: {
             request: requestIntercept,
-            responseError: resourceErrorHandler,
+            // responseError: resourceErrorHandler,
           },
         },
       }
@@ -44,24 +44,24 @@ services.factory("ConfigAPI", [
   },
 ]);
 
-services.factory("agentHttpInterceptor", [
-  "agentMemory",
-  "$rootScope",
+services.factory('agentHttpInterceptor', [
+  'agentMemory',
+  '$rootScope',
   function (agentMemory, $rootScope) {
     $rootScope.apiOutput = new Array();
     return {
       request: function (config) {
-        var targetURL = config.url.split("?", 1)[0];
+        var targetURL = config.url.split('?', 1)[0];
 
-        if (agentMemory.tryGoal && targetURL.endsWith("query")) {
-          config.url = config.url + "?profiler=true";
+        if (agentMemory.tryGoal && targetURL.endsWith('query')) {
+          config.url = config.url + '?profiler=true';
         }
 
         if (
           agentMemory.tryGoal &&
-          (targetURL.endsWith("query") || targetURL.endsWith("response"))
+          (targetURL.endsWith('query') || targetURL.endsWith('response'))
         ) {
-          var log = { type: "request" };
+          var log = { type: 'request' };
           log.method = config.method;
           log.url = config.url;
           log.params = config.params;
@@ -75,7 +75,7 @@ services.factory("agentHttpInterceptor", [
 
       response: function (response) {
         var log;
-        var targetURL = response.config.url.split("?", 1)[0];
+        var targetURL = response.config.url.split('?', 1)[0];
 
         if (response.data && response.data.apiLog) {
           log = response.data.apiLog;
@@ -83,9 +83,9 @@ services.factory("agentHttpInterceptor", [
           $rootScope.apiOutput.push(log.response);
         } else if (
           agentMemory.tryGoal &&
-          (targetURL.endsWith("query") || targetURL.endsWith("response"))
+          (targetURL.endsWith('query') || targetURL.endsWith('response'))
         ) {
-          log = { type: "response" };
+          log = { type: 'response' };
           log.method = response.config.method;
           log.url = response.config.url;
           log.data = JSON.parse(JSON.stringify(response.data));
@@ -99,9 +99,9 @@ services.factory("agentHttpInterceptor", [
   },
 ]);
 
-services.factory("GoalAPI", [
-  "$resource",
-  "ApiConfig",
+services.factory('GoalAPI', [
+  '$resource',
+  'ApiConfig',
   function ($resource, ApiConfig) {
     var requestIntercept = function (request) {
       var engine;
@@ -109,7 +109,7 @@ services.factory("GoalAPI", [
       else if (request.params) engine = request.params.engine;
 
       if (!request.headers) request.headers = {};
-      if (engine) request.headers["x-rainbird-engine"] = engine;
+      if (engine) request.headers['x-rainbird-engine'] = engine;
 
       if (request.params) delete request.params.engine;
       if (request.data) delete request.data.engine;
@@ -118,42 +118,42 @@ services.factory("GoalAPI", [
     };
 
     return $resource(
-      "",
-      { sessionId: "@sessionId" },
+      '',
+      { sessionId: '@sessionId' },
       {
         startGoal: {
-          method: "GET",
-          url: ApiConfig.getConfig().url + "/start/:id",
+          method: 'GET',
+          url: ApiConfig.getConfig().url + '/start/:id',
           interceptor: {
             request: requestIntercept,
-            responseError: resourceErrorHandler,
+            // responseError: resourceErrorHandler,
           },
           headers: {
             Authorization: ApiConfig.getConfig().auth,
           },
         },
         queryGoal: {
-          method: "POST",
-          url: ApiConfig.getConfig().url + "/:sessionId/query",
+          method: 'POST',
+          url: ApiConfig.getConfig().url + '/:sessionId/query',
           interceptor: {
             request: requestIntercept,
-            responseError: resourceErrorHandler,
+            // responseError: resourceErrorHandler,
           },
         },
         response: {
-          method: "POST",
-          url: ApiConfig.getConfig().url + "/:sessionId/response",
+          method: 'POST',
+          url: ApiConfig.getConfig().url + '/:sessionId/response',
           interceptor: {
             request: requestIntercept,
-            responseError: resourceErrorHandler,
+            // responseError: resourceErrorHandler,
           },
         },
         back: {
-          method: "POST",
-          url: ApiConfig.getConfig().url + "/:sessionId/undo",
+          method: 'POST',
+          url: ApiConfig.getConfig().url + '/:sessionId/undo',
           interceptor: {
             request: requestIntercept,
-            responseError: resourceErrorHandler,
+            // responseError: resourceErrorHandler,
           },
         },
       }
@@ -161,10 +161,10 @@ services.factory("GoalAPI", [
   },
 ]);
 
-function resourceErrorHandler(rejection) {
-  /*eslint-disable no-console*/
-  console.log("Resource Error");
-  console.log(rejection);
-  /*eslint-enable no-console*/
-  return rejection;
-}
+// function resourceErrorHandler(rejection) {
+//   /*eslint-disable no-console*/
+//   console.log('Resource Error');
+//   console.log(rejection);
+//   /*eslint-enable no-console*/
+//   return rejection;
+// }
