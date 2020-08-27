@@ -502,9 +502,12 @@ angular
             id: $stateParams.id,
             sessionId: sessionId,
             answers: responseObject,
-            engine: config.uiSettings && config.uiSettings.engine,
+            engine:
+              (config.uiSettings && config.uiSettings.engine) ||
+              $rootScope.engine,
           },
           function (result) {
+            if (result.data) handleError({ message: result.data.err[0] });
             $scope.processResponse(result);
           },
           validateAndHandleError

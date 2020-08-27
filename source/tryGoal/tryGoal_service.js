@@ -13,6 +13,7 @@ services.factory("ConfigAPI", [
 
       if (request.params) delete request.params.engine;
       if (request.data) delete request.data.engine;
+
       return request;
     };
 
@@ -112,6 +113,7 @@ services.factory("GoalAPI", [
 
       if (request.params) delete request.params.engine;
       if (request.data) delete request.data.engine;
+
       return request;
     };
 
@@ -159,9 +161,10 @@ services.factory("GoalAPI", [
   },
 ]);
 
-function resourceErrorHandler(response) {
+function resourceErrorHandler(rejection) {
   /*eslint-disable no-console*/
   console.log("Resource Error");
-  console.log(response);
+  console.log(rejection);
   /*eslint-enable no-console*/
+  return rejection;
 }
