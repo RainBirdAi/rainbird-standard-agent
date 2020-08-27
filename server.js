@@ -18,15 +18,15 @@ app.set('view engine', 'ejs');
 app.get('/', function(req, res) {
     //Contains a demo agent id
     return res.render('agent', {
-        id: 'dbd8b876-56d6-4db0-acaa-0c250619e26d',
-        api: 'https://api.rainbird.ai',
+        id: '3bea4a38-d91c-4c3c-a7ee-3b5817889caf',
+        api: 'https://test-api.rainbird.ai',
         syncToken: undefined,
     });
 });
 
 //Proxies 'config' request to the Rainbird Community environment
 app.get('/agent/:id/config', function(req, res) {
-    request.get('https://app.rainbird.ai/agent/' + req.params.id + '/config')
+    request.get('https://test.rainbird.ai/agent/' + req.params.id + '/config')
         .end(function (err, response){
             res.send(response.body);
         });
@@ -34,7 +34,7 @@ app.get('/agent/:id/config', function(req, res) {
 
 //Proxies 'start' request to the Rainbird Community environment
 app.get('/agent/:id/start/contextId', function(req, res) {
-    request.get('https://app.rainbird.ai/agent/' + req.params.id + '/start')
+    request.get('https://test.rainbird.ai/agent/' + req.params.id + '/start')
         .end(function (err, response){
             res.send(response.body);
         });
