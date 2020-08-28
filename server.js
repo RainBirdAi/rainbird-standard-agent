@@ -4,8 +4,11 @@ const path = require('path');
 const request = require('superagent');
 
 //Proxies 'Evidence Tree' request to the Rainbird Community environment
-app.get('/applications/components/rainbird-analysis-ui/:whyAnalysis', function(req, res) {
-    res.redirect('https://app.rainbird.ai' + req.originalUrl);
+app.get('/applications/components/rainbird-analysis-ui/:whyAnalysis', function (
+  req,
+  res
+) {
+  res.redirect('https://app.rainbird.ai' + req.originalUrl);
 });
 
 app.use('/components', express.static(path.join(__dirname, 'components')));
@@ -40,7 +43,9 @@ app.get('/agent/:id/start/contextId', function(req, res) {
         });
 });
 
-app.listen(8080, function() {
-    console.log('Web server started on port: 8080.');
-    console.log('To run example \'Speaks\' goal, browse to: http://localhost:8080/');
+app.listen(8080, function () {
+  console.log('Web server started on port: 8080.');
+  console.log(
+    "To run example 'Speaks' goal, browse to: http://localhost:8080/"
+  );
 });
