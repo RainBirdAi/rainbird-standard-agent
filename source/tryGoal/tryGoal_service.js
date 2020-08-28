@@ -23,19 +23,16 @@ services.factory("ConfigAPI", [
         config: {
           method: "GET",
           url: "/agent/:id/config?engine=:engine",
-          interceptor: { responseError: resourceErrorHandler },
         },
         getGoalInfo: {
           method: "GET",
           url: "/goal/info/:goalid/:id",
-          interceptor: { responseError: resourceErrorHandler },
         },
         getSessionId: {
           method: "GET",
           url: "/agent/:id/start/contextid/:syncToken",
           interceptor: {
             request: requestIntercept,
-            responseError: resourceErrorHandler,
           },
         },
       }
@@ -124,7 +121,6 @@ services.factory("GoalAPI", [
           url: ApiConfig.getConfig().url + "/start/:id",
           interceptor: {
             request: requestIntercept,
-            responseError: resourceErrorHandler,
           },
           headers: {
             Authorization: ApiConfig.getConfig().auth,
@@ -135,7 +131,6 @@ services.factory("GoalAPI", [
           url: ApiConfig.getConfig().url + "/:sessionId/query",
           interceptor: {
             request: requestIntercept,
-            responseError: resourceErrorHandler,
           },
         },
         response: {
@@ -143,7 +138,6 @@ services.factory("GoalAPI", [
           url: ApiConfig.getConfig().url + "/:sessionId/response",
           interceptor: {
             request: requestIntercept,
-            responseError: resourceErrorHandler,
           },
         },
         back: {
@@ -151,17 +145,9 @@ services.factory("GoalAPI", [
           url: ApiConfig.getConfig().url + "/:sessionId/undo",
           interceptor: {
             request: requestIntercept,
-            responseError: resourceErrorHandler,
           },
         },
       }
     );
   },
 ]);
-
-function resourceErrorHandler(response) {
-  /*eslint-disable no-console*/
-  console.log("Resource Error");
-  console.log(response);
-  /*eslint-enable no-console*/
-}
