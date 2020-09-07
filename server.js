@@ -25,6 +25,7 @@ app.get('/', function (req, res) {
     api: 'https://test-api.rainbird.ai',
     syncToken: undefined,
     engine: 'Core',
+    displayMode: 'slim',
   });
 });
 

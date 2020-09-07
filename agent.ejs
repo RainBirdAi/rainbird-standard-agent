@@ -35,11 +35,11 @@
   <body>
     <div
       ng-app="rbAgent"
-      ng-init="id='<%= id %>'; api='<%= api %>'; syncToken='<%= syncToken %>'; engine='<%= engine %>'"
+      ng-init="id='<%= id %>'; api='<%= api %>'; syncToken='<%= syncToken %>'; engine='<%= engine %>'; displaymode='<%= displayMode %>';"
       ng-strict-di
       ng-cloak
     >
-      <div class="agent-wrapper" style="width: 100%;">
+      <div class="agent-wrapper" style="width: 100%">
         <ui-view> </ui-view>
       </div>
     </div>
