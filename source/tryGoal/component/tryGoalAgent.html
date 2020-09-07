@@ -14,7 +14,7 @@
             </div>
         </section>
     </div>
-    <div ng-class="{'split-screen-footer' : splitScreen}" class="agent-footer-holder modal-footer">
+    <div ng-class="{'split-screen-footer' : splitScreen, 'agent-footer-holder-standard' : displayMode !== 'slim'}" class="agent-footer-holder modal-footer">
         <div class="agent-button-row">
             <button id="continue" class="btn btn-info" value="Continue"
                     ng-if="display === 'init data'"
