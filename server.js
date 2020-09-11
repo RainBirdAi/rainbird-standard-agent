@@ -8,7 +8,7 @@ app.get('/applications/components/rainbird-analysis-ui/:whyAnalysis', function (
   req,
   res
 ) {
-  res.redirect('https://app.rainbird.ai' + req.originalUrl);
+  res.redirect('https://test-api.rainbird.ai' + req.originalUrl);
 });
 
 app.use('/components', express.static(path.join(__dirname, 'components')));
@@ -21,27 +21,31 @@ app.set('view engine', 'ejs');
 app.get('/', function (req, res) {
   //Contains a demo agent id
   return res.render('agent', {
-    id: '3bea4a38-d91c-4c3c-a7ee-3b5817889caf',
+    id: '01654c11-a842-4b1e-ad98-b20c348fd947',
     api: 'https://test-api.rainbird.ai',
     syncToken: undefined,
-    engine: 'Core',
+    engine: 'Experimental (Beta)',
     displayMode: 'slim',
   });
 });
 
-//Proxies 'config' request to the Rainbird Community environment
+//Proxies 'config' request to the Rainbird Test environment
 app.get('/agent/:id/config', function (req, res) {
   request
     .get('https://test.rainbird.ai/agent/' + req.params.id + '/config')
     .end(function (err, response) {
       res.send(response.body);
     });
-});
-
-//Proxies 'start' request to the Rainbird Community environment
-app.get('/agent/:id/start/contextId', function (req, res) {
-  request
+  });
+  
+  //Proxies 'start' request to the Rainbird Test environment
+  app.get('/agent/:id/start/contextId', function (req, res) {
+    const headers = {};
+    const engine = req.headers['x-rainbird-engine'];
+    if (engine !== undefined) headers['x-rainbird-engine'] = engine;
+    request
     .get('https://test.rainbird.ai/agent/' + req.params.id + '/start')
+    .set(headers)
     .end(function (err, response) {
       res.send(response.body);
     });
