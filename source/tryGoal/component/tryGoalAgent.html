@@ -2,10 +2,10 @@
 <div ng-cloak tabindex="-1" ng-keyup="$event.keyCode == 13 && enterPressed()" >
     <div>
         <section class="agent-content" style="flex: 1 1 auto; overflow: visible;">
-            <button class="question-context-btn" type="button" ng-show="tryGoal" ng-click="toggleQueryContext()" title="Track question context">
+            <button class="question-context-btn" type="button" ng-show="tryGoal && displayMode !== 'slim'" ng-click="toggleQueryContext()" title="Track question context">
                 <i class="fa fa-list-ul" ng-class="{'active' : displayQueryContext}"></i>
             </button>
-            <button type="button" ng-show="tryGoal" ng-click="toggleSplitScreen()" ng-class="{'active' : splitScreen}" class="splitModal" title="View API log" >
+            <button type="button" ng-show="tryGoal && displayMode !== 'slim'" ng-click="toggleSplitScreen()" ng-class="{'active' : splitScreen}" class="splitModal" title="View API log" >
                 <i ng-class=" {'fa-window-maximize active' : splitScreen, 'fa-columns' : !splitScreen}" class="fa"></i>
             </button>
             <div class="try-goal-body" ng-include="'/applications/tryGoal/component/shared/tryGoalBody.html'"></div>
@@ -14,7 +14,7 @@
             </div>
         </section>
     </div>
-    <div ng-class="{'split-screen-footer' : splitScreen}" class="agent-footer-holder modal-footer">
+    <div ng-class="{'split-screen-footer' : splitScreen, 'agent-footer-holder-standard' : displayMode !== 'slim'}" class="agent-footer-holder modal-footer">
         <div class="agent-button-row">
             <button id="continue" class="btn btn-info" value="Continue"
                     ng-if="display === 'init data'"
