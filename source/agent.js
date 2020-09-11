@@ -80,13 +80,19 @@ agentApp.config([
         controller: "TryGoalController",
         resolve: {
           config: [
-            "ConfigAPI",
-            "$rootScope",
-            function (ConfigAPI, $rootScope) {
-              return ConfigAPI.config({
+            '$q',
+            'ConfigAPI',
+            '$rootScope',
+            function ($q, ConfigAPI, $rootScope) {
+              var deferred = $q.defer();
+              ConfigAPI.config({
                 engine: $rootScope.engine,
                 id: $rootScope.id,
+              }).$promise.then(function (config) {
+                $rootScope.config = config;
+                deferred.resolve(config);
               });
+              return deferred.promise;
             },
           ],
         },
